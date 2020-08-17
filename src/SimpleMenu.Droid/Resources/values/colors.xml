@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="accent">#E60626</color>
+  <color name="accent_dark">#B8051E</color>
+  <color name="accent_light">#28E60626</color>
+  <color name="ripple">@color/ripple_material_light</color>
+  <color name="text_primary">#000000</color>
+  <color name="text_secondary">#C7C7C7</color>
+  <color name="text_tertiary">#393939</color>
+  <color name="window_background">#FFFFFF</color>
+  <color name="window_foreground">#F7F7F7</color>
+</resources>

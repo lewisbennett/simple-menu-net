@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "153072713606",
+    "firebase_url": "https://smenu-72a2e.firebaseio.com",
+    "project_id": "smenu-72a2e",
+    "storage_bucket": "smenu-72a2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153072713606:android:164b3285307b38c98a7607",
+        "android_client_info": {
+          "package_name": "com.lewisbennett.smenu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153072713606-u9f0n1c2e9b51604cmf4sm7fjiulhfd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGAYEasljk2fu3MxpiU5O6gkx3jcpOA3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153072713606-u9f0n1c2e9b51604cmf4sm7fjiulhfd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionAddOneNow" xml:space="preserve">
+    <value>Add one now</value>
+  </data>
+  <data name="ActionCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ActionFinish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="ActionNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="ActionOk" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="ActionSkip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="ErrorEmptyMealName" xml:space="preserve">
+    <value>Please enter a name for your meal.</value>
+  </data>
+  <data name="ErrorOpeningCameraService" xml:space="preserve">
+    <value>An error occurred while opening the camera service. The app may not have the required permissions.</value>
+  </data>
+  <data name="HintCelsius" xml:space="preserve">
+    <value>Celsius</value>
+  </data>
+  <data name="HintChoosePicture" xml:space="preserve">
+    <value>Choose picture</value>
+  </data>
+  <data name="HintCup" xml:space="preserve">
+    <value>Cup</value>
+  </data>
+  <data name="HintFahrenheit" xml:space="preserve">
+    <value>Fahrenheit</value>
+  </data>
+  <data name="HintFrom" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="HintGallon" xml:space="preserve">
+    <value>Gallon</value>
+  </data>
+  <data name="HintGram" xml:space="preserve">
+    <value>Gram</value>
+  </data>
+  <data name="HintHour" xml:space="preserve">
+    <value>{0} hour</value>
+  </data>
+  <data name="HintHours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="HintIngredientName" xml:space="preserve">
+    <value>Ingredient name</value>
+  </data>
+  <data name="HintKelvin" xml:space="preserve">
+    <value>Kelvin</value>
+  </data>
+  <data name="HintKilogram" xml:space="preserve">
+    <value>Kilogram</value>
+  </data>
+  <data name="HintLiter" xml:space="preserve">
+    <value>Litre</value>
+  </data>
+  <data name="HintMealName" xml:space="preserve">
+    <value>Meal name</value>
+  </data>
+  <data name="HintMenuName" xml:space="preserve">
+    <value>Menu name</value>
+  </data>
+  <data name="HintMilliliter" xml:space="preserve">
+    <value>Millilitre</value>
+  </data>
+  <data name="HintMinute" xml:space="preserve">
+    <value>{0} minute</value>
+  </data>
+  <data name="HintMinutes" xml:space="preserve">
+    <value>{0} minutes</value>
+  </data>
+  <data name="HintNoIngredientsFound" xml:space="preserve">
+    <value>No ingredients found</value>
+  </data>
+  <data name="HintNoMealsFound" xml:space="preserve">
+    <value>No meals found</value>
+  </data>
+  <data name="HintNoMenusFound" xml:space="preserve">
+    <value>No menus found</value>
+  </data>
+  <data name="HintNothingToDisplay" xml:space="preserve">
+    <value>Nothing to display</value>
+  </data>
+  <data name="HintOunce" xml:space="preserve">
+    <value>Ounce</value>
+  </data>
+  <data name="HintPound" xml:space="preserve">
+    <value>Pound</value>
+  </data>
+  <data name="HintTablespoon" xml:space="preserve">
+    <value>Tablespoon</value>
+  </data>
+  <data name="HintTakePicture" xml:space="preserve">
+    <value>Take picture</value>
+  </data>
+  <data name="HintTeaspoon" xml:space="preserve">
+    <value>Teaspoon</value>
+  </data>
+  <data name="HintTo" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="MessageAddMealPicture" xml:space="preserve">
+    <value>Add a picture of your meal if you'd like.</value>
+  </data>
+  <data name="MessageCreateMealSuccess" xml:space="preserve">
+    <value>Meal added successfully.</value>
+  </data>
+  <data name="MessageDelicious" xml:space="preserve">
+    <value>Delicious!</value>
+  </data>
+  <data name="MessageEnterIngredientName" xml:space="preserve">
+    <value>Let's add a name for your ingredient.</value>
+  </data>
+  <data name="MessageEnterMealName" xml:space="preserve">
+    <value>Let's add a name for your meal.</value>
+  </data>
+  <data name="MessageEnterMenuName" xml:space="preserve">
+    <value>Let's add a name for your menu.</value>
+  </data>
+  <data name="MessageGreatShot" xml:space="preserve">
+    <value>Great shot!</value>
+  </data>
+  <data name="MessageLooksGood" xml:space="preserve">
+    <value>Looks good!</value>
+  </data>
+  <data name="MessagingLoading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="TitleChooseAction" xml:space="preserve">
+    <value>Choose Action</value>
+  </data>
+  <data name="TitleChooseMetric" xml:space="preserve">
+    <value>Choose Metric</value>
+  </data>
+  <data name="TitleCreateIngredient" xml:space="preserve">
+    <value>Create Ingredient</value>
+  </data>
+  <data name="TitleCreateMeal" xml:space="preserve">
+    <value>Create Meal</value>
+  </data>
+  <data name="TitleCreateMenu" xml:space="preserve">
+    <value>Create Menu</value>
+  </data>
+  <data name="TitleIngredients" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+  <data name="TitleMeals" xml:space="preserve">
+    <value>Meals</value>
+  </data>
+  <data name="TitleMenus" xml:space="preserve">
+    <value>Menus</value>
+  </data>
+  <data name="TitleOpenCameraFailed" xml:space="preserve">
+    <value>Failed To Open Camera</value>
+  </data>
+  <data name="TitleTemperatureCalculator" xml:space="preserve">
+    <value>Temperate Calculator</value>
+  </data>
+  <data name="TitleVolumeCalculator" xml:space="preserve">
+    <value>Volume Calculator</value>
+  </data>
+  <data name="TitleWeightCalculator" xml:space="preserve">
+    <value>Weight Calculator</value>
+  </data>
+</root>

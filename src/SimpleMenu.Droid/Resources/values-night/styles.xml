@@ -1,0 +1,7 @@
+﻿<resources>
+  <style name="AppTheme" parent="@style/AppTheme.Base">
+    <item name="android:windowLightStatusBar">false</item>
+    <item name="colorPrimaryDark">@android:color/black</item>
+    <item name="android:navigationBarColor">@color/window_foreground</item>
+  </style>
+</resources>

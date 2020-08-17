@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">sMenu</string>
+
+    <string name="main_navigation_home">Home</string>
+    <string name="main_navigation_meals">Meals</string>
+    <string name="main_navigation_menus">Menus</string>
+    <string name="main_navigation_ingredients">Ingredients</string>
+  <string name="main_navigation_temperature_calculator">Temperature Calculator</string>
+  <string name="main_navigation_volume_calculator">Volume Calculator</string>
+  <string name="main_navigation_weight_calculator">Weight Calculator</string>
+    <string name="main_navigation_profile">Profile</string>
+    <string name="main_navigation_settings">Settings</string>
+
+    <string name="main_navigation_section_main">Main</string>
+    <string name="main_navigation_section_tools">Tools</string>
+    <string name="main_navigation_section_app">App</string>
+
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_closed">Closed</string>
+
+    <string name="title_create_ingredient">Create Ingredient</string>
+    <string name="title_create_meal">Create Meal</string>
+    <string name="title_create_menu">Create Menu</string>
+</resources>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group
+    android:checkableBehavior="single">
+    <item
+      android:title="@string/main_navigation_section_main">
+      <menu>
+        <item
+          android:id="@+id/main_navigation_home"
+          android:checkable="true"
+          android:icon="@drawable/ic_home"
+          android:title="@string/main_navigation_home" />
+        <item
+          android:id="@+id/main_navigation_meals"
+          android:checkable="true"
+          android:icon="@drawable/ic_restaurant"
+          android:title="@string/main_navigation_meals" />
+        <item
+          android:id="@+id/main_navigation_menus"
+          android:checkable="true"
+          android:icon="@drawable/ic_menu_book"
+          android:title="@string/main_navigation_menus" />
+        <item
+          android:id="@+id/main_navigation_ingredients"
+          android:checkable="true"
+          android:icon="@drawable/ic_kitchen"
+          android:title="@string/main_navigation_ingredients" />
+      </menu>
+    </item>
+  </group>
+  <group
+    android:checkableBehavior="single">
+    <item
+      android:title="@string/main_navigation_section_tools">
+      <menu>
+        <item
+          android:id="@+id/main_navigation_temperature_calculator"
+          android:checkable="true"
+          android:icon="@drawable/ic_sync"
+          android:title="@string/main_navigation_temperature_calculator" />
+        <item
+          android:id="@+id/main_navigation_volume_calculator"
+          android:checkable="true"
+          android:icon="@drawable/ic_sync"
+          android:title="@string/main_navigation_volume_calculator" />
+        <item
+          android:id="@+id/main_navigation_weight_calculator"
+          android:checkable="true"
+          android:icon="@drawable/ic_sync"
+          android:title="@string/main_navigation_weight_calculator" />
+      </menu>
+    </item>
+  </group>
+  <group
+    android:checkableBehavior="single">
+    <item
+      android:title="@string/main_navigation_section_app">
+      <menu>
+        <item
+          android:id="@+id/main_navigation_profile"
+          android:checkable="true"
+          android:icon="@drawable/ic_account_circle"
+          android:title="@string/main_navigation_profile" />
+        <item
+          android:id="@+id/main_navigation_settings"
+          android:checkable="true"
+          android:icon="@drawable/ic_settings"
+          android:title="@string/main_navigation_settings" />
+      </menu>
+    </item>
+  </group>
+</menu>
