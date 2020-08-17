@@ -1,4 +1,5 @@
 ﻿using SimpleMenu.Core.ViewModels.Base;
+using SimpleMenu.Core.ViewModels.CreateThing.Base;
 
 namespace SimpleMenu.Core.ViewModels
 {
@@ -22,48 +23,21 @@ namespace SimpleMenu.Core.ViewModels
         #endregion
     }
 
-    public class EnterNameViewModel : BaseViewModel<EnterNameViewModelNavigationParams>
+    public partial class EnterNameViewModel : BaseViewModel<EnterNameViewModelNavigationParams>, ICreateThingStepViewModel
     {
-        #region Fields
-        private string _name = string.Empty, _nameHint = string.Empty;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets or sets the entered name.
-        /// </summary>
-        public string Name
+        #region Event Handlers
+        protected override void OnPropertyChanged(string propertyName)
         {
-            get => _name;
+            base.OnPropertyChanged(propertyName);
 
-            set
+            switch (propertyName)
             {
-                value ??= string.Empty;
-
-                if (_name.Equals(value))
+                case nameof(Name):
+                    CriteriaMet = !string.IsNullOrWhiteSpace(Name);
                     return;
 
-                _name = value;
-                RaisePropertyChanged(() => Name);
-            }
-        }
-
-        /// <summary>
-        /// Gets the placeholder text for the name field.
-        /// </summary>
-        public string NameHint
-        {
-            get => _nameHint;
-
-            set
-            {
-                value ??= string.Empty;
-
-                if (_nameHint.Equals(value))
+                default:
                     return;
-
-                _nameHint = value;
-                RaisePropertyChanged(() => NameHint);
             }
         }
         #endregion
@@ -76,6 +50,13 @@ namespace SimpleMenu.Core.ViewModels
             Name = parameter.Name;
             NameHint = parameter.NameHint;
             Title = parameter.Title;
+        }
+
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+
+            ShowNextButton = true;
         }
         #endregion
     }

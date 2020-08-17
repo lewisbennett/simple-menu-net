@@ -120,6 +120,9 @@
   <data name="ActionAddOneNow" xml:space="preserve">
     <value>Add one now</value>
   </data>
+  <data name="ActionBack" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="ActionCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>

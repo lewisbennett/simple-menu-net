@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:paddingBottom="20dp"
+        android:clipToPadding="false">
         <SimpleMenu.Droid.Views.HeightWrappingViewPager
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -19,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tablayout"
+            app:tabMode="fixed"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
             app:tabRippleColor="@null"
@@ -30,14 +32,14 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:id="@+id/nextbutton"
-            app:MvxBind="Text NextButtonText; Visibility Visibility(ShowNextButton)" />
+            app:MvxBind="Click NextButtonClickCommand; Enabled CriteriaMet; Text NextButtonText; Visibility Visibility(ShowNextButton)" />
         <android.support.design.button.MaterialButton
             style="@style/AppTheme.Widgets.ButtonSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:id="@+id/finishbutton"
-            app:MvxBind="Text FinishButtonText" />
+            android:id="@+id/backbutton"
+            app:MvxBind="Click BackButtonClickCommand; Text BackButtonText; Visibility Visibility(ShowBackButton)" />
     </LinearLayout>
 </SimpleMenu.Droid.Views.ElevationScrollView>

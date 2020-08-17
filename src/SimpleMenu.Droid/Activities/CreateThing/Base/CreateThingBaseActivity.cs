@@ -3,13 +3,15 @@ using Android.Support.Design.Button;
 using Android.Support.Design.Widget;
 using Android.Support.V4.View;
 using Android.Widget;
-using SimpleMenu.Core.ViewModels.Base;
+using MvvmCross.Droid.Support.V4;
+using SimpleMenu.Core.ViewModels.CreateThing.Base;
+using SimpleMenu.Droid.Activities.Base;
 using SimpleMenu.Droid.Adapters;
 using SimpleMenu.Droid.Views;
-using System;
+using System.ComponentModel;
 using V4_Fragment = Android.Support.V4.App.Fragment;
 
-namespace SimpleMenu.Droid.Activities.Base
+namespace SimpleMenu.Droid.Activities.CreateThing.Base
 {
     public abstract class CreateThingBaseActivity<TViewModel> : BaseActivity<TViewModel>
         where TViewModel : CreateThingBaseViewModel
@@ -20,9 +22,9 @@ namespace SimpleMenu.Droid.Activities.Base
 
         #region Properties
         /// <summary>
-        /// Gets this activity's finish button.
+        /// Gets this activity's back button.
         /// </summary>
-        public MaterialButton FinishButton { get; private set; }
+        public MaterialButton BackButton { get; private set; }
 
         /// <summary>
         /// Gets this activity's next button.
@@ -46,19 +48,31 @@ namespace SimpleMenu.Droid.Activities.Base
         #endregion
 
         #region Event Handlers
-        private void FinishButton_Click(object sender, EventArgs e)
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            ViewModel.CreateThingAndClose();
-        }
+            switch (e.PropertyName)
+            {
+                case nameof(ViewModel.CurrentStep):
 
-        private void NextButton_Click(object sender, EventArgs e)
-        {
-            ViewPager.SetCurrentItem(ViewPager.CurrentItem + 1, true);
-        }
+                    var index = -1;
 
-        private void ViewPager_PageSelected(object sender, ViewPager.PageSelectedEventArgs e)
-        {
-            ViewModel.ShowNextButton = e.Position != _fragments.Length - 1;
+                    for (var i = 0; i < _fragments.Length; i++)
+                    {
+                        if (_fragments[i] is MvxFragment mvxFragment && mvxFragment.ViewModel == ViewModel.CurrentStep)
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+
+                    if (index >= 0)
+                        ViewPager.SetCurrentItem(index, true);
+
+                    return;
+
+                default:
+                    return;
+            }
         }
         #endregion
 
@@ -67,9 +81,7 @@ namespace SimpleMenu.Droid.Activities.Base
         {
             base.AddEventHandlers();
 
-            FinishButton.Click += FinishButton_Click;
-            NextButton.Click += NextButton_Click;
-            ViewPager.PageSelected += ViewPager_PageSelected;
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
 
             if (ScrollView is ElevationScrollView elevationScrollView)
                 elevationScrollView.RegisterElevationView(AppBarLayout);
@@ -81,9 +93,7 @@ namespace SimpleMenu.Droid.Activities.Base
         {
             base.RemoveEventHandlers();
 
-            FinishButton.Click -= FinishButton_Click;
-            NextButton.Click -= NextButton_Click;
-            ViewPager.PageSelected -= ViewPager_PageSelected;
+            ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
 
             if (ScrollView is ElevationScrollView elevationScrollView)
                 elevationScrollView.UnregisterElevationView(AppBarLayout);
@@ -95,7 +105,7 @@ namespace SimpleMenu.Droid.Activities.Base
         {
             base.OnCreate(bundle);
 
-            FinishButton = FindViewById<MaterialButton>(Resource.Id.finishbutton);
+            BackButton = FindViewById<MaterialButton>(Resource.Id.backbutton);
             NextButton = FindViewById<MaterialButton>(Resource.Id.nextbutton);
             ScrollView = FindViewById<ScrollView>(Resource.Id.scrollview);
             TabLayout = FindViewById<TabLayout>(Resource.Id.tablayout);

@@ -1,31 +1,16 @@
 ﻿using MvvmCross.ViewModels;
+using System.ComponentModel;
 
 namespace SimpleMenu.Core.ViewModels.Base
 {
-    public abstract class BaseViewModel : MvxViewModel
+    public abstract partial class BaseViewModel : MvxViewModel
     {
-        #region Fields
-        private string _title = string.Empty;
-        #endregion
+        #region Event Handlers
+        private void BaseViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+            => OnPropertyChanged(e.PropertyName);
 
-        #region Properties
-        /// <summary>
-        /// Gets or sets the title for this ViewModel.
-        /// </summary>
-        public string Title
+        protected virtual void OnPropertyChanged(string propertyName)
         {
-            get => _title;
-
-            set
-            {
-                value ??= string.Empty;
-
-                if (_title.Equals(value))
-                    return;
-
-                _title = value;
-                RaisePropertyChanged(() => Title);
-            }
         }
         #endregion
 
@@ -44,12 +29,29 @@ namespace SimpleMenu.Core.ViewModels.Base
         {
         }
         #endregion
+
+        #region Lifecycle
+        public override void Prepare()
+        {
+            base.Prepare();
+
+            PropertyChanged += BaseViewModel_PropertyChanged;
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            base.ViewDestroy(viewFinishing);
+
+            if (viewFinishing)
+                PropertyChanged -= BaseViewModel_PropertyChanged;
+        }
+        #endregion
     }
 
     public abstract class BaseViewModel<TNavigationParams> : BaseViewModel, IMvxViewModel<TNavigationParams>
         where TNavigationParams : class
     {
-        #region Properties
+        #region Lifecycle
         public virtual void Prepare(TNavigationParams parameter)
         {
         }

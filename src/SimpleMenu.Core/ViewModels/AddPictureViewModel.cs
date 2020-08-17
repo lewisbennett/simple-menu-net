@@ -5,6 +5,7 @@ using MvvmCross.Commands;
 using MvvmCross.Plugin.PictureChooser;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.Base;
+using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using System;
 using System.IO;
 
@@ -25,70 +26,11 @@ namespace SimpleMenu.Core.ViewModels
         #endregion
     }
 
-    public class AddPictureViewModel : BaseViewModel<AddPictureViewModelNavigationParams>
+    public partial class AddPictureViewModel : BaseViewModel<AddPictureViewModelNavigationParams>, ICreateThingStepViewModel
     {
         #region Fields
         private Func<string> _calculateCompliment;
-        private string _compliment = string.Empty;
-        private byte[] _image;
         private IMvxPictureChooserTask _pictureChooserTask;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets the command triggered when the add picture button is clicked.
-        /// </summary>
-        public IMvxCommand AddPictureButtonClickCommand { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the compliment, if any.
-        /// </summary>
-        public string Compliment
-        {
-            get => _compliment;
-
-            set
-            {
-                value ??= string.Empty;
-
-                if (_compliment.Equals(value))
-                    return;
-
-                _compliment = value;
-
-                RaisePropertyChanged(() => Compliment);
-                RaisePropertyChanged(() => ShowCompliment);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the image.
-        /// </summary>
-        public byte[] Image
-        {
-            get => _image;
-
-            set
-            {
-                if (_image == value)
-                    return;
-
-                _image = value;
-                RaisePropertyChanged(() => Image);
-
-                Recalculate();
-            }
-        }
-
-        /// <summary>
-        /// Gets the messaging service.
-        /// </summary>
-        public IMessagingService MessagingService => DialogMessaging.MessagingService.Instance;
-
-        /// <summary>
-        /// Gets whether or not to show the compliment.
-        /// </summary>
-        public bool ShowCompliment => !string.IsNullOrWhiteSpace(Compliment);
         #endregion
 
         #region Event Handlers
@@ -103,7 +45,7 @@ namespace SimpleMenu.Core.ViewModels
             config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintChoosePicture, ClickAction = ChoosePicture });
             config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintTakePicture, ClickAction = TakePicture });
 
-            MessagingService.ActionSheetBottom(config);
+            MessagingService.Instance.ActionSheetBottom(config);
         }
 
         private void Camera_ImageSelected(Stream rawImage)
@@ -113,6 +55,36 @@ namespace SimpleMenu.Core.ViewModels
             rawImage.CopyTo(memoryStream);
 
             Image = memoryStream.ToArray();
+        }
+
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(Compliment):
+                    ShowCompliment = !string.IsNullOrWhiteSpace(Compliment);
+                    return;
+
+                case nameof(Image):
+
+                    if (Image == null)
+                    {
+                        Compliment = null;
+                        CriteriaMet = false;
+                    }
+                    else
+                    {
+                        Compliment = _calculateCompliment?.Invoke();
+                        CriteriaMet = true;
+                    }
+
+                    return;
+
+                default:
+                    return;
+            }
         }
         #endregion
 
@@ -131,6 +103,13 @@ namespace SimpleMenu.Core.ViewModels
             _calculateCompliment = parameter.CalculateCompliment;
             Title = parameter.Title;
         }
+
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+
+            ShowNextButton = true;
+        }
         #endregion
 
         #region Private Methods
@@ -143,11 +122,6 @@ namespace SimpleMenu.Core.ViewModels
             {
                 _pictureChooserTask.ChoosePictureFromLibrary(ImageMaxPixelDimension, ImagePercentQuality, Camera_ImageSelected, () => { });
             });
-        }
-
-        private void Recalculate()
-        {
-            Compliment = Image == null || Image.Length < 1 ? string.Empty : _calculateCompliment?.Invoke();
         }
 
         private void TakePicture()
@@ -163,7 +137,7 @@ namespace SimpleMenu.Core.ViewModels
                 }
                 catch (Exception)
                 {
-                    MessagingService.Alert(new AlertConfig
+                    MessagingService.Instance.Alert(new AlertConfig
                     {
                         Title = Resources.TitleOpenCameraFailed,
                         Message = Resources.ErrorOpeningCameraService,

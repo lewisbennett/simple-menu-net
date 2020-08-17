@@ -66,7 +66,7 @@
     <item name="android:textColor">@android:color/white</item>
     <item name="android:textStyle">bold</item>
     <item name="android:textSize">16sp</item>
-    <item name="android:backgroundTint">@color/accent</item>
+	<item name="android:backgroundTint">@color/button_primary</item>
   </style>
 
   <style name="AppTheme.Widgets.ButtonSecondary" parent="Widget.AppCompat.Button.Colored">

@@ -9,30 +9,56 @@ namespace SimpleMenu.Droid.Views
 {
     public class HeightWrappingViewPager : ViewPager
     {
+        #region Properties
+        public override int CurrentItem
+        {
+            get => base.CurrentItem;
+
+            set
+            {
+                base.CurrentItem = value;
+
+                RequestLayout();
+            }
+        }
+        #endregion
+
+        #region Event Handlers
+        public override bool OnInterceptTouchEvent(MotionEvent ev)
+        {
+            return false;
+        }
+
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+            return false;
+        }
+        #endregion
+
         #region Lifecycle
         protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
         {
-            var mode = MeasureSpec.GetMode(heightMeasureSpec);
-
-            if (mode == MeasureSpecMode.Unspecified || mode == MeasureSpecMode.AtMost)
+            try
             {
-                base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
+                var wrapHeight = MeasureSpec.GetMode(heightMeasureSpec) == MeasureSpecMode.AtMost;
 
-                var height = 0;
-
-                for (var i = 0; i < ChildCount; i++)
+                if (wrapHeight)
                 {
-                    var childView = GetChildAt(i);
+                    var child = GetChildAt(CurrentItem);
 
-                    childView.Measure(widthMeasureSpec, MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified));
+                    if (child != null)
+                    {
+                        child.Measure(widthMeasureSpec, MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified));
 
-                    var childViewMeasuredHeight = childView.MeasuredHeight;
+                        var childHeight = child.MeasuredHeight;
 
-                    if (childViewMeasuredHeight > height)
-                        height = childViewMeasuredHeight;
+                        heightMeasureSpec = MeasureSpec.MakeMeasureSpec(childHeight, MeasureSpecMode.Exactly);
+                    }
                 }
-
-                heightMeasureSpec = MeasureSpec.MakeMeasureSpec(height, MeasureSpecMode.Exactly);
+            }
+            catch (Exception)
+            {
+                // Do nothing.
             }
 
             base.OnMeasure(widthMeasureSpec, heightMeasureSpec);

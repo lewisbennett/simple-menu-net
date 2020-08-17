@@ -4,6 +4,7 @@ using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Services.Wrappers;
+using SimpleMenu.Core.ViewModels.CreateThing;
 using SimpleMenu.Core.ViewModels.List.Base;
 using System;
 using System.Collections.Generic;
