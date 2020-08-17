@@ -1,11 +1,9 @@
 ﻿using DialogMessaging;
 using MvvmCross;
-using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Services.Wrappers;
 using SimpleMenu.Core.ViewModels.Base;
-using System;
 
 namespace SimpleMenu.Core.ViewModels
 {
@@ -42,7 +40,7 @@ namespace SimpleMenu.Core.ViewModels
         /// <summary>
         /// Creates the thing and closes this view model.
         /// </summary>
-        public override void CreateThingAndClose()
+        public override async void CreateThingAndClose()
         {
             if (string.IsNullOrWhiteSpace(EnterNameViewModel.Name))
             {
@@ -50,14 +48,9 @@ namespace SimpleMenu.Core.ViewModels
                 return;
             }
 
-            CoreServiceWrapper.ActiveUser.Meals.Add(new MealEntity
-            {
-                Name = EnterNameViewModel.Name,
-                Image = AddPictureViewModel.Image,
-                UUID = Guid.NewGuid()
-            });
+            await MessagingService.ShowLoadingAsync(Resources.MessagingCreatingMeal, MealOperations.Instance.CreateMealAsync(EnterNameViewModel.Name, AddPictureViewModel.Image)).ConfigureAwait(false);
 
-            NavigationService.Close(this);
+            await NavigationService.Close(this).ConfigureAwait(false);
 
             MessagingService.Toast(Resources.MessageCreateMealSuccess);
         }

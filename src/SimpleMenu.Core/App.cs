@@ -21,6 +21,11 @@ namespace SimpleMenu.Core
 
             CoreServiceWrapper.ActiveUser = new UserEntity();
 
+            var fileServiceWrapper = FileServiceWrapper.Instance;
+
+            fileServiceWrapper.CreateDirectory(FileServiceWrapper.ImagesDirectory);
+            fileServiceWrapper.CreateDirectory(FileServiceWrapper.MealsDirectory);
+
             RegisterAppStart<MainViewModel>();
         }
         #endregion

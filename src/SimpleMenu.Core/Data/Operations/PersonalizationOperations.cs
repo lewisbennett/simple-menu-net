@@ -1,10 +1,18 @@
 ﻿using SimpleMenu.Core.Properties;
 using System;
+using System.Collections.Generic;
 
 namespace SimpleMenu.Core.Data.Operations
 {
     public class PersonalizationOperations
     {
+        #region Properties
+        /// <summary>
+        /// Gets the image cache.
+        /// </summary>
+        public IDictionary<string, byte[]> ImageCache { get; } = new Dictionary<string, byte[]>();
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Gets a set of compliments that can be used on images.

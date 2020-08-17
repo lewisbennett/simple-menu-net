@@ -1,37 +1,42 @@
 ﻿using SimpleMenu.Core.Data.Entities.Base;
+using SimpleMenu.Core.Services.Wrappers;
 using System;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.Data.Entities
 {
     public class MealEntity : BaseEntity
     {
         #region Fields
-        private byte[] _image;
+        private Guid _imageUuid;
         private string _name = string.Empty, _notes = string.Empty;
-        private long _preparationTime;
+        private TimeSpan _preparationTime;
         #endregion
 
         #region Properties
         /// <summary>
         /// Gets or sets the image for this meal, if any.
         /// </summary>
-        public byte[] Image
+        [JsonPropertyName("imageUuid")]
+        public Guid ImageUUID
         {
-            get => _image;
+            get => _imageUuid;
 
             set
             {
-                if (_image == value)
+                if (_imageUuid == value)
                     return;
 
-                _image = value;
-                OnPropertyChanged(nameof(Image));
+                _imageUuid = value;
+                OnPropertyChanged(nameof(ImageUUID));
             }
         }
 
         /// <summary>
         /// Gets or sets the name of this meal.
         /// </summary>
+        [JsonPropertyName("name")]
         public string Name
         {
             get => _name;
@@ -51,6 +56,7 @@ namespace SimpleMenu.Core.Data.Entities
         /// <summary>
         /// Gets or sets the notes for this meal, if any.
         /// </summary>
+        [JsonPropertyName("notes")]
         public string Notes
         {
             get => _notes;
@@ -70,7 +76,8 @@ namespace SimpleMenu.Core.Data.Entities
         /// <summary>
         /// Gets or sets the preparation time for this meal.
         /// </summary>
-        public long PreparationTime
+        [JsonPropertyName("preparationTime")]
+        public TimeSpan PreparationTime
         {
             get => _preparationTime;
 
@@ -87,19 +94,22 @@ namespace SimpleMenu.Core.Data.Entities
         /// <summary>
         /// Gets or sets the UUID for this meal.
         /// </summary>
+        [JsonPropertyName("uuid")]
         public Guid UUID { get; set; }
         #endregion
 
         #region Public Methods
         /// <summary>
-        /// Gets the preparation time for this meal as a time span.
+        /// Gets this meal's image.
         /// </summary>
-        public TimeSpan GetPreparationTimeSpan()
-        {
-            //return TimeSpan.FromMinutes(PreparationTime);
+        public byte[] GetImage()
+            => FileServiceWrapper.Instance.ReadImage(FileServiceWrapper.ImagesDirectory, ImageUUID.ToString());
 
-            return TimeSpan.FromMinutes(new Random().Next(0, 200));
-        }
+        /// <summary>
+        /// Gets this meal's image.
+        /// </summary>
+        public Task<byte[]> GetImageAsync()
+            => FileServiceWrapper.Instance.ReadImageAsync(FileServiceWrapper.ImagesDirectory, ImageUUID.ToString());
         #endregion
     }
 }

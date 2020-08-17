@@ -36,7 +36,7 @@ namespace SimpleMenu.Core.Models
         /// <summary>
         /// Gets the image for this meal.
         /// </summary>
-        public byte[] Image => Entity.Image;
+        public byte[] Image => Entity.GetImage();
 
         /// <summary>
         /// Gets whether the description should be shown.
@@ -80,7 +80,7 @@ namespace SimpleMenu.Core.Models
 
             switch (e.PropertyName)
             {
-                case nameof(MealEntity.Image):
+                case nameof(MealEntity.ImageUUID):
                     OnPropertyChanged(nameof(Image));
                     return;
 
@@ -101,19 +101,17 @@ namespace SimpleMenu.Core.Models
         #region Private Methods
         public string CalculateDescription()
         {
-            var preparationTime = Entity.GetPreparationTimeSpan();
-
-            if (preparationTime.Hours < 1 && preparationTime.Minutes < 1)
+            if (Entity.PreparationTime.Hours < 1 && Entity.PreparationTime.Minutes < 1)
                 return string.Empty;
 
-            var minutes = string.Format(preparationTime.Minutes == 1 ? Resources.HintMinute : Resources.HintMinutes, preparationTime.Minutes.ToString());
+            var minutes = string.Format(Entity.PreparationTime.Minutes == 1 ? Resources.HintMinute : Resources.HintMinutes, Entity.PreparationTime.Minutes.ToString());
 
-            if (preparationTime.Hours < 1)
+            if (Entity.PreparationTime.Hours < 1)
                 return $"{minutes}.";
 
-            var hours = string.Format(preparationTime.Hours == 1 ? Resources.HintHour : Resources.HintHours, preparationTime.Hours.ToString());
+            var hours = string.Format(Entity.PreparationTime.Hours == 1 ? Resources.HintHour : Resources.HintHours, Entity.PreparationTime.Hours.ToString());
 
-            return preparationTime.Minutes > 0 ? $"{hours}, {minutes}." : $"{hours}.";
+            return Entity.PreparationTime.Minutes > 0 ? $"{hours}, {minutes}." : $"{hours}.";
         }
 
         private string CalculateTitle()

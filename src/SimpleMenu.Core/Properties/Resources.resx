@@ -249,6 +249,9 @@
   <data name="MessageLooksGood" xml:space="preserve">
     <value>Looks good!</value>
   </data>
+  <data name="MessagingCreatingMeal" xml:space="preserve">
+    <value>Creating meal...</value>
+  </data>
   <data name="MessagingLoading" xml:space="preserve">
     <value>Loading...</value>
   </data>

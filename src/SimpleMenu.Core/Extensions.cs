@@ -4,6 +4,7 @@ using SimpleMenu.Core.Helper;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Schema;
 using System;
+using System.Threading.Tasks;
 
 namespace SimpleMenu.Core
 {
@@ -50,6 +51,17 @@ namespace SimpleMenu.Core
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Displays a loading spinner to the user asynchronously.
+        /// </summary>
+        /// <param name="message">The message to display.</param>
+        /// <param name="task">The task to execute.</param>
+        public static TTask ShowLoadingAsync<TTask>(this IMessagingService messagingService, string message, TTask task)
+            where TTask : Task
+        {
+            return messagingService.ShowLoadingAsync(new LoadingAsyncConfig { Message = message }, task);
         }
 
         /// <summary>

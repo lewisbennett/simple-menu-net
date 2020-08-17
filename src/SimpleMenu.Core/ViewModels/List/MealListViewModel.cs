@@ -1,11 +1,11 @@
 ﻿using MvvmCross;
 using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Services.Wrappers;
 using SimpleMenu.Core.ViewModels.List.Base;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,9 +38,9 @@ namespace SimpleMenu.Core.ViewModels.List
         #region Public Methods
         public override async Task LoadInitialPageAsync()
         {
-            await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+            var meals = await MealOperations.Instance.ListAllMealsAsync().ConfigureAwait(false);
 
-            InvokeOnMainThread(() => UpdateCollection(CoreServiceWrapper.ActiveUser.Meals));
+            InvokeOnMainThread(() => UpdateCollection(meals));
         }
 
         /// <summary>
