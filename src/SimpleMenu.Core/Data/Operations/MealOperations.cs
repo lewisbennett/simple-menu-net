@@ -33,16 +33,42 @@ namespace SimpleMenu.Core.Data.Operations
         }
 
         /// <summary>
+        /// Deletes a meal.
+        /// </summary>
+        /// <param name="uuid">The UUID of the meal to delete.</param>
+        public async Task DeleteMealAsync(Guid uuid)
+        {
+            var fileServiceWrapper = FileServiceWrapper.Instance;
+
+            var fileName = $"{uuid}.json";
+
+            var doesExist = await fileServiceWrapper.DoesExistAsync(FileServiceWrapper.MealsDirectory, fileName).ConfigureAwait(false);
+
+            if (doesExist)
+            {
+                await fileServiceWrapper.DeleteFileAsync(FileServiceWrapper.MealsDirectory, fileName).ConfigureAwait(false);
+
+                var coreServiceWrapper = CoreServiceWrapper.Instance;
+
+                var localMeal = coreServiceWrapper.ActiveUser.Meals.FirstOrDefault(m => m.UUID == uuid);
+
+                if (localMeal != null)
+                    coreServiceWrapper.ActiveUser.Meals.Remove(localMeal);
+            }
+        }
+
+        /// <summary>
         /// List all of the user's meals.
         /// </summary>
         /// <param name="save">Whether to save the meals.</param>
         public async Task<MealEntity[]> ListAllMealsAsync()
         {
+            var coreServiceWrapper = CoreServiceWrapper.Instance;
             var fileServiceWrapper = FileServiceWrapper.Instance;
 
             var savedMealFiles = await fileServiceWrapper.ListFilesAsync(FileServiceWrapper.MealsDirectory).ConfigureAwait(false);
 
-            var meals = new List<MealEntity>(CoreServiceWrapper.Instance.ActiveUser.Meals);
+            var meals = new List<MealEntity>(coreServiceWrapper.ActiveUser.Meals);
 
             foreach (var savedMealFile in savedMealFiles)
             {
@@ -53,8 +79,14 @@ namespace SimpleMenu.Core.Data.Operations
 
             var finalMeals = meals.Distinct(this).ToArray();
 
+            coreServiceWrapper.ActiveUser.Meals.Clear();
+
             foreach (var finalMeal in finalMeals)
+            {
+                coreServiceWrapper.ActiveUser.Meals.Add(finalMeal);
+
                 await SaveMealAsync(finalMeal).ConfigureAwait(false);
+            }
 
             return finalMeals;
         }

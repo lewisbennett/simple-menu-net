@@ -126,6 +126,9 @@
   <data name="ActionCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ActionDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="ActionFinish" xml:space="preserve">
     <value>Finish</value>
   </data>
@@ -231,6 +234,9 @@
   <data name="MessageAddMealPicture" xml:space="preserve">
     <value>Add a picture of your meal if you'd like.</value>
   </data>
+  <data name="MessageConfirmDeleteMeal" xml:space="preserve">
+    <value>Are you sure that you would like to delete this meal? This action cannot be undone.</value>
+  </data>
   <data name="MessageCreateMealSuccess" xml:space="preserve">
     <value>Meal added successfully.</value>
   </data>
@@ -255,6 +261,9 @@
   <data name="MessagingCreatingMeal" xml:space="preserve">
     <value>Creating meal...</value>
   </data>
+  <data name="MessagingDeletingMeal" xml:space="preserve">
+    <value>Deleting meal...</value>
+  </data>
   <data name="MessagingLoading" xml:space="preserve">
     <value>Loading...</value>
   </data>
@@ -263,6 +272,9 @@
   </data>
   <data name="TitleChooseMetric" xml:space="preserve">
     <value>Choose Metric</value>
+  </data>
+  <data name="TitleConfirmDeleteMeal" xml:space="preserve">
+    <value>Delete Meal?</value>
   </data>
   <data name="TitleCreateIngredient" xml:space="preserve">
     <value>Create Ingredient</value>

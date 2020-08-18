@@ -1,4 +1,6 @@
-﻿using MvvmCross.Navigation;
+﻿using DialogMessaging;
+using DialogMessaging.Interactions;
+using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Models;
@@ -24,6 +26,21 @@ namespace SimpleMenu.Core.ViewModels.List
             base.OnDataEmptyActionButtonClick();
 
             NavigateToCreateMealViewModel();
+        }
+
+        protected override void OnItemClicked(MealModel item)
+        {
+            base.OnItemClicked(item);
+
+            // Temporary.
+            MessagingService.Instance.Delete(new DeleteConfig
+            {
+                Title = Resources.TitleConfirmDeleteMeal,
+                Message = Resources.MessageConfirmDeleteMeal,
+                DeleteButtonText = Resources.ActionDelete,
+                CancelButtonText = Resources.ActionCancel,
+                DeleteButtonClickAction = () => DeleteMeal(item.Entity)
+            });
         }
         #endregion
 
@@ -75,6 +92,13 @@ namespace SimpleMenu.Core.ViewModels.List
         #endregion
 
         #region Private Methods
+        private async void DeleteMeal(MealEntity meal)
+        {
+            await MessagingService.Instance.ShowLoadingAsync(Resources.MessagingDeletingMeal, MealOperations.Instance.DeleteMealAsync(meal.UUID)).ConfigureAwait(false);
+
+            UpdateCollection(CoreServiceWrapper.Instance.ActiveUser.Meals);
+        }
+
         private void UpdateCollection(IEnumerable<MealEntity> meals)
         {
             var removals = Data.Where(d => !meals.Any(de => de.UUID == d.Entity.UUID)).ToArray();

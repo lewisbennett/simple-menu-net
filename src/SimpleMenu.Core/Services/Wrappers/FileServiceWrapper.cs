@@ -39,12 +39,35 @@ namespace SimpleMenu.Core.Services.Wrappers
             => Task.Run(() => CreateDirectory(directory));
 
         /// <summary>
+        /// Deletes a file from a directory.
+        /// </summary>
+        /// <param name="directory">The directory from where to delete the file, or null.</param>
+        /// <param name="fileName">The name of the file to delete, including file extension.</param>
+        public void DeleteFile(string directory, string fileName)
+            => File.Delete(ConstructPath(directory, fileName));
+
+        /// <summary>
+        /// Deletes a file from a directory.
+        /// </summary>
+        /// <param name="directory">The directory from where to delete the file, or null.</param>
+        /// <param name="fileName">The name of the file to delete, including file extension.</param>
+        public Task DeleteFileAsync(string directory, string fileName)
+            => Task.Run(() => DeleteFile(directory, fileName));
+
+        /// <summary>
         /// Gets whether a file exists.
         /// </summary>
         /// <param name="directory">The directory where the file is located, or null.</param>
         /// <param name="fileName">The name of the file, including file extension.</param>
         public bool DoesExist(string directory, string fileName)
-            => Directory.Exists(ConstructPath(directory, fileName));
+        {
+            var path = ConstructPath(directory, fileName);
+
+            if (string.IsNullOrWhiteSpace(fileName))
+                return Directory.Exists(path);
+            else
+                return File.Exists(path);
+        }
 
         /// <summary>
         /// Gets whether a file exists.

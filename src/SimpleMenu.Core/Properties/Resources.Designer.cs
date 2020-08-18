@@ -88,6 +88,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ActionDelete {
+            get {
+                return ResourceManager.GetString("ActionDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finish.
         /// </summary>
         public static string ActionFinish {
@@ -403,6 +412,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you would like to delete this meal? This action cannot be undone..
+        /// </summary>
+        public static string MessageConfirmDeleteMeal {
+            get {
+                return ResourceManager.GetString("MessageConfirmDeleteMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meal added successfully..
         /// </summary>
         public static string MessageCreateMealSuccess {
@@ -475,6 +493,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting meal....
+        /// </summary>
+        public static string MessagingDeletingMeal {
+            get {
+                return ResourceManager.GetString("MessagingDeletingMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         public static string MessagingLoading {
@@ -498,6 +525,15 @@ namespace SimpleMenu.Core.Properties {
         public static string TitleChooseMetric {
             get {
                 return ResourceManager.GetString("TitleChooseMetric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Meal?.
+        /// </summary>
+        public static string TitleConfirmDeleteMeal {
+            get {
+                return ResourceManager.GetString("TitleConfirmDeleteMeal", resourceCulture);
             }
         }
         
