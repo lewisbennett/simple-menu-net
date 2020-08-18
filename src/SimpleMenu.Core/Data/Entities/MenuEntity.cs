@@ -1,12 +1,13 @@
-﻿using SimpleMenu.Core.Data.Entities.Base;
+﻿using MvvmCross.ViewModels;
 using System;
 
 namespace SimpleMenu.Core.Data.Entities
 {
-    public class MenuEntity : BaseEntity
+    public class MenuEntity : MvxNotifyPropertyChanged
     {
         #region Fields
-        private string _name = string.Empty;
+        private string _name;
+        private Guid _uuid;
         #endregion
 
         #region Properties
@@ -17,22 +18,18 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _name;
 
-            set
-            {
-                value ??= string.Empty;
-
-                if (_name.Equals(value))
-                    return;
-
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
+            set => SetProperty(ref _name, value);
         }
 
         /// <summary>
         /// Gets or sets the UUID for this menu.
         /// </summary>
-        public Guid UUID { get; set; }
+        public Guid UUID
+        {
+            get => _uuid;
+
+            set => SetProperty(ref _uuid, value);
+        }
         #endregion
     }
 }

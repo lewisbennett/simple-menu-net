@@ -1,13 +1,14 @@
-﻿using SimpleMenu.Core.Data.Entities.Base;
+﻿using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 
 namespace SimpleMenu.Core.Data.Entities
 {
-    public class UserEntity : BaseEntity
+    public class UserEntity : MvxNotifyPropertyChanged
     {
         #region Fields
-        private string _familyName = string.Empty, _givenName = string.Empty;
+        private string _familyName, _givenName;
+        private Guid _uuid;
         #endregion
 
         #region Properties
@@ -18,16 +19,7 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _familyName;
 
-            set
-            {
-                value ??= string.Empty;
-
-                if (_familyName.Equals(value))
-                    return;
-
-                _familyName = value;
-                OnPropertyChanged(nameof(FamilyName));
-            }
+            set => SetProperty(ref _familyName, value);
         }
 
         /// <summary>
@@ -37,16 +29,7 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _givenName;
 
-            set
-            {
-                value ??= string.Empty;
-
-                if (_givenName.Equals(value))
-                    return;
-
-                _givenName = value;
-                OnPropertyChanged(nameof(GivenName));
-            }
+            set => SetProperty(ref _givenName, value);
         }
 
         /// <summary>
@@ -67,7 +50,12 @@ namespace SimpleMenu.Core.Data.Entities
         /// <summary>
         /// Gets or sets the UUID for this user.
         /// </summary>
-        public Guid UUID { get; set; }
+        public Guid UUID
+        {
+            get => _uuid;
+
+            set => SetProperty(ref _uuid, value);
+        }
         #endregion
     }
 }

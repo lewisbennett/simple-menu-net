@@ -1,10 +1,9 @@
-﻿using SimpleMenu.Core.Data.Entities.Base;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace SimpleMenu.Core.Models.Base
 {
     public abstract class EntityDisplayBaseModel<TEntity> : BaseModel
-        where TEntity : BaseEntity
+        where TEntity : class, INotifyPropertyChanged
     {
         #region Fields
         private TEntity _entity;
@@ -20,28 +19,38 @@ namespace SimpleMenu.Core.Models.Base
 
             set
             {
-                if (_entity == value)
-                    return;
+                if (_entity != value)
+                {
+                    OnEntityChanging(_entity, value);
 
-                if (_entity != null)
-                    _entity.PropertyChanged -= OnEntityPropertyChanged;
+                    _entity = value;
 
-                _entity = value;
-
-                if (_entity != null)
-                    _entity.PropertyChanged += OnEntityPropertyChanged;
-
-                OnEntityChanged();
+                    OnEntityChanged();
+                }
             }
         }
         #endregion
 
         #region Event Handlers
+        private void Entity_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnEntityPropertyChanged(e.PropertyName);
+        }
+
         protected virtual void OnEntityChanged()
         {
         }
 
-        protected virtual void OnEntityPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected virtual void OnEntityChanging(TEntity oldEntity, TEntity newEntity)
+        {
+            if (oldEntity != null)
+                oldEntity.PropertyChanged -= Entity_PropertyChanged;
+
+            if (newEntity != null)
+                newEntity.PropertyChanged += Entity_PropertyChanged;
+        }
+
+        protected virtual void OnEntityPropertyChanged(string propertyName)
         {
         }
         #endregion

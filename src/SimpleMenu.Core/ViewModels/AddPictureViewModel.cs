@@ -94,6 +94,8 @@ namespace SimpleMenu.Core.ViewModels
             base.Prepare();
 
             AddPictureButtonClickCommand = new MvxCommand(AddPictureButton_Click);
+
+            ShowNextButton = true;
         }
 
         public override void Prepare(AddPictureViewModelNavigationParams parameter)
@@ -102,13 +104,6 @@ namespace SimpleMenu.Core.ViewModels
 
             _calculateCompliment = parameter.CalculateCompliment;
             Title = parameter.Title;
-        }
-
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-
-            ShowNextButton = true;
         }
         #endregion
 

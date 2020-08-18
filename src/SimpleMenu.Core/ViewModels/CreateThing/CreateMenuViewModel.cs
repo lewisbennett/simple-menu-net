@@ -43,12 +43,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
             {
                 NameHint = Resources.HintMenuName,
                 Title = Resources.MessageEnterMenuName
-            });   
-        }
-
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
+            });
 
             ShowNextButton = true;
             Title = Resources.TitleCreateMenu;

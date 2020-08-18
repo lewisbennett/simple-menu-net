@@ -8,14 +8,10 @@ namespace SimpleMenu.Core.ViewModels
     {
         #region Protected Methods
         protected override Metric GetInitialFromMetric()
-        {
-            return Metric.Kilogram;
-        }
+            => Metric.Kilogram;
 
         protected override Metric GetInitialToMetric()
-        {
-            return Metric.Pound;
-        }
+            => Metric.Pound;
         #endregion
 
         #region Lifecycle

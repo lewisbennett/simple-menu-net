@@ -43,6 +43,13 @@ namespace SimpleMenu.Core.ViewModels
         #endregion
 
         #region Lifecycle
+        public override void Prepare()
+        {
+            base.Prepare();
+
+            ShowNextButton = true;
+        }
+
         public override void Prepare(EnterNameViewModelNavigationParams parameter)
         {
             base.Prepare(parameter);
@@ -50,13 +57,6 @@ namespace SimpleMenu.Core.ViewModels
             Name = parameter.Name;
             NameHint = parameter.NameHint;
             Title = parameter.Title;
-        }
-
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-
-            ShowNextButton = true;
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿using SimpleMenu.Core.Data.Entities.Base;
+﻿using MvvmCross.ViewModels;
 using SimpleMenu.Core.Services.Wrappers;
 using System;
 using System.Text.Json.Serialization;
@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.Data.Entities
 {
-    public class MealEntity : BaseEntity
+    public class MealEntity : MvxNotifyPropertyChanged
     {
         #region Fields
-        private Guid _imageUuid;
-        private string _name = string.Empty, _notes = string.Empty;
+        private Guid _imageUuid, _uuid;
+        private string _name, _notes;
         private TimeSpan _preparationTime;
         #endregion
 
@@ -23,14 +23,7 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _imageUuid;
 
-            set
-            {
-                if (_imageUuid == value)
-                    return;
-
-                _imageUuid = value;
-                OnPropertyChanged(nameof(ImageUUID));
-            }
+            set => SetProperty(ref _imageUuid, value);
         }
 
         /// <summary>
@@ -41,16 +34,7 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _name;
 
-            set
-            {
-                value ??= string.Empty;
-
-                if (_name.Equals(value))
-                    return;
-
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
+            set => SetProperty(ref _name, value);
         }
 
         /// <summary>
@@ -61,16 +45,7 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _notes;
 
-            set
-            {
-                value ??= string.Empty;
-
-                if (_notes.Equals(value))
-                    return;
-
-                _notes = value;
-                OnPropertyChanged(nameof(Notes));
-            }
+            set => SetProperty(ref _notes, value);
         }
 
         /// <summary>
@@ -81,21 +56,19 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _preparationTime;
 
-            set
-            {
-                if (_preparationTime == value)
-                    return;
-
-                _preparationTime = value;
-                OnPropertyChanged(nameof(PreparationTime));
-            }
+            set => SetProperty(ref _preparationTime, value);
         }
 
         /// <summary>
         /// Gets or sets the UUID for this meal.
         /// </summary>
         [JsonPropertyName("uuid")]
-        public Guid UUID { get; set; }
+        public Guid UUID
+        {
+            get => _uuid;
+
+            set => SetProperty(ref _uuid, value);
+        }
         #endregion
 
         #region Public Methods

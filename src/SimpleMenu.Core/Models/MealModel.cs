@@ -1,95 +1,52 @@
 ﻿using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Models.Base;
 using SimpleMenu.Core.Properties;
-using System.ComponentModel;
 
 namespace SimpleMenu.Core.Models
 {
-    public class MealModel : EntityDisplayBaseModel<MealEntity>
+    public partial class MealModel : EntityDisplayBaseModel<MealEntity>
     {
-        #region Fields
-        private string _description = string.Empty, _title = string.Empty;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets or sets the subtitle;
-        /// </summary>
-        public string Description
-        {
-            get => _description;
-
-            set
-            {
-                value ??= string.Empty;
-
-                if (_description.Equals(value))
-                    return;
-
-                _description = value;
-
-                OnPropertyChanged(nameof(Description));
-                OnPropertyChanged(nameof(ShowDescription));
-            }
-        }
-
-        /// <summary>
-        /// Gets the image for this meal.
-        /// </summary>
-        public byte[] Image => Entity.GetImage();
-
-        /// <summary>
-        /// Gets whether the description should be shown.
-        /// </summary>
-        public bool ShowDescription => !string.IsNullOrWhiteSpace(Description);
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        public string Title
-        {
-            get => _title;
-
-            set
-            {
-                value ??= string.Empty;
-
-                if (_title.Equals(value))
-                    return;
-
-                _title = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
-        #endregion
-
         #region Event Handlers
         protected override void OnEntityChanged()
         {
             base.OnEntityChanged();
 
-            Title = CalculateTitle();
             Description = CalculateDescription();
-
-            OnPropertyChanged(nameof(Image));
+            Image = CalculateImage();
+            Title = CalculateTitle();
         }
 
-        protected override void OnEntityPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override void OnEntityPropertyChanged(string propertyName)
         {
-            base.OnEntityPropertyChanged(sender, e);
+            base.OnEntityPropertyChanged(propertyName);
 
-            switch (e.PropertyName)
+            switch (propertyName)
             {
-                case nameof(MealEntity.ImageUUID):
-                    OnPropertyChanged(nameof(Image));
+                case nameof(Entity.ImageUUID):
+                    Image = CalculateImage();
                     return;
 
-                case nameof(MealEntity.Name):
+                case nameof(Entity.Name):
                     Title = CalculateTitle();
                     return;
 
-                case nameof(MealEntity.PreparationTime):
+                case nameof(Entity.PreparationTime):
                     Description = CalculateDescription();
+                    return;
+
+                default:
+                    return;
+            }
+        }
+
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(Description):
+                    ShowDescription = !string.IsNullOrWhiteSpace(Description);
                     return;
 
                 default:
@@ -99,7 +56,7 @@ namespace SimpleMenu.Core.Models
         #endregion
 
         #region Private Methods
-        public string CalculateDescription()
+        private string CalculateDescription()
         {
             if (Entity.PreparationTime.Hours < 1 && Entity.PreparationTime.Minutes < 1)
                 return string.Empty;
@@ -112,6 +69,11 @@ namespace SimpleMenu.Core.Models
             var hours = string.Format(Entity.PreparationTime.Hours == 1 ? Resources.HintHour : Resources.HintHours, Entity.PreparationTime.Hours.ToString());
 
             return Entity.PreparationTime.Minutes > 0 ? $"{hours}, {minutes}." : $"{hours}.";
+        }
+
+        private byte[] CalculateImage()
+        {
+            return Entity.GetImage();
         }
 
         private string CalculateTitle()

@@ -1,13 +1,14 @@
-﻿using SimpleMenu.Core.Data.Entities.Base;
+﻿using MvvmCross.ViewModels;
 using System;
 
 namespace SimpleMenu.Core.Data.Entities
 {
-    public class IngredientEntity : BaseEntity
+    public class IngredientEntity : MvxNotifyPropertyChanged
     {
         #region Fields
         private byte[] _image;
-        private string _name = string.Empty;
+        private string _name;
+        private Guid _uuid;
         #endregion
 
         #region Properties
@@ -18,14 +19,7 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _image;
 
-            set
-            {
-                if (_image == value)
-                    return;
-
-                _image = value;
-                OnPropertyChanged(nameof(Image));
-            }
+            set => SetProperty(ref _image, value);
         }
 
         /// <summary>
@@ -35,22 +29,18 @@ namespace SimpleMenu.Core.Data.Entities
         {
             get => _name;
 
-            set
-            {
-                value ??= string.Empty;
-
-                if (_name.Equals(value))
-                    return;
-
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
+            set => SetProperty(ref _name, value);
         }
 
         /// <summary>
         /// Gets or sets the UUID for this ingredient.
         /// </summary>
-        public Guid UUID { get; set; }
+        public Guid UUID
+        {
+            get => _uuid;
+
+            set => SetProperty(ref _uuid, value);
+        }
         #endregion
     }
 }

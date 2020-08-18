@@ -9,11 +9,11 @@ using System;
 
 namespace SimpleMenu.Core.ViewModels.Base
 {
-    public abstract class CalculatorBaseViewModel : BaseViewModel
+    public abstract partial class CalculatorBaseViewModel : BaseViewModel
     {
         #region Fields
+        private bool _canRecalculateFrom, _canRecalculateTo;
         private Metric _fromMetric, _toMetric;
-        private string _fromUnits = string.Empty, _toUnits = string.Empty;
         #endregion
         
         #region Properties
@@ -26,61 +26,14 @@ namespace SimpleMenu.Core.ViewModels.Base
 
             set
             {
-                if (_fromMetric == value)
-                    return;
+                if (_fromMetric != value)
+                {
+                    _fromMetric = value;
 
-                _fromMetric = value;
-
-                RaisePropertyChanged(() => FromMetricButtonText);
-                RecalculateFrom();
+                    RecalculateFrom();
+                }
             }
         }
-
-        /// <summary>
-        /// Gets the command invoked when the from metric button is clicked.
-        /// </summary>
-        public IMvxCommand FromMetricButtonClickCommand { get; private set; }
-
-        /// <summary>
-        /// Gets the text displayed on the from metric button.
-        /// </summary>
-        public string FromMetricButtonText => FromMetric.GetTitle();
-
-        /// <summary>
-        /// Gets or sets the units being converted from.
-        /// </summary>
-        public string FromUnits
-        {
-            get => _fromUnits;
-
-            set
-            {
-                value ??= string.Empty;
-
-                if (_fromUnits.Equals(value))
-                    return;
-
-                _fromUnits = value;
-
-                RaisePropertyChanged(() => FromUnits);
-                RecalculateFrom();
-            }
-        }
-
-        /// <summary>
-        /// Gets the placeholder text for the from units field.
-        /// </summary>
-        public string FromUnitsHint => Resources.HintFrom;
-
-        /// <summary>
-        /// Gets the messaging service.
-        /// </summary>
-        public IMessagingService MessagingService => DialogMessaging.MessagingService.Instance;
-
-        /// <summary>
-        /// Gets the command triggered when the swap button is clicked.
-        /// </summary>
-        public IMvxCommand SwapButtonClickCommand { get; private set; }
 
         /// <summary>
         /// Gets or sets the to metric.
@@ -91,57 +44,49 @@ namespace SimpleMenu.Core.ViewModels.Base
 
             set
             {
-                if (_toMetric == value)
-                    return;
+                if (_toMetric != value)
+                {
+                    _toMetric = value;
 
-                _toMetric = value;
-
-                RaisePropertyChanged(() => ToMetricButtonText);
-                RecalculateFrom();
+                    RecalculateTo();
+                }
             }
         }
-
-        /// <summary>
-        /// Gets the command invoked when the to metric button is clicked.
-        /// </summary>
-        public IMvxCommand ToMetricButtonClickCommand { get; private set; }
-
-        /// <summary>
-        /// Gets the text displayed on the to metric button.
-        /// </summary>
-        public string ToMetricButtonText => ToMetric.GetTitle();
-
-        /// <summary>
-        /// Gets or sets the units being converted to.
-        /// </summary>
-        public string ToUnits
-        {
-            get => _toUnits;
-
-            set
-            {
-                value ??= string.Empty;
-
-                if (_toUnits.Equals(value))
-                    return;
-
-                _toUnits = value;
-
-                RaisePropertyChanged(() => ToUnits);
-                RecalculateTo();
-            }
-        }
-
-        /// <summary>
-        /// Gets the placeholder text for the to units field.
-        /// </summary>
-        public string ToUnitsHint => Resources.HintTo;
         #endregion
 
         #region Event Handlers
         private void FromMetricButton_Click()
         {
             ShowChangeMetric(GetInitialFromMetric(), ToMetric, (metric) => FromMetric = metric);
+        }
+
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(FromUnits):
+
+                    if (_canRecalculateFrom)
+                        RecalculateFrom();
+                    else
+                        _canRecalculateFrom = true;
+
+                    return;
+
+                case nameof(ToUnits):
+
+                    if (_canRecalculateTo)
+                        RecalculateTo();
+                    else
+                        _canRecalculateTo = true;
+
+                    return;
+
+                default:
+                    return;
+            }
         }
 
         private void SwapButton_Click()
@@ -183,38 +128,41 @@ namespace SimpleMenu.Core.ViewModels.Base
             FromMetric = GetInitialFromMetric();
             ToMetric = GetInitialToMetric();
 
-            _fromUnits = "1";
-            _toUnits = "1";
+            _fromUnits = _toUnits = "1";
 
             RecalculateFrom();
+        }
+
+        public override void ViewCreated()
+        {
+            base.ViewCreated();
+
+            FromUnitsHint = Resources.HintFrom;
+            ToUnitsHint = Resources.HintTo;
         }
         #endregion
 
         #region Private Methods
         private void RecalculateFrom()
         {
+            FromMetricButtonText = FromMetric.GetTitle();
+
             var fromParsed = double.TryParse(FromUnits, out double from);
 
-            SetToWithoutRecalculating((!fromParsed || from == 0 ? 0 : MetricHelper.Convert(FromMetric, from, ToMetric)).ToString());
+            _canRecalculateTo = false;
+
+            ToUnits = (!fromParsed || from == 0 ? 0 : MetricHelper.Convert(FromMetric, from, ToMetric)).ToString();
         }
 
         private void RecalculateTo()
         {
+            ToMetricButtonText = ToMetric.GetTitle();
+
             var toParsed = double.TryParse(ToUnits, out double to);
 
-            SetFromWithoutRecalculating((!toParsed || to == 0 ? 0 : MetricHelper.Convert(ToMetric, to, FromMetric)).ToString());
-        }
-        
-        private void SetFromWithoutRecalculating(string value)
-        {
-            _fromUnits = value;
-            RaisePropertyChanged(() => FromUnits);
-        }
+            _canRecalculateFrom = false;
 
-        private void SetToWithoutRecalculating(string value)
-        {
-            _toUnits = value;
-            RaisePropertyChanged(() => ToUnits);
+            FromUnits = (!toParsed || to == 0 ? 0 : MetricHelper.Convert(ToMetric, to, FromMetric)).ToString();
         }
 
         private void ShowChangeMetric(Metric initialMetric, Metric oppositeMetric, Action<Metric> metricSelectedAction)
@@ -244,7 +192,7 @@ namespace SimpleMenu.Core.ViewModels.Base
                 }
             };
 
-            MessagingService.ActionSheetBottom(config);
+            MessagingService.Instance.ActionSheetBottom(config);
         }
         #endregion
     }

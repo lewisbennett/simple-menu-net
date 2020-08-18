@@ -1,5 +1,4 @@
-﻿using MvvmCross;
-using MvvmCross.Navigation;
+﻿using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Models;
@@ -15,16 +14,8 @@ namespace SimpleMenu.Core.ViewModels.List
 {
     public class MealListViewModel : RefreshableListBaseViewModel<MealModel>
     {
-        #region Properties
-        /// <summary>
-        /// Convenience property for CoreServiceWrapper.Instance.
-        /// </summary>
-        public CoreServiceWrapper CoreServiceWrapper => CoreServiceWrapper.Instance;
-
-        /// <summary>
-        /// Gets the navigation service.
-        /// </summary>
-        public IMvxNavigationService NavigationService { get; } = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
+        #region Fields
+        private readonly IMvxNavigationService _navigationService;
         #endregion
 
         #region Event Handlers
@@ -37,19 +28,21 @@ namespace SimpleMenu.Core.ViewModels.List
         #endregion
 
         #region Public Methods
-        public override async Task LoadInitialPageAsync()
-        {
-            var meals = await MealOperations.Instance.ListAllMealsAsync().ConfigureAwait(false);
-
-            InvokeOnMainThread(() => UpdateCollection(meals));
-        }
-
         /// <summary>
         /// Navigates to the create meal view model.
         /// </summary>
         public void NavigateToCreateMealViewModel()
         {
-            NavigationService.Navigate<CreateMealViewModel>();
+            _navigationService.Navigate<CreateMealViewModel>();
+        }
+        #endregion
+
+        #region Protected Methods
+        protected override async Task LoadInitialPageAsync()
+        {
+            var meals = await MealOperations.Instance.ListAllMealsAsync().ConfigureAwait(false);
+
+            InvokeOnMainThread(() => UpdateCollection(meals));
         }
         #endregion
 
@@ -69,7 +62,15 @@ namespace SimpleMenu.Core.ViewModels.List
         {
             base.ViewCreated();
 
-            UpdateCollection(CoreServiceWrapper.ActiveUser.Meals);
+            UpdateCollection(CoreServiceWrapper.Instance.ActiveUser.Meals);
+        }
+        #endregion
+
+        #region Constructors
+        public MealListViewModel(IMvxNavigationService navigationService)
+            : base()
+        {
+            _navigationService = navigationService;
         }
         #endregion
 

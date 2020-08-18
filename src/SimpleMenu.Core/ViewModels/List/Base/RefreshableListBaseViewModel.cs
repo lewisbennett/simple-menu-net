@@ -3,52 +3,26 @@ using MvvmCross.ViewModels;
 
 namespace SimpleMenu.Core.ViewModels.List.Base
 {
-    public abstract class RefreshableListBaseViewModel<TModel> : ListBaseViewModel<TModel>
+    public abstract partial class RefreshableListBaseViewModel<TModel> : ListBaseViewModel<TModel>
         where TModel : class
     {
-        #region Fields
-        private bool _showRefreshing;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets the command triggered when the user swipes to refresh.
-        /// </summary>
-        public IMvxCommand RefreshCommand { get; private set; }
-
-        /// <summary>
-        /// Gets or sets whether or not data is currently being refreshed.
-        /// </summary>
-        public bool ShowRefreshing
-        {
-            get => _showRefreshing;
-
-            set
-            {
-                if (_showRefreshing == value)
-                    return;
-
-                _showRefreshing = value;
-
-                RaisePropertyChanged(() => ShowRefreshing);
-                RaisePropertyChanged(() => MiddleMessage);
-            }
-        }
-        #endregion
-
         #region Event Handlers
-        protected virtual async void OnRefresh()
+        private async void SwipeRefresh_Refresh()
         {
+            // ShowRefreshing isn't updated when the user swipes to refresh so set the correct value here so that it can be correctly updated later.
+            ShowRefreshing = true;
+
             if (IsLoading)
+            {
+                ShowRefreshing = false;
                 return;
+            }
 
             IsLoading = true;
-            ShowRefreshing = true;
 
             await LoadInitialPageAsync().ConfigureAwait(false);
 
-            IsLoading = false;
-            ShowRefreshing = false;
+            IsLoading = ShowRefreshing = false;
         }
         #endregion
 
@@ -57,7 +31,7 @@ namespace SimpleMenu.Core.ViewModels.List.Base
         {
             base.Prepare();
 
-            RefreshCommand = new MvxCommand(OnRefresh);
+            RefreshCommand = new MvxCommand(SwipeRefresh_Refresh);
         }
         #endregion
     }

@@ -1,17 +1,24 @@
-﻿using System.ComponentModel;
+﻿using MvvmCross.ViewModels;
+using System.ComponentModel;
 
 namespace SimpleMenu.Core.Models.Base
 {
-    public abstract class BaseModel : INotifyPropertyChanged
+    public abstract class BaseModel : MvxNotifyPropertyChanged
     {
-        #region Events
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region Event Handlers
+        private void BaseModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+            => OnPropertyChanged(e.PropertyName);
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+        }
         #endregion
 
-        #region Protected Methods
-        protected void OnPropertyChanged(string propertyName)
+        #region Constructors
+        protected BaseModel()
+            : base()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged += BaseModel_PropertyChanged;
         }
         #endregion
     }

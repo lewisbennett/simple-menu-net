@@ -8,14 +8,10 @@ namespace SimpleMenu.Core.ViewModels
     {
         #region Protected Methods
         protected override Metric GetInitialFromMetric()
-        {
-            return Metric.Celsius;
-        }
+            => Metric.Celsius;
 
         protected override Metric GetInitialToMetric()
-        {
-            return Metric.Fahrenheit;
-        }
+            => Metric.Fahrenheit;
         #endregion
 
         #region Lifecycle
