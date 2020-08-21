@@ -1,6 +1,6 @@
 ﻿namespace SimpleMenu.Core.Interfaces
 {
-    public interface IIndexableModel
+    public interface IIndexable
     {
         #region Properties
         /// <summary>

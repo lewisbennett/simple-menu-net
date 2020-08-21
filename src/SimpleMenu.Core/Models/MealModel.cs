@@ -5,7 +5,7 @@ using SimpleMenu.Core.Properties;
 
 namespace SimpleMenu.Core.Models
 {
-    public partial class MealModel : EntityDisplayBaseModel<MealEntity>, IIndexableModel
+    public partial class MealModel : EntityDisplayBaseModel<MealEntity>, IIndexable
     {
         #region Fields
         private int _index;
