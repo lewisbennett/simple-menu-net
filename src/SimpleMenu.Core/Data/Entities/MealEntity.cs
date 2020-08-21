@@ -10,8 +10,9 @@ namespace SimpleMenu.Core.Data.Entities
     {
         #region Fields
         private Guid _imageUuid, _uuid;
+        private int _index;
         private string _name, _notes;
-        private TimeSpan _preparationTime;
+        private long _preparationTime;
         #endregion
 
         #region Properties
@@ -24,6 +25,16 @@ namespace SimpleMenu.Core.Data.Entities
             get => _imageUuid;
 
             set => SetProperty(ref _imageUuid, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the index of this meal.
+        /// </summary>
+        public int Index
+        {
+            get => _index;
+
+            set => SetProperty(ref _index, value);
         }
 
         /// <summary>
@@ -49,10 +60,10 @@ namespace SimpleMenu.Core.Data.Entities
         }
 
         /// <summary>
-        /// Gets or sets the preparation time for this meal.
+        /// Gets or sets the preparation time for this meal, in ticks.
         /// </summary>
         [JsonPropertyName("preparationTime")]
-        public TimeSpan PreparationTime
+        public long PreparationTime
         {
             get => _preparationTime;
 
@@ -83,6 +94,12 @@ namespace SimpleMenu.Core.Data.Entities
         /// </summary>
         public Task<byte[]> GetImageAsync()
             => FileServiceWrapper.Instance.ReadImageAsync(FileServiceWrapper.ImagesDirectory, ImageUUID.ToString());
+
+        /// <summary>
+        /// Gets the preparation time as a <see cref="TimeSpan" />.
+        /// </summary>
+        public TimeSpan GetPreparationTime()
+            => TimeSpan.FromTicks(_preparationTime);
         #endregion
     }
 }

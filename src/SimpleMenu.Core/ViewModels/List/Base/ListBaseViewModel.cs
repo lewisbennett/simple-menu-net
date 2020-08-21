@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using SimpleMenu.Core.Events;
+using SimpleMenu.Core.Interfaces;
 using SimpleMenu.Core.ViewModels.Base;
 using System;
 using System.Collections.Specialized;
@@ -99,6 +100,20 @@ namespace SimpleMenu.Core.ViewModels.List.Base
         {
             IsDataEmpty = Data.Count < 1;
             ShowDataEmptyAction = ShouldShowDataEmptyAction && IsDataEmpty && !IsLoading;
+
+            if (e.Action == NotifyCollectionChangedAction.Move)
+            {
+                for (var i = 0; i < Data.Count; i++)
+                {
+                    var item = Data[i];
+
+                    if (item is IIndexableModel indexableModel)
+                    {
+                        indexableModel.Index = i;
+                        indexableModel.Save();
+                    }
+                }
+            }
         }
 
         protected virtual void OnItemClicked(TModel item)

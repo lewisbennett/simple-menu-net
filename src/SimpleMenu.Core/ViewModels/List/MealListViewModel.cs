@@ -110,10 +110,10 @@ namespace SimpleMenu.Core.ViewModels.List
                     Data.Remove(removal);
             }
 
-            var additions = meals.Where(d => !Data.Any(da => da.Entity.UUID == d.UUID)).ToArray();
+            var additions = meals.Where(d => !Data.Any(da => da.Entity.UUID == d.UUID)).OrderBy(m => m.Index).ToArray();
 
-            if (additions.Length > 0)
-                Data.AddRange(additions.Select(a => new MealModel { Entity = a }));
+            foreach (var addition in additions)
+                Data.Insert(addition.Index, new MealModel { Entity = addition });
         }
         #endregion
     }

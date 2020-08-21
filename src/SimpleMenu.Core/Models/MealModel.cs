@@ -1,15 +1,26 @@
 ﻿using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Data.Operations;
+using SimpleMenu.Core.Interfaces;
 using SimpleMenu.Core.Models.Base;
 using SimpleMenu.Core.Properties;
 
 namespace SimpleMenu.Core.Models
 {
-    public partial class MealModel : EntityDisplayBaseModel<MealEntity>
+    public partial class MealModel : EntityDisplayBaseModel<MealEntity>, IIndexableModel
     {
+        #region Properties
+        /// <summary>
+        /// Gets or sets the index of the model.
+        /// </summary>
+        public int Index { get; set; }
+        #endregion
+
         #region Event Handlers
         protected override void OnEntityChanged()
         {
             base.OnEntityChanged();
+
+            Index = Entity.Index;
 
             Description = CalculateDescription();
             Image = CalculateImage();
@@ -55,20 +66,35 @@ namespace SimpleMenu.Core.Models
         }
         #endregion
 
+        #region Public Methods
+        /// <summary>
+        /// Saves the model.
+        /// </summary>
+        public async void Save()
+        {
+            Entity.Index = Index;
+
+            // Fire and forget.
+            await MealOperations.Instance.SaveMealAsync(Entity).ConfigureAwait(false);
+        }
+        #endregion
+
         #region Private Methods
         private string CalculateDescription()
         {
-            if (Entity.PreparationTime.Hours < 1 && Entity.PreparationTime.Minutes < 1)
+            var preparationTime = Entity.GetPreparationTime();
+
+            if (preparationTime.Hours < 1 && preparationTime.Minutes < 1)
                 return string.Empty;
 
-            var minutes = string.Format(Entity.PreparationTime.Minutes == 1 ? Resources.HintMinute : Resources.HintMinutes, Entity.PreparationTime.Minutes.ToString());
+            var minutes = string.Format(preparationTime.Minutes == 1 ? Resources.HintMinute : Resources.HintMinutes, preparationTime.Minutes.ToString());
 
-            if (Entity.PreparationTime.Hours < 1)
+            if (preparationTime.Hours < 1)
                 return $"{minutes}.";
 
-            var hours = string.Format(Entity.PreparationTime.Hours == 1 ? Resources.HintHour : Resources.HintHours, Entity.PreparationTime.Hours.ToString());
+            var hours = string.Format(preparationTime.Hours == 1 ? Resources.HintHour : Resources.HintHours, preparationTime.Hours.ToString());
 
-            return Entity.PreparationTime.Minutes > 0 ? $"{hours}, {minutes}." : $"{hours}.";
+            return preparationTime.Minutes > 0 ? $"{hours}, {minutes}." : $"{hours}.";
         }
 
         private byte[] CalculateImage()

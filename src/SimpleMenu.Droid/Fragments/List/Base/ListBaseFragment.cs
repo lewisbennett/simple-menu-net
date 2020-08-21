@@ -1,10 +1,8 @@
 ﻿using Android.OS;
 using Android.Support.V7.Widget;
-using Android.Support.V7.Widget.Helper;
 using Android.Views;
 using SimpleMenu.Core.ViewModels.List.Base;
 using SimpleMenu.Droid.Fragments.Base;
-using SimpleMenu.Droid.Helper;
 using SimpleMenu.Droid.Views;
 using System;
 
@@ -13,11 +11,6 @@ namespace SimpleMenu.Droid.Fragments.List.Base
     public abstract class ListBaseFragment<TLayoutManager> : BaseFragment
         where TLayoutManager : RecyclerView.LayoutManager
     {
-        #region Fields
-        private CustomItemTouchHelperCallback _customItemTouchHelperCallback;
-        private ItemTouchHelper _itemTouchHelper;
-        #endregion
-
         #region Properties
         /// <summary>
         /// Gets this fragment's recycler view.
@@ -47,16 +40,6 @@ namespace SimpleMenu.Droid.Fragments.List.Base
             RecyclerView.Setup(CreateLayoutManager());
 
             return view;
-        }
-
-        public override void OnViewCreated(View view, Bundle savedInstanceState)
-        {
-            base.OnViewCreated(view, savedInstanceState);
-
-            _customItemTouchHelperCallback = new CustomItemTouchHelperCallback();
-            _itemTouchHelper = new ItemTouchHelper(_customItemTouchHelperCallback);
-
-            _itemTouchHelper.AttachToRecyclerView(RecyclerView);
         }
 
         public override void OnResume()
