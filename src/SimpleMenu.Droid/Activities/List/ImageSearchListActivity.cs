@@ -1,25 +1,26 @@
-﻿using Android.Support.V7.Widget;
+﻿using Android.App;
+using Android.Support.V7.Widget;
 using Android.Views;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
 using SimpleMenu.Core.ViewModels.List;
+using SimpleMenu.Droid.Activities.List.Base;
 using SimpleMenu.Droid.Attributes;
-using SimpleMenu.Droid.Fragments.List.Base;
 using SimpleMenu.Droid.Helper;
 
-namespace SimpleMenu.Droid.Fragments.List
+namespace SimpleMenu.Droid.Activities.List
 {
-    [FragmentLayout(LayoutResourceID = Resource.Layout.frag_refreshable_list, MenuResourceID = Resource.Menu.menu_meal_list)]
-    public class MealListFragment : ListBaseFragment<StaggeredGridLayoutManager>
+    [MvxActivityPresentation]
+    [Activity(Label = "", WindowSoftInputMode = SoftInput.AdjustPan)]
+    [ActivityLayout(EnableBackButton = true, LayoutResourceID = Resource.Layout.activity_list, MenuResourceID = Resource.Menu.menu_image_search)]
+    public class ImageSearchListActivity : ListBaseActivity<ImageSearchListViewModel>
     {
         #region Event Handlers
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
             {
-                case Resource.Id.menu_create_meal:
-
-                    if (ViewModel is MealListViewModel mealListViewModel)
-                        mealListViewModel.NavigateToCreateMealViewModel();
-
+                case Resource.Id.menu_help:
+                    ViewModel.HelpButtonClickCommand.Execute();
                     return true;
 
                 default:

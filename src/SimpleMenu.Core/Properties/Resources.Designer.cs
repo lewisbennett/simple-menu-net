@@ -313,6 +313,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No images found..
+        /// </summary>
+        public static string HintNoImagesFound {
+            get {
+                return ResourceManager.GetString("HintNoImagesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No ingredients found.
         /// </summary>
         public static string HintNoIngredientsFound {
@@ -363,6 +372,15 @@ namespace SimpleMenu.Core.Properties {
         public static string HintPound {
             get {
                 return ResourceManager.GetString("HintPound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for picture.
+        /// </summary>
+        public static string HintSearchForPicture {
+            get {
+                return ResourceManager.GetString("HintSearchForPicture", resourceCulture);
             }
         }
         
@@ -475,6 +493,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Showing up to 10 images for &quot;{0}&quot;..
+        /// </summary>
+        public static string MessageImageSearchResults {
+            get {
+                return ResourceManager.GetString("MessageImageSearchResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Looks good!.
         /// </summary>
         public static string MessageLooksGood {
@@ -502,11 +529,29 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searching for images of {0}....
+        /// </summary>
+        public static string MessagingImageSearching {
+            get {
+                return ResourceManager.GetString("MessagingImageSearching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         public static string MessagingLoading {
             get {
                 return ResourceManager.GetString("MessagingLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading image....
+        /// </summary>
+        public static string MessagingLoadingImage {
+            get {
+                return ResourceManager.GetString("MessagingLoadingImage", resourceCulture);
             }
         }
         
@@ -561,6 +606,24 @@ namespace SimpleMenu.Core.Properties {
         public static string TitleCreateMenu {
             get {
                 return ResourceManager.GetString("TitleCreateMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string TitleHelp {
+            get {
+                return ResourceManager.GetString("TitleHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image Search.
+        /// </summary>
+        public static string TitleImageSearch {
+            get {
+                return ResourceManager.GetString("TitleImageSearch", resourceCulture);
             }
         }
         

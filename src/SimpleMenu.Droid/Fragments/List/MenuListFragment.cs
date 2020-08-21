@@ -3,6 +3,7 @@ using Android.Views;
 using SimpleMenu.Core.ViewModels.List;
 using SimpleMenu.Droid.Attributes;
 using SimpleMenu.Droid.Fragments.List.Base;
+using SimpleMenu.Droid.Helper;
 
 namespace SimpleMenu.Droid.Fragments.List
 {
@@ -25,6 +26,11 @@ namespace SimpleMenu.Droid.Fragments.List
                     return base.OnOptionsItemSelected(item);
             }
         }
+        #endregion
+
+        #region Protected Methods
+        protected override RecyclerView.LayoutManager CreateLayoutManager()
+            => new StaggeredGridLayoutManager(DimensionHelper.StaggeredViewHorizontalCount, StaggeredGridLayoutManager.Vertical);
         #endregion
     }
 }

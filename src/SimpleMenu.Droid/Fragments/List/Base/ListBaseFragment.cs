@@ -33,6 +33,10 @@ namespace SimpleMenu.Droid.Fragments.List.Base
         }
         #endregion
 
+        #region Protected Methods
+        protected abstract RecyclerView.LayoutManager CreateLayoutManager();
+        #endregion
+
         #region Lifecycle
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -40,7 +44,7 @@ namespace SimpleMenu.Droid.Fragments.List.Base
 
             RecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerview);
 
-            RecyclerView.Setup<TLayoutManager>();
+            RecyclerView.Setup(CreateLayoutManager());
 
             return view;
         }

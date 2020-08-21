@@ -2,10 +2,13 @@
 using DialogMessaging.Interactions;
 using MvvmCross;
 using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.Plugin.PictureChooser;
+using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.Base;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
+using SimpleMenu.Core.ViewModels.List;
 using System;
 using System.IO;
 
@@ -30,7 +33,16 @@ namespace SimpleMenu.Core.ViewModels
     {
         #region Fields
         private Func<string> _calculateCompliment;
+        private string _imageUri;
+        private readonly IMvxNavigationService _navigationService;
         private IMvxPictureChooserTask _pictureChooserTask;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets or sets the image search criteria, if any.
+        /// </summary>
+        public string ImageSearchCriteria { get; set; }
         #endregion
 
         #region Event Handlers
@@ -44,6 +56,9 @@ namespace SimpleMenu.Core.ViewModels
 
             config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintChoosePicture, ClickAction = ChoosePicture });
             config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintTakePicture, ClickAction = TakePicture });
+
+            if (!string.IsNullOrWhiteSpace(ImageSearchCriteria))
+                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintSearchForPicture, ClickAction = NavigateToImageSearchViewModel });
 
             MessagingService.Instance.ActionSheetBottom(config);
         }
@@ -105,6 +120,22 @@ namespace SimpleMenu.Core.ViewModels
             _calculateCompliment = parameter.CalculateCompliment;
             Title = parameter.Title;
         }
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            if (!string.IsNullOrWhiteSpace(_imageUri))
+                LoadImageFromWeb(_imageUri);
+        }
+        #endregion
+
+        #region Constructors
+        public AddPictureViewModel(IMvxNavigationService navigationService)
+            : base()
+        {
+            _navigationService = navigationService;
+        }
         #endregion
 
         #region Private Methods
@@ -116,6 +147,20 @@ namespace SimpleMenu.Core.ViewModels
             InvokeOnMainThread(() =>
             {
                 _pictureChooserTask.ChoosePictureFromLibrary(ImageMaxPixelDimension, ImagePercentQuality, Camera_ImageSelected, () => { });
+            });
+        }
+
+        private async void LoadImageFromWeb(string imageUri)
+        {
+            Image = await MessagingService.Instance.ShowLoadingAsync(Resources.MessagingLoadingImage, ImageOperations.Instance.LoadImageFromWebAsync(new Uri(imageUri))).ConfigureAwait(false);
+        }
+
+        private void NavigateToImageSearchViewModel()
+        {
+            _navigationService.Navigate<ImageSearchListViewModel, ImageSearchListVewModelNavigationParams>(new ImageSearchListVewModelNavigationParams
+            {
+                ImageSelectedCallback = (imageUri) => _imageUri = imageUri,
+                SearchCriteria = ImageSearchCriteria
             });
         }
 

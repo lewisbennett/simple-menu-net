@@ -21,4 +21,5 @@
     <string name="title_create_ingredient">Create Ingredient</string>
     <string name="title_create_meal">Create Meal</string>
     <string name="title_create_menu">Create Menu</string>
+    <string name="title_help">Help</string>
 </resources>

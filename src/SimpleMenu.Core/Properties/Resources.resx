@@ -201,6 +201,9 @@
   <data name="HintMinutes" xml:space="preserve">
     <value>{0} minutes</value>
   </data>
+  <data name="HintNoImagesFound" xml:space="preserve">
+    <value>No images found.</value>
+  </data>
   <data name="HintNoIngredientsFound" xml:space="preserve">
     <value>No ingredients found</value>
   </data>
@@ -218,6 +221,9 @@
   </data>
   <data name="HintPound" xml:space="preserve">
     <value>Pound</value>
+  </data>
+  <data name="HintSearchForPicture" xml:space="preserve">
+    <value>Search for picture</value>
   </data>
   <data name="HintTablespoon" xml:space="preserve">
     <value>Tablespoon</value>
@@ -255,6 +261,9 @@
   <data name="MessageGreatShot" xml:space="preserve">
     <value>Great shot!</value>
   </data>
+  <data name="MessageImageSearchResults" xml:space="preserve">
+    <value>Showing up to 10 images for "{0}".</value>
+  </data>
   <data name="MessageLooksGood" xml:space="preserve">
     <value>Looks good!</value>
   </data>
@@ -264,8 +273,14 @@
   <data name="MessagingDeletingMeal" xml:space="preserve">
     <value>Deleting meal...</value>
   </data>
+  <data name="MessagingImageSearching" xml:space="preserve">
+    <value>Searching for images of {0}...</value>
+  </data>
   <data name="MessagingLoading" xml:space="preserve">
     <value>Loading...</value>
+  </data>
+  <data name="MessagingLoadingImage" xml:space="preserve">
+    <value>Loading image...</value>
   </data>
   <data name="TitleChooseAction" xml:space="preserve">
     <value>Choose Action</value>
@@ -284,6 +299,12 @@
   </data>
   <data name="TitleCreateMenu" xml:space="preserve">
     <value>Create Menu</value>
+  </data>
+  <data name="TitleHelp" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="TitleImageSearch" xml:space="preserve">
+    <value>Image Search</value>
   </data>
   <data name="TitleIngredients" xml:space="preserve">
     <value>Ingredients</value>

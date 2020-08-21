@@ -4,6 +4,7 @@ using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
+using System.ComponentModel;
 
 namespace SimpleMenu.Core.ViewModels.CreateThing
 {
@@ -23,6 +24,13 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         /// Gets or sets the enter name view model.
         /// </summary>
         public EnterNameViewModel EnterNameViewModel { get; } = Mvx.IoCProvider.IoCConstruct<EnterNameViewModel>();
+        #endregion
+
+        #region Event Handlers
+        private void EnterNameViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            AddPictureViewModel.ImageSearchCriteria = EnterNameViewModel.Name;
+        }
         #endregion
 
         #region Public Methods
@@ -48,6 +56,13 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         #endregion
 
         #region Protected Methods
+        public override void AddEventHandlers()
+        {
+            base.AddEventHandlers();
+
+            EnterNameViewModel.PropertyChanged += EnterNameViewModel_PropertyChanged;
+        }
+
         protected override ICreateThingStepViewModel[] CreateSteps()
         {
             return new ICreateThingStepViewModel[]
@@ -55,6 +70,13 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
                 EnterNameViewModel,
                 AddPictureViewModel
             };
+        }
+
+        public override void RemoveEventHandlers()
+        {
+            base.RemoveEventHandlers();
+
+            EnterNameViewModel.PropertyChanged -= EnterNameViewModel_PropertyChanged;
         }
         #endregion
 

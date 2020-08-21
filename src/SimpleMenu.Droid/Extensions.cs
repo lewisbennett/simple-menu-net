@@ -2,7 +2,6 @@
 using Android.Support.V7.Widget;
 using Android.Widget;
 using MvvmCross.Droid.Support.V7.RecyclerView;
-using SimpleMenu.Droid.Helper;
 using SimpleMenu.Droid.TemplateSelectors;
 
 namespace SimpleMenu.Droid
@@ -26,20 +25,12 @@ namespace SimpleMenu.Droid
         /// <summary>
         /// Applies the correct item template selector and layout manager.
         /// </summary>
-        public static void Setup<TLayoutManager>(this RecyclerView recyclerView)
-            where TLayoutManager : RecyclerView.LayoutManager
+        public static void Setup(this RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager)
         {
             if (recyclerView is MvxRecyclerView mvxRecyclerView)
                 mvxRecyclerView.ItemTemplateSelector = new BaseModelItemTemplateSelector();
 
-            if (typeof(TLayoutManager) == typeof(LinearLayoutManager))
-                recyclerView.SetLayoutManager(new GridLayoutManager(recyclerView.Context, DimensionHelper.ListViewHorizontalCount));
-
-            else if (typeof(TLayoutManager) == typeof(GridLayoutManager))
-                recyclerView.SetLayoutManager(new GridLayoutManager(recyclerView.Context, DimensionHelper.GridViewHorizontalCount));
-
-            else if (typeof(TLayoutManager) == typeof(StaggeredGridLayoutManager))
-                recyclerView.SetLayoutManager(new StaggeredGridLayoutManager(DimensionHelper.StaggeredViewHorizontalCount, StaggeredGridLayoutManager.Vertical));
+            recyclerView.SetLayoutManager(layoutManager);
         }
         #endregion
     }
