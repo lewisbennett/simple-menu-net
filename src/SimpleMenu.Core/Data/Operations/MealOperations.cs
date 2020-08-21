@@ -21,7 +21,6 @@ namespace SimpleMenu.Core.Data.Operations
             {
                 ImageUUID = Guid.NewGuid(),
                 Name = name,
-                PreparationTime = TimeSpan.FromMinutes(83).Ticks,
                 UUID = Guid.NewGuid()
             };
 
