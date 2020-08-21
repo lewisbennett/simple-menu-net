@@ -282,6 +282,15 @@
   <data name="MessagingLoadingImage" xml:space="preserve">
     <value>Loading image...</value>
   </data>
+  <data name="MessagingLoadingIngredients" xml:space="preserve">
+    <value>Loading ingredients...</value>
+  </data>
+  <data name="MessagingLoadingMeals" xml:space="preserve">
+    <value>Loading meals...</value>
+  </data>
+  <data name="MessagingLoadingMenus" xml:space="preserve">
+    <value>Loading menus...</value>
+  </data>
   <data name="TitleChooseAction" xml:space="preserve">
     <value>Choose Action</value>
   </data>

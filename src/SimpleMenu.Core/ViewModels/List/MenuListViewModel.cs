@@ -55,6 +55,7 @@ namespace SimpleMenu.Core.ViewModels.List
 
             DataEmptyActionButtonText = Resources.ActionAddOneNow;
             DataEmptyHint = Resources.HintNoMenusFound;
+            LoadingHint = Resources.MessagingLoadingMenus;
             Title = Resources.TitleMenus;
         }
 

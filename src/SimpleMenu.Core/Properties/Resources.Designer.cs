@@ -556,6 +556,33 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading ingredients....
+        /// </summary>
+        public static string MessagingLoadingIngredients {
+            get {
+                return ResourceManager.GetString("MessagingLoadingIngredients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading meals....
+        /// </summary>
+        public static string MessagingLoadingMeals {
+            get {
+                return ResourceManager.GetString("MessagingLoadingMeals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading menus....
+        /// </summary>
+        public static string MessagingLoadingMenus {
+            get {
+                return ResourceManager.GetString("MessagingLoadingMenus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Action.
         /// </summary>
         public static string TitleChooseAction {
