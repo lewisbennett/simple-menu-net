@@ -101,15 +101,12 @@ namespace SimpleMenu.Core.ViewModels.List.Base
             IsDataEmpty = Data.Count < 1;
             ShowDataEmptyAction = ShouldShowDataEmptyAction && IsDataEmpty && !IsLoading;
 
-            if (e.Action == NotifyCollectionChangedAction.Move)
+            for (var i = 0; i < Data.Count; i++)
             {
-                for (var i = 0; i < Data.Count; i++)
-                {
-                    var item = Data[i];
+                var item = Data[i];
 
-                    if (item is IIndexable indexableModel)
-                        indexableModel.Index = i;
-                }
+                if (item is IIndexable indexableModel)
+                    indexableModel.Index = i;
             }
         }
 
