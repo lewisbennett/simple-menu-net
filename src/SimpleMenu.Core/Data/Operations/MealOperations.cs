@@ -29,6 +29,8 @@ namespace SimpleMenu.Core.Data.Operations
 
             await SaveMealAsync(meal).ConfigureAwait(false);
 
+            FileServiceWrapper.Instance.AddEntity(meal);
+
             return meal;
         }
 
@@ -53,7 +55,11 @@ namespace SimpleMenu.Core.Data.Operations
                 var localMeal = coreServiceWrapper.ActiveUser.Meals.FirstOrDefault(m => m.UUID == uuid);
 
                 if (localMeal != null)
+                {
                     coreServiceWrapper.ActiveUser.Meals.Remove(localMeal);
+
+                    fileServiceWrapper.RemoveEntity(localMeal);
+                }
             }
         }
 
@@ -86,6 +92,8 @@ namespace SimpleMenu.Core.Data.Operations
                 coreServiceWrapper.ActiveUser.Meals.Add(finalMeal);
 
                 await SaveMealAsync(finalMeal).ConfigureAwait(false);
+
+                fileServiceWrapper.AddEntity(finalMeal);
             }
 
             return finalMeals;

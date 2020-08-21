@@ -108,10 +108,7 @@ namespace SimpleMenu.Core.ViewModels.List.Base
                     var item = Data[i];
 
                     if (item is IIndexableModel indexableModel)
-                    {
                         indexableModel.Index = i;
-                        indexableModel.Save();
-                    }
                 }
             }
         }

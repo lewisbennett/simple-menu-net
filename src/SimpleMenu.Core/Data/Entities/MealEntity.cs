@@ -1,4 +1,5 @@
-﻿using MvvmCross.ViewModels;
+﻿using SimpleMenu.Core.Data.Entities.Base;
+using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Services.Wrappers;
 using System;
 using System.Text.Json.Serialization;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.Data.Entities
 {
-    public class MealEntity : MvxNotifyPropertyChanged
+    public class MealEntity : BaseEntity
     {
         #region Fields
         private Guid _imageUuid, _uuid;
@@ -100,6 +101,12 @@ namespace SimpleMenu.Core.Data.Entities
         /// </summary>
         public TimeSpan GetPreparationTime()
             => TimeSpan.FromTicks(_preparationTime);
+
+        /// <summary>
+        /// Saves the entity.
+        /// </summary>
+        public override Task SaveAsync()
+            => MealOperations.Instance.SaveMealAsync(this);
         #endregion
     }
 }

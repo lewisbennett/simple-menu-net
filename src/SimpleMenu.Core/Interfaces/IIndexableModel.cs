@@ -8,12 +8,5 @@
         /// </summary>
         int Index { get; set; }
         #endregion
-
-        #region Public Methods
-        /// <summary>
-        /// Saves the model.
-        /// </summary>
-        void Save();
-        #endregion
     }
 }

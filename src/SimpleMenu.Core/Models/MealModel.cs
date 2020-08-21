@@ -1,5 +1,4 @@
 ﻿using SimpleMenu.Core.Data.Entities;
-using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Interfaces;
 using SimpleMenu.Core.Models.Base;
 using SimpleMenu.Core.Properties;
@@ -8,11 +7,26 @@ namespace SimpleMenu.Core.Models
 {
     public partial class MealModel : EntityDisplayBaseModel<MealEntity>, IIndexableModel
     {
+        #region Fields
+        private int _index;
+        #endregion
+
         #region Properties
         /// <summary>
         /// Gets or sets the index of the model.
         /// </summary>
-        public int Index { get; set; }
+        public int Index
+        {
+            get => _index;
+
+            set
+            {
+                _index = value;
+
+                if (Entity != null)
+                    Entity.Index = _index;
+            }
+        }
         #endregion
 
         #region Event Handlers
@@ -20,7 +34,7 @@ namespace SimpleMenu.Core.Models
         {
             base.OnEntityChanged();
 
-            Index = Entity.Index;
+            _index = Entity.Index;
 
             Description = CalculateDescription();
             Image = CalculateImage();
@@ -63,19 +77,6 @@ namespace SimpleMenu.Core.Models
                 default:
                     return;
             }
-        }
-        #endregion
-
-        #region Public Methods
-        /// <summary>
-        /// Saves the model.
-        /// </summary>
-        public async void Save()
-        {
-            Entity.Index = Index;
-
-            // Fire and forget.
-            await MealOperations.Instance.SaveMealAsync(Entity).ConfigureAwait(false);
         }
         #endregion
 

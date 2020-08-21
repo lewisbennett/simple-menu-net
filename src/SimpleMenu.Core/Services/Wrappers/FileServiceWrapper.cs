@@ -1,20 +1,88 @@
 ﻿using MvvmCross;
+using SimpleMenu.Core.Data.Entities.Base;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace SimpleMenu.Core.Services.Wrappers
 {
     public class FileServiceWrapper
     {
         #region Fields
+        private readonly List<BaseEntity> _entities = new List<BaseEntity>();
         private readonly IFileService _fileService = Mvx.IoCProvider.Resolve<IFileService>();
+        private bool _isSaving;
+        private readonly Timer _saveTimer = new Timer(TimeSpan.FromSeconds(1).TotalMilliseconds);
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets the current entities.
+        /// </summary>
+        public BaseEntity[] Entities
+        {
+            get
+            {
+                lock (_entities)
+                    return _entities.ToArray();
+            }
+        }
+        #endregion
+
+        #region Event Handlers
+        private void Entity_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (!_saveTimer.Enabled)
+                _saveTimer.Enabled = true;
+        }
+
+        private async void SaveTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (_isSaving)
+                return;
+
+            _isSaving = true;
+
+            await Task.Run(async () =>
+            {
+                foreach (var entity in Entities)
+                {
+                    if (entity.HasBeenChanged)
+                    {
+                        await entity.SaveAsync().ConfigureAwait(false);
+
+                        entity.HasBeenChanged = false;
+                    }
+                }
+
+            }).ConfigureAwait(false);
+
+            _saveTimer.Enabled = _isSaving = false;
+        }
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Adds an entity if it's not already present.
+        /// </summary>
+        /// <param name="entity">The entity to add.</param>
+        public void AddEntity(BaseEntity entity)
+        {
+            if (!_entities.Contains(entity))
+            {
+                _entities.Add(entity);
+
+                entity.PropertyChanged += Entity_PropertyChanged;
+            }
+        }
+
         /// <summary>
         /// Create a directory, if it doesn't already exist.
         /// </summary>
@@ -155,6 +223,17 @@ namespace SimpleMenu.Core.Services.Wrappers
             => Task.Run(() => ReadJson<T>(directory, fileName));
 
         /// <summary>
+        /// Removes an entity.
+        /// </summary>
+        /// <param name="entity">The entity to remove.</param>
+        public void RemoveEntity(BaseEntity entity)
+        {
+            _entities.Remove(entity);
+
+            entity.PropertyChanged -= Entity_PropertyChanged;
+        }
+
+        /// <summary>
         /// Saves an image.
         /// </summary>
         /// <param name="directory">The durectory to save the image to, or null.</param>
@@ -208,6 +287,13 @@ namespace SimpleMenu.Core.Services.Wrappers
         /// <param name="content">The content to serialize and save.</param>
         public Task SaveJsonAsync<T>(string directory, string fileName, T content)
             => Task.Run(() => SaveJson(directory, fileName, content));
+        #endregion
+
+        #region Constructors
+        public FileServiceWrapper()
+        {
+            _saveTimer.Elapsed += SaveTimer_Elapsed;
+        }
         #endregion
 
         #region Private Methods
