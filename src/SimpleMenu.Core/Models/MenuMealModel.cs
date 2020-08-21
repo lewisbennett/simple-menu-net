@@ -74,7 +74,21 @@ namespace SimpleMenu.Core.Models
 
         private void Recalculate()
         {
-            DateTitle = _dates[Index].ToString("dddd dT MMMM");
+            var date = _dates[Index];
+
+            var day = date.Day switch
+            {
+                1 => "st",
+                2 => "nd",
+                3 => "rd",
+                21 => "st",
+                22 => "nd",
+                23 => "rd",
+                31 => "st",
+                _ => "th"
+            };
+
+            DateTitle = $"{date.ToString($"dddd d")}{day} {date:MMMM}";
         }
         #endregion
     }
