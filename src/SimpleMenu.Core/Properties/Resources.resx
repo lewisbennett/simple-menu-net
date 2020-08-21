@@ -144,6 +144,9 @@
   <data name="ErrorEmptyMealName" xml:space="preserve">
     <value>Please enter a name for your meal.</value>
   </data>
+  <data name="ErrorNotEnoughMeals" xml:space="preserve">
+    <value>Not Enough Meals</value>
+  </data>
   <data name="ErrorOpeningCameraService" xml:space="preserve">
     <value>An error occurred while opening the camera service. The app may not have the required permissions.</value>
   </data>
@@ -240,6 +243,9 @@
   <data name="MessageAddMealPicture" xml:space="preserve">
     <value>Add a picture of your meal.</value>
   </data>
+  <data name="MessageConfigureMenu" xml:space="preserve">
+    <value>Configure your menu.</value>
+  </data>
   <data name="MessageConfirmDeleteMeal" xml:space="preserve">
     <value>Are you sure that you would like to delete this meal? This action cannot be undone.</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="MessageLooksGood" xml:space="preserve">
     <value>Looks good!</value>
+  </data>
+  <data name="MessageNotEnoughMeals" xml:space="preserve">
+    <value>You haven't added enough meals yet to create a menu. At least 2 meals are required.</value>
   </data>
   <data name="MessagingCreatingMeal" xml:space="preserve">
     <value>Creating meal...</value>

@@ -1,5 +1,6 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
+using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Helper;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Schema;
@@ -51,6 +52,18 @@ namespace SimpleMenu.Core
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Gets whether a meal would potentially be a good match if it were to follow another.
+        /// </summary>
+        /// <param name="meal">The meal to test against.</param>
+        public static bool IsGoodMatchWith(this MealEntity mealEntity, MealEntity meal)
+        {
+            // TODO.
+            // Look for things like similar ingredients.
+
+            return true;
         }
 
         /// <summary>

@@ -35,17 +35,17 @@ namespace SimpleMenu.Core.Data.Entities
         /// <summary>
         /// Gets the ingredients for this user.
         /// </summary>
-        public ICollection<IngredientEntity> Ingredients { get; } = new List<IngredientEntity>();
+        public IList<IngredientEntity> Ingredients { get; } = new List<IngredientEntity>();
 
         /// <summary>
         /// Gets the meals for this user.
         /// </summary>
-        public ICollection<MealEntity> Meals { get; } = new List<MealEntity>();
+        public IList<MealEntity> Meals { get; } = new List<MealEntity>();
 
         /// <summary>
         /// Gets the menus for this user.
         /// </summary>
-        public ICollection<MenuEntity> Menus { get; } = new List<MenuEntity>();
+        public IList<MenuEntity> Menus { get; } = new List<MenuEntity>();
 
         /// <summary>
         /// Gets or sets the UUID for this user.

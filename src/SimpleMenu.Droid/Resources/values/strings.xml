@@ -22,4 +22,6 @@
     <string name="title_create_meal">Create Meal</string>
     <string name="title_create_menu">Create Menu</string>
     <string name="title_help">Help</string>
+    <string name="title_add_meal">Add Meal</string>
+    <string name="title_regenerate_menu">Regenerate Menu</string>
 </resources>

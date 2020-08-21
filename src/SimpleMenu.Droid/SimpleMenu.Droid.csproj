@@ -84,6 +84,7 @@
     <Compile Include="Fragments\List\IngredientsListFragment.cs" />
     <Compile Include="Fragments\List\MealListFragment.cs" />
     <Compile Include="Fragments\List\MenuListFragment.cs" />
+    <Compile Include="Fragments\List\MenuMealListFragment.cs" />
     <Compile Include="Fragments\TemperatureCalculatorFragment.cs" />
     <Compile Include="Fragments\VolumeCalculatorFragment.cs" />
     <Compile Include="Fragments\WeightCalculatorFragment.cs" />
@@ -304,6 +305,14 @@
     <AndroidResource Include="Resources\layout\item_web_image.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_menu_meal.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\menu_menu_meal_list.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

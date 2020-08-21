@@ -1,4 +1,6 @@
-﻿using MvvmCross.Navigation;
+﻿using DialogMessaging;
+using DialogMessaging.Interactions;
+using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
@@ -33,7 +35,18 @@ namespace SimpleMenu.Core.ViewModels.List
         /// </summary>
         public void NavigateToCreateMenuViewModel()
         {
-            _navigationService.Navigate<CreateMenuViewModel>();
+            if (CoreServiceWrapper.Instance.ActiveUser.Meals.Count > 1)
+            {
+                _navigationService.Navigate<CreateMenuViewModel>();
+                return;
+            }
+
+            MessagingService.Instance.Alert(new AlertConfig
+            {
+                Title = Resources.ErrorNotEnoughMeals,
+                Message = Resources.MessageNotEnoughMeals,
+                OkButtonText = Resources.ActionOk
+            });
         }
         #endregion
 

@@ -6,6 +6,7 @@ using SimpleMenu.Core.ViewModels.CreateThing;
 using SimpleMenu.Droid.Activities.CreateThing.Base;
 using SimpleMenu.Droid.Attributes;
 using SimpleMenu.Droid.Fragments;
+using SimpleMenu.Droid.Fragments.List;
 using V4_Fragment = Android.Support.V4.App.Fragment;
 
 namespace SimpleMenu.Droid.Activities.CreateThing
@@ -24,6 +25,10 @@ namespace SimpleMenu.Droid.Activities.CreateThing
                 {
                     CachedDrawableIDEnd = Resource.Drawable.ic_restaurant,
                     ViewModel = ViewModel.EnterNameViewModel
+                },
+                new MenuMealListFragment
+                {
+                    ViewModel = ViewModel.MenuMealListViewModel
                 }
             };
         }

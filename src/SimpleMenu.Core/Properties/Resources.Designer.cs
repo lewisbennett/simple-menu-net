@@ -142,6 +142,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not Enough Meals.
+        /// </summary>
+        public static string ErrorNotEnoughMeals {
+            get {
+                return ResourceManager.GetString("ErrorNotEnoughMeals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while opening the camera service. The app may not have the required permissions..
         /// </summary>
         public static string ErrorOpeningCameraService {
@@ -430,6 +439,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configure your menu..
+        /// </summary>
+        public static string MessageConfigureMenu {
+            get {
+                return ResourceManager.GetString("MessageConfigureMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure that you would like to delete this meal? This action cannot be undone..
         /// </summary>
         public static string MessageConfirmDeleteMeal {
@@ -507,6 +525,15 @@ namespace SimpleMenu.Core.Properties {
         public static string MessageLooksGood {
             get {
                 return ResourceManager.GetString("MessageLooksGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t added enough meals yet to create a menu. At least 2 meals are required..
+        /// </summary>
+        public static string MessageNotEnoughMeals {
+            get {
+                return ResourceManager.GetString("MessageNotEnoughMeals", resourceCulture);
             }
         }
         

@@ -1,6 +1,7 @@
 ﻿using MvvmCross;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
+using SimpleMenu.Core.ViewModels.List;
 
 namespace SimpleMenu.Core.ViewModels.CreateThing
 {
@@ -8,9 +9,14 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the enter name view model.
+        /// Gets the enter name view model.
         /// </summary>
         public EnterNameViewModel EnterNameViewModel { get; } = Mvx.IoCProvider.IoCConstruct<EnterNameViewModel>();
+
+        /// <summary>
+        /// Gets the menu meal list view model.
+        /// </summary>
+        public MenuMealListViewModel MenuMealListViewModel { get; } = Mvx.IoCProvider.IoCConstruct<MenuMealListViewModel>();
         #endregion
 
         #region Public Methods
@@ -27,7 +33,8 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         {
             return new ICreateThingStepViewModel[]
             {
-                EnterNameViewModel
+                EnterNameViewModel,
+                MenuMealListViewModel
             };
         }
         #endregion
@@ -38,6 +45,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
             base.Prepare();
 
             EnterNameViewModel.Prepare();
+            MenuMealListViewModel.Prepare();
 
             EnterNameViewModel.Prepare(new EnterNameViewModelNavigationParams
             {
