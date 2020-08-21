@@ -238,7 +238,7 @@
     <value>To</value>
   </data>
   <data name="MessageAddMealPicture" xml:space="preserve">
-    <value>Add a picture of your meal if you'd like.</value>
+    <value>Add a picture of your meal.</value>
   </data>
   <data name="MessageConfirmDeleteMeal" xml:space="preserve">
     <value>Are you sure that you would like to delete this meal? This action cannot be undone.</value>

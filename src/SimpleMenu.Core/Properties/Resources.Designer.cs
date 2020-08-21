@@ -421,7 +421,7 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add a picture of your meal if you&apos;d like..
+        ///   Looks up a localized string similar to Add a picture of your meal..
         /// </summary>
         public static string MessageAddMealPicture {
             get {
