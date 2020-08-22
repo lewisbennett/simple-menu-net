@@ -3,6 +3,7 @@ using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Interfaces;
 using SimpleMenu.Core.Models.Base;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.Models
@@ -125,7 +126,12 @@ namespace SimpleMenu.Core.Models
                 _ => "th"
             };
 
-            DateTitle = $"{date.ToString($"dddd d")}{day} {date:MMMM}";
+            var dateTitle = $"{date.ToString($"dddd d")}{day} {date:MMMM}";
+
+            if (!Dates.All(d => d.Year == DateTime.Now.Year))
+                dateTitle = $"{dateTitle} {date:yyyy}";
+
+            DateTitle = dateTitle;
         }
         #endregion
     }
