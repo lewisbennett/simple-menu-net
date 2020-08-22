@@ -9,6 +9,10 @@ namespace SimpleMenu.Core.Data.Operations
 {
     public class MealOperations : IEqualityComparer<MealEntity>
     {
+        #region Fields
+        private Dictionary<Guid, MealEntity> _mealCache = new Dictionary<Guid, MealEntity>();
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Creates a new meal.
@@ -63,38 +67,55 @@ namespace SimpleMenu.Core.Data.Operations
         }
 
         /// <summary>
+        /// Gets a meal.
+        /// </summary>
+        /// <param name="mealUuid">The UUID of the meal.</param>
+        public async ValueTask<MealEntity> GetMealAsync(Guid mealUuid)
+        {
+            if (_mealCache.TryGetValue(mealUuid, out MealEntity meal))
+                return meal;
+
+            meal = await FileServiceWrapper.Instance.ReadJsonAsync<MealEntity>(FileServiceWrapper.MealsDirectory, mealUuid.ToString()).ConfigureAwait(false);
+
+            FileServiceWrapper.Instance.AddEntity(meal);
+
+            _mealCache[mealUuid] = meal;
+
+            return meal;
+        }
+
+        /// <summary>
         /// List all of the user's meals.
         /// </summary>
         public async Task<MealEntity[]> ListAllMealsAsync()
         {
-            var coreServiceWrapper = CoreServiceWrapper.Instance;
-            var fileServiceWrapper = FileServiceWrapper.Instance;
+            var savedMeals = await FileServiceWrapper.Instance.ListFilesAsync(FileServiceWrapper.MealsDirectory).ConfigureAwait(false);
 
-            var savedMealFiles = await fileServiceWrapper.ListFilesAsync(FileServiceWrapper.MealsDirectory).ConfigureAwait(false);
+            var meals = new List<MealEntity>();
 
-            var meals = new List<MealEntity>(coreServiceWrapper.ActiveUser.Meals);
-
-            foreach (var savedMealFile in savedMealFiles)
+            foreach (var savedMeal in savedMeals)
             {
-                var meal = await fileServiceWrapper.ReadJsonAsync<MealEntity>(FileServiceWrapper.MealsDirectory, savedMealFile).ConfigureAwait(false);
+                Guid mealUuid;
+
+                if (savedMeal.EndsWith(".json"))
+                {
+                    // Remove ".json".
+                    var mutableSavedMeal = savedMeal.Substring(0, savedMeal.Length - 5);
+
+                    // Remove the path.
+                    mutableSavedMeal = mutableSavedMeal.Substring(mutableSavedMeal.Length - 36);
+
+                    mealUuid = Guid.Parse(mutableSavedMeal);
+                }
+                else
+                    mealUuid = Guid.Parse(savedMeal);
+
+                var meal = await GetMealAsync(mealUuid).ConfigureAwait(false);
 
                 meals.Add(meal);
             }
 
-            var finalMeals = meals.Distinct(this).ToArray();
-
-            coreServiceWrapper.ActiveUser.Meals.Clear();
-
-            foreach (var finalMeal in finalMeals)
-            {
-                coreServiceWrapper.ActiveUser.Meals.Add(finalMeal);
-
-                await SaveMealAsync(finalMeal).ConfigureAwait(false);
-
-                fileServiceWrapper.AddEntity(finalMeal);
-            }
-
-            return finalMeals;
+            return meals.ToArray();
         }
 
         /// <summary>
