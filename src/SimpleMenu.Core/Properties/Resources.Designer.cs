@@ -475,6 +475,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} to {1}.
+        /// </summary>
+        public static string HintToFrom {
+            get {
+                return ResourceManager.GetString("HintToFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a picture of your meal..
         /// </summary>
         public static string MessageAddMealPicture {

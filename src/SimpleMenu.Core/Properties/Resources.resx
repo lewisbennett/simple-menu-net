@@ -255,6 +255,9 @@
   <data name="HintTo" xml:space="preserve">
     <value>To</value>
   </data>
+  <data name="HintToFrom" xml:space="preserve">
+    <value>{0} to {1}</value>
+  </data>
   <data name="MessageAddMealPicture" xml:space="preserve">
     <value>Add a picture of your meal.</value>
   </data>

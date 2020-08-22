@@ -2,6 +2,7 @@
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using SimpleMenu.Core.ViewModels.List;
+using System.Linq;
 
 namespace SimpleMenu.Core.ViewModels.CreateThing
 {
@@ -27,6 +28,33 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         /// Gets the menu meal list view model.
         /// </summary>
         public MenuMealListViewModel MenuMealListViewModel { get; } = Mvx.IoCProvider.IoCConstruct<MenuMealListViewModel>();
+        #endregion
+
+        #region Event Handlers
+        protected override void OnNextButtonClicked()
+        {
+            if (CurrentStep == MenuMealListViewModel)
+            {
+                var startDate = MenuMealListViewModel.Dates.First();
+                var finishDate = MenuMealListViewModel.Dates.Last();
+
+                var startDateString = startDate.ToString("MMM dd");
+                var finishDateString = finishDate.ToString("MMM dd");
+
+                if (startDate.Year != finishDate.Year)
+                {
+                    startDateString = $"{startDateString} {startDate:yyyy}";
+                    finishDateString = $"{finishDateString} {finishDate:yyyy}";
+                }
+
+                if (startDateString.Equals(finishDateString))
+                    EnterNameViewModel.Name = startDateString;
+                else
+                    EnterNameViewModel.Name = string.Format(Resources.HintToFrom, startDateString, finishDateString);
+            }
+
+            base.OnNextButtonClicked();
+        }
         #endregion
 
         #region Public Methods

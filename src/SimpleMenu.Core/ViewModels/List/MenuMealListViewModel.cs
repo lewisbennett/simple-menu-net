@@ -65,7 +65,7 @@ namespace SimpleMenu.Core.ViewModels.List
             };
 
             config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintSwapMeal, ClickAction = () => ReplaceItem(item) });
-            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintRemoveMeal, ClickAction = () => Data.Remove(item) });
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintRemoveMeal, ClickAction = () => RemoveItem(item) });
 
             MessagingService.Instance.ActionSheetBottom(config);
         }
@@ -205,6 +205,13 @@ namespace SimpleMenu.Core.ViewModels.List
             }
 
             InvokeOnMainThread(() => Data.AddRange(selectedMeals));
+        }
+
+        private void RemoveItem(MenuMealModel item)
+        {
+            Data.Remove(item);
+
+            CreateDates(Data.Count);
         }
 
         private void ReplaceItem(MenuMealModel item)
