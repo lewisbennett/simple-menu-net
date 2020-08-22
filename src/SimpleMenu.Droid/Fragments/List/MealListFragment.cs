@@ -26,7 +26,7 @@ namespace SimpleMenu.Droid.Fragments.List
                 switch (item.ItemId)
                 {
                     case Resource.Id.menu_create_meal:
-                        mealListViewModel.NavigateToCreateMealViewModel();
+                        mealListViewModel.AddMealButtonClickCommand.Execute();
                         return true;
 
                     default:

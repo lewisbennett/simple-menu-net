@@ -1,5 +1,6 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Data.Operations;
@@ -14,13 +15,18 @@ using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.ViewModels.List
 {
-    public class MealListViewModel : RefreshableListBaseViewModel<MealModel>
+    public partial class MealListViewModel : RefreshableListBaseViewModel<MealModel>
     {
         #region Fields
         private readonly IMvxNavigationService _navigationService;
         #endregion
 
         #region Event Handlers
+        private void AddMealButton_Click()
+        {
+            NavigateToCreateMealViewModel();
+        }
+
         protected override void OnDataEmptyActionButtonClick()
         {
             base.OnDataEmptyActionButtonClick();
@@ -44,16 +50,6 @@ namespace SimpleMenu.Core.ViewModels.List
         }
         #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// Navigates to the create meal view model.
-        /// </summary>
-        public void NavigateToCreateMealViewModel()
-        {
-            _navigationService.Navigate<CreateMealViewModel>();
-        }
-        #endregion
-
         #region Protected Methods
         protected override async Task LoadInitialPageAsync()
         {
@@ -67,6 +63,8 @@ namespace SimpleMenu.Core.ViewModels.List
         public override void Prepare()
         {
             base.Prepare();
+
+            AddMealButtonClickCommand = new MvxCommand(AddMealButton_Click);
 
             ShouldShowDataEmptyAction = true;
 
@@ -96,6 +94,11 @@ namespace SimpleMenu.Core.ViewModels.List
             await MealOperations.Instance.DeleteMealAsync(mealUuid).ConfigureAwait(false);
 
             await LoadInitialPageAsync().ConfigureAwait(false);
+        }
+
+        private void NavigateToCreateMealViewModel()
+        {
+            _navigationService.Navigate<CreateMealViewModel>();
         }
 
         private void UpdateCollection(IEnumerable<MealEntity> meals)

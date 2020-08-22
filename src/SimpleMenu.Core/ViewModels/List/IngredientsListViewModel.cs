@@ -1,4 +1,5 @@
-﻿using MvvmCross.Navigation;
+﻿using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
@@ -11,28 +12,23 @@ using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.ViewModels.List
 {
-    public class IngredientsListViewModel : RefreshableListBaseViewModel<IngredientModel>
+    public partial class IngredientsListViewModel : RefreshableListBaseViewModel<IngredientModel>
     {
         #region Fields
         private readonly IMvxNavigationService _navigationService;
         #endregion
 
         #region Event Handlers
+        private void AddInredientButton_Click()
+        {
+            NavigateToCreateIngredientViewModel();
+        }
+
         protected override void OnDataEmptyActionButtonClick()
         {
             base.OnDataEmptyActionButtonClick();
 
             NavigateToCreateIngredientViewModel();
-        }
-        #endregion
-
-        #region Public Methods
-        /// <summary>
-        /// Navigates to the create ingredient view model.
-        /// </summary>
-        public void NavigateToCreateIngredientViewModel()
-        {
-            _navigationService.Navigate<CreateIngredientViewModel>();
         }
         #endregion
 
@@ -47,6 +43,8 @@ namespace SimpleMenu.Core.ViewModels.List
         public override void Prepare()
         {
             base.Prepare();
+
+            AddIngredientButtonClickCommand = new MvxCommand(AddInredientButton_Click);
 
             ShouldShowDataEmptyAction = true;
 
@@ -66,6 +64,11 @@ namespace SimpleMenu.Core.ViewModels.List
         #endregion
 
         #region Private Methods
+        private void NavigateToCreateIngredientViewModel()
+        {
+            _navigationService.Navigate<CreateIngredientViewModel>();
+        }
+
         private void UpdateCollection(IEnumerable<IngredientEntity> ingredients)
         {
             var removals = Data.Where(d => !ingredients.Any(de => de.UUID == d.Entity.UUID)).ToArray();

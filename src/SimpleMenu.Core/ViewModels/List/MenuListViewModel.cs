@@ -1,5 +1,6 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Data.Operations;
@@ -14,13 +15,18 @@ using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.ViewModels.List
 {
-    public class MenuListViewModel : RefreshableListBaseViewModel<MenuModel>
+    public partial class MenuListViewModel : RefreshableListBaseViewModel<MenuModel>
     {
         #region Fields
         private readonly IMvxNavigationService _navigationService;
         #endregion
 
         #region Event Handlers
+        private void AddMenuButton_Click()
+        {
+            NavigateToCreateMenuViewModel();
+        }
+
         protected override void OnDataEmptyActionButtonClick()
         {
             base.OnDataEmptyActionButtonClick();
@@ -29,11 +35,41 @@ namespace SimpleMenu.Core.ViewModels.List
         }
         #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// Navigates to the create meal view model.
-        /// </summary>
-        public void NavigateToCreateMenuViewModel()
+        #region Protected Methods
+        protected override async Task LoadInitialPageAsync()
+        {
+            var menus = await MenuOperations.Instance.ListAllMenusAsync().ConfigureAwait(false);
+
+            InvokeOnMainThread(() => UpdateCollection(menus));
+        }
+        #endregion
+
+        #region Lifecycle
+        public override void Prepare()
+        {
+            base.Prepare();
+
+            AddMenuButtonClickCommand = new MvxCommand(AddMenuButton_Click);
+
+            ShouldShowDataEmptyAction = true;
+
+            DataEmptyActionButtonText = Resources.ActionAddOneNow;
+            DataEmptyHint = Resources.HintNoMenusFound;
+            LoadingHint = Resources.MessagingLoadingMenus;
+            Title = Resources.TitleMenus;
+        }
+        #endregion
+
+        #region Constructors
+        public MenuListViewModel(IMvxNavigationService navigationService)
+            : base()
+        {
+            _navigationService = navigationService;
+        }
+        #endregion
+
+        #region Private Methods
+        private void NavigateToCreateMenuViewModel()
         {
             if (FileServiceWrapper.Instance.Entities.Count(e => e is MealEntity) < 2)
             {
@@ -66,40 +102,7 @@ namespace SimpleMenu.Core.ViewModels.List
 
             MessagingService.Instance.ActionSheetBottom(config);
         }
-        #endregion
 
-        #region Protected Methods
-        protected override async Task LoadInitialPageAsync()
-        {
-            var menus = await MenuOperations.Instance.ListAllMenusAsync().ConfigureAwait(false);
-
-            InvokeOnMainThread(() => UpdateCollection(menus));
-        }
-        #endregion
-
-        #region Lifecycle
-        public override void Prepare()
-        {
-            base.Prepare();
-
-            ShouldShowDataEmptyAction = true;
-
-            DataEmptyActionButtonText = Resources.ActionAddOneNow;
-            DataEmptyHint = Resources.HintNoMenusFound;
-            LoadingHint = Resources.MessagingLoadingMenus;
-            Title = Resources.TitleMenus;
-        }
-        #endregion
-
-        #region Constructors
-        public MenuListViewModel(IMvxNavigationService navigationService)
-            : base()
-        {
-            _navigationService = navigationService;
-        }
-        #endregion
-
-        #region Private Methods
         private void UpdateCollection(IEnumerable<MenuEntity> menus)
         {
             var removals = Data.Where(d => !menus.Any(de => de.UUID == d.Entity.UUID)).ToArray();

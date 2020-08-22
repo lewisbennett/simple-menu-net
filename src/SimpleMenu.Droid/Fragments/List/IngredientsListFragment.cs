@@ -18,7 +18,7 @@ namespace SimpleMenu.Droid.Fragments.List
                 case Resource.Id.menu_create_ingredient:
 
                     if (ViewModel is IngredientsListViewModel ingredientListViewModel)
-                        ingredientListViewModel.NavigateToCreateIngredientViewModel();
+                        ingredientListViewModel.AddIngredientButtonClickCommand.Execute();
 
                     return true;
 

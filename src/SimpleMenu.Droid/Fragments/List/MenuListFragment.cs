@@ -18,7 +18,7 @@ namespace SimpleMenu.Droid.Fragments.List
                 case Resource.Id.menu_create_menu:
 
                     if (ViewModel is MenuListViewModel menuListViewModel)
-                        menuListViewModel.NavigateToCreateMenuViewModel();
+                        menuListViewModel.AddMenuButtonClickCommand.Execute();
 
                     return true;
 
