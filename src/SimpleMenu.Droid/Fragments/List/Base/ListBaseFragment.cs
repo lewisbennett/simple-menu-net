@@ -8,8 +8,7 @@ using System;
 
 namespace SimpleMenu.Droid.Fragments.List.Base
 {
-    public abstract class ListBaseFragment<TLayoutManager> : BaseFragment
-        where TLayoutManager : RecyclerView.LayoutManager
+    public abstract class ListBaseFragment : BaseFragment
     {
         #region Properties
         /// <summary>

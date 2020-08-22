@@ -11,7 +11,7 @@ using SimpleMenu.Droid.Helper;
 namespace SimpleMenu.Droid.Fragments.List
 {
     [FragmentLayout(LayoutResourceID = Resource.Layout.frag_refreshable_list, MenuResourceID = Resource.Menu.menu_meal_list)]
-    public class MealListFragment : ListBaseFragment<StaggeredGridLayoutManager>
+    public class MealListFragment : ListBaseFragment
     {
         #region Fields
         private CustomItemTouchHelperCallback<MealModel> _customItemTouchHelperCallback;

@@ -12,7 +12,7 @@ using SimpleMenu.Droid.Helper;
 namespace SimpleMenu.Droid.Fragments.List
 {
     [FragmentLayout(LayoutResourceID = Resource.Layout.frag_list, MenuResourceID = Resource.Menu.menu_menu_meal_list)]
-    public class MenuMealListFragment : ListBaseFragment<LinearLayoutManager>
+    public class MenuMealListFragment : ListBaseFragment
     {
         #region Fields
         private CustomItemTouchHelperCallback<MenuMealModel> _customItemTouchHelperCallback;

@@ -8,7 +8,7 @@ using SimpleMenu.Droid.Helper;
 namespace SimpleMenu.Droid.Fragments.List
 {
     [FragmentLayout(LayoutResourceID = Resource.Layout.frag_refreshable_list, MenuResourceID = Resource.Menu.menu_ingredient_list)]
-    public class IngredientsListFragment : ListBaseFragment<GridLayoutManager>
+    public class IngredientsListFragment : ListBaseFragment
     {
         #region Event Handlers
         public override bool OnOptionsItemSelected(IMenuItem item)
