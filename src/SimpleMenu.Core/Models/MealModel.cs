@@ -3,6 +3,7 @@ using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Interfaces;
 using SimpleMenu.Core.Models.Base;
 using SimpleMenu.Core.Properties;
+using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.Models
 {
@@ -98,7 +99,7 @@ namespace SimpleMenu.Core.Models
 
             IsLoadingImage = ShowLoading = true;
 
-            Image = await ImageOperations.Instance.GetImageAsync(Entity.ImageUUID, 300, 300).ConfigureAwait(false);
+            Image = await Task.Run(() => ImageOperations.Instance.GetImageAsync(Entity.ImageUUID, 300, 300).Result).ConfigureAwait(false);
 
             IsLoadingImage = ShowLoading = false;
         }

@@ -78,9 +78,9 @@ namespace SimpleMenu.Core.ViewModels.List.Base
             DataEmptyActionButtonClickCommand = new MvxCommand(OnDataEmptyActionButtonClick);
         }
 
-        public override void ViewAppearing()
+        public override void ViewAppeared()
         {
-            base.ViewAppearing();
+            base.ViewAppeared();
 
             LoadInitialPage();
         }

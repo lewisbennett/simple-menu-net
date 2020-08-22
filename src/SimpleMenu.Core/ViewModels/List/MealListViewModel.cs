@@ -75,13 +75,6 @@ namespace SimpleMenu.Core.ViewModels.List
             LoadingHint = Resources.MessagingLoadingMeals;
             Title = Resources.TitleMeals;
         }
-
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-
-            UpdateCollection(CoreServiceWrapper.Instance.ActiveUser.Meals);
-        }
         #endregion
 
         #region Constructors
