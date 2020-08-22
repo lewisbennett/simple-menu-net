@@ -511,6 +511,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you would like to delete this menu? This action cannot be undone..
+        /// </summary>
+        public static string MessageConfirmDeleteMenu {
+            get {
+                return ResourceManager.GetString("MessageConfirmDeleteMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meal added successfully..
         /// </summary>
         public static string MessageCreateMealSuccess {
@@ -646,6 +655,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting menu....
+        /// </summary>
+        public static string MessagingDeletingMenu {
+            get {
+                return ResourceManager.GetString("MessagingDeletingMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generating menu....
         /// </summary>
         public static string MessagingGeneratingMenu {
@@ -741,6 +759,15 @@ namespace SimpleMenu.Core.Properties {
         public static string TitleConfirmDeleteMeal {
             get {
                 return ResourceManager.GetString("TitleConfirmDeleteMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Menu?.
+        /// </summary>
+        public static string TitleConfirmDeleteMenu {
+            get {
+                return ResourceManager.GetString("TitleConfirmDeleteMenu", resourceCulture);
             }
         }
         

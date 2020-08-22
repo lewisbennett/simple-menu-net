@@ -9,6 +9,7 @@ using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Services.Wrappers;
 using SimpleMenu.Core.ViewModels.CreateThing;
 using SimpleMenu.Core.ViewModels.List.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +33,21 @@ namespace SimpleMenu.Core.ViewModels.List
             base.OnDataEmptyActionButtonClick();
 
             NavigateToCreateMenuViewModel();
+        }
+
+        protected override void OnItemClicked(MenuModel item)
+        {
+            base.OnItemClicked(item);
+
+            // Temporary.
+            MessagingService.Instance.Delete(new DeleteConfig
+            {
+                Title = Resources.TitleConfirmDeleteMenu,
+                Message = Resources.MessageConfirmDeleteMenu,
+                DeleteButtonText = Resources.ActionDelete,
+                CancelButtonText = Resources.ActionCancel,
+                DeleteButtonClickAction = () => DeleteMenu(item.Entity)
+            });
         }
         #endregion
 
@@ -69,6 +85,18 @@ namespace SimpleMenu.Core.ViewModels.List
         #endregion
 
         #region Private Methods
+        private async void DeleteMenu(MenuEntity menu)
+        {
+            await MessagingService.Instance.ShowLoadingAsync(Resources.MessagingDeletingMenu, DeleteMenuAsync(menu.UUID)).ConfigureAwait(false);
+        }
+
+        private async Task DeleteMenuAsync(Guid menuUuid)
+        {
+            await MenuOperations.Instance.DeleteMenuAsync(menuUuid).ConfigureAwait(false);
+
+            await LoadInitialPageAsync().ConfigureAwait(false);
+        }
+
         private void NavigateToCreateMenuViewModel()
         {
             if (FileServiceWrapper.Instance.Entities.Count(e => e is MealEntity) < 2)
