@@ -2,12 +2,12 @@
 using DialogMessaging.Interactions;
 using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Services.Wrappers;
 using SimpleMenu.Core.ViewModels.CreateThing;
 using SimpleMenu.Core.ViewModels.List.Base;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,7 +35,7 @@ namespace SimpleMenu.Core.ViewModels.List
         /// </summary>
         public void NavigateToCreateMenuViewModel()
         {
-            if (CoreServiceWrapper.Instance.ActiveUser.Meals.Count > 1)
+            if (FileServiceWrapper.Instance.Entities.Count(e => e is MealEntity) > 1)
             {
                 _navigationService.Navigate<CreateMenuViewModel>();
                 return;
@@ -53,9 +53,9 @@ namespace SimpleMenu.Core.ViewModels.List
         #region Protected Methods
         protected override async Task LoadInitialPageAsync()
         {
-            await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+            var menus = await MenuOperations.Instance.ListAllMenusAsync().ConfigureAwait(false);
 
-            InvokeOnMainThread(() => UpdateCollection(CoreServiceWrapper.Instance.ActiveUser.Menus));
+            InvokeOnMainThread(() => UpdateCollection(menus));
         }
         #endregion
 
@@ -70,13 +70,6 @@ namespace SimpleMenu.Core.ViewModels.List
             DataEmptyHint = Resources.HintNoMenusFound;
             LoadingHint = Resources.MessagingLoadingMenus;
             Title = Resources.TitleMenus;
-        }
-
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-
-            UpdateCollection(CoreServiceWrapper.Instance.ActiveUser.Menus);
         }
         #endregion
 

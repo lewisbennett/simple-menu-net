@@ -556,6 +556,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generating menu....
+        /// </summary>
+        public static string MessagingGeneratingMenu {
+            get {
+                return ResourceManager.GetString("MessagingGeneratingMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Searching for images of {0}....
         /// </summary>
         public static string MessagingImageSearching {

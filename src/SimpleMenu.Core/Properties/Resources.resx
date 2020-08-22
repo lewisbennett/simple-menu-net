@@ -282,6 +282,9 @@
   <data name="MessagingDeletingMeal" xml:space="preserve">
     <value>Deleting meal...</value>
   </data>
+  <data name="MessagingGeneratingMenu" xml:space="preserve">
+    <value>Generating menu...</value>
+  </data>
   <data name="MessagingImageSearching" xml:space="preserve">
     <value>Searching for images of {0}...</value>
   </data>

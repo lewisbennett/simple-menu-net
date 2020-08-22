@@ -25,6 +25,7 @@ namespace SimpleMenu.Core
 
             fileServiceWrapper.CreateDirectory(FileServiceWrapper.ImagesDirectory);
             fileServiceWrapper.CreateDirectory(FileServiceWrapper.MealsDirectory);
+            fileServiceWrapper.CreateDirectory(FileServiceWrapper.MenusDirectory);
 
             RegisterAppStart<MainViewModel>();
         }

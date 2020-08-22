@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Commands;
 using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Services.Wrappers;
@@ -7,6 +8,7 @@ using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using SimpleMenu.Core.ViewModels.List.Base;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.ViewModels.List
 {
@@ -26,17 +28,29 @@ namespace SimpleMenu.Core.ViewModels.List
 
         private void RegenerateMenuButton_Click()
         {
-            GenerateRandomMenu();
+            LoadInitialPage();
         }
         #endregion
 
         #region Public Methods
         /// <summary>
-        /// Generates a random menu.
+        /// Loads the initial page of data.
         /// </summary>
-        public void GenerateRandomMenu()
+        public override void LoadInitialPage()
+        {
+            if (Data.Count > 0)
+                Data.Clear();
+
+            base.LoadInitialPage();
+        }
+        #endregion
+
+        #region Protected Methods
+        protected override async Task LoadInitialPageAsync()
         {
             var coreServiceWrapper = CoreServiceWrapper.Instance;
+
+            var meals = await MealOperations.Instance.ListAllMealsAsync().ConfigureAwait(false);
 
             var menuMeals = new List<MenuMealModel>();
 
@@ -50,7 +64,7 @@ namespace SimpleMenu.Core.ViewModels.List
 
                 while (meal == null || meal == previousMeal)
                 {
-                    var mutableMeal = coreServiceWrapper.ActiveUser.Meals[random.Next(0, coreServiceWrapper.ActiveUser.Meals.Count)];
+                    var mutableMeal = meals[random.Next(0, meals.Length)];
 
                     if (previousMeal == null || mutableMeal.IsGoodMatchWith(previousMeal))
                         meal = mutableMeal;
@@ -60,10 +74,7 @@ namespace SimpleMenu.Core.ViewModels.List
                 previousMeal = meal;
             }
 
-            if (Data.Count > 0)
-                Data.Clear();
-
-            Data.AddRange(menuMeals);
+            InvokeOnMainThread(() => Data.AddRange(menuMeals));
         }
         #endregion
 
@@ -74,11 +85,11 @@ namespace SimpleMenu.Core.ViewModels.List
 
             RegenerateMenuButtonClickCommand = new MvxCommand(RegenerateMenuButton_Click);
 
+            DataEmptyHint = Resources.HintNoMealsFound;
+            LoadingHint = Resources.MessagingGeneratingMenu;
             Title = Resources.MessageConfigureMenu;
 
             CreateDates();
-
-            GenerateRandomMenu();
         }
         #endregion
 

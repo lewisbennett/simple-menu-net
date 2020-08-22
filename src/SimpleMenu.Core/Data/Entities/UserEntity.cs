@@ -1,6 +1,5 @@
 ﻿using MvvmCross.ViewModels;
 using System;
-using System.Collections.Generic;
 
 namespace SimpleMenu.Core.Data.Entities
 {
@@ -31,21 +30,6 @@ namespace SimpleMenu.Core.Data.Entities
 
             set => SetProperty(ref _givenName, value);
         }
-
-        /// <summary>
-        /// Gets the ingredients for this user.
-        /// </summary>
-        public IList<IngredientEntity> Ingredients { get; } = new List<IngredientEntity>();
-
-        /// <summary>
-        /// Gets the meals for this user.
-        /// </summary>
-        public IList<MealEntity> Meals { get; } = new List<MealEntity>();
-
-        /// <summary>
-        /// Gets the menus for this user.
-        /// </summary>
-        public IList<MenuEntity> Menus { get; } = new List<MenuEntity>();
 
         /// <summary>
         /// Gets or sets the UUID for this user.

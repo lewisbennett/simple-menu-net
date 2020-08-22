@@ -2,7 +2,6 @@
 using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
-using SimpleMenu.Core.Services.Wrappers;
 using SimpleMenu.Core.ViewModels.CreateThing;
 using SimpleMenu.Core.ViewModels.List.Base;
 using System;
@@ -41,8 +40,6 @@ namespace SimpleMenu.Core.ViewModels.List
         protected override async Task LoadInitialPageAsync()
         {
             await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
-
-            InvokeOnMainThread(() => UpdateCollection(CoreServiceWrapper.Instance.ActiveUser.Ingredients));
         }
         #endregion
 
@@ -57,13 +54,6 @@ namespace SimpleMenu.Core.ViewModels.List
             DataEmptyHint = Resources.HintNoIngredientsFound;
             LoadingHint = Resources.MessagingLoadingIngredients;
             Title = Resources.TitleIngredients;
-        }
-
-        public override void ViewCreated()
-        {
-            base.ViewCreated();
-
-            UpdateCollection(CoreServiceWrapper.Instance.ActiveUser.Ingredients);
         }
         #endregion
 
