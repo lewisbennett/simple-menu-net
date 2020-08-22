@@ -32,6 +32,10 @@ namespace SimpleMenu.Droid.Fragments.List
             {
                 switch (item.ItemId)
                 {
+                    case Resource.Id.menu_add_meal:
+                        menuMealListViewModel.AddMealButtonClickCommand.Execute();
+                        return true;
+
                     case Resource.Id.menu_regenerate_menu:
                         menuMealListViewModel.RegenerateMenuButtonClickCommand.Execute();
                         return true;

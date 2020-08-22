@@ -763,6 +763,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Meal.
+        /// </summary>
+        public static string TitleSelectMeal {
+            get {
+                return ResourceManager.GetString("TitleSelectMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Temperate Calculator.
         /// </summary>
         public static string TitleTemperatureCalculator {

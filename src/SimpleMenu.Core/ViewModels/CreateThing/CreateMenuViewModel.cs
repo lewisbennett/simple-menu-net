@@ -4,8 +4,6 @@ using MvvmCross;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using SimpleMenu.Core.ViewModels.List;
-using System;
-using System.Collections.Generic;
 
 namespace SimpleMenu.Core.ViewModels.CreateThing
 {
@@ -36,17 +34,8 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
                     {
                         base.OnNextButtonClicked();
 
-                        if (item.Data is int days)
-                        {
-                            var dates = new List<DateTime>();
-
-                            for (var i = 0; i < days; i++)
-                                dates.Add(DateTime.Now.Date.AddDays(i));
-
-                            MenuMealListViewModel.Dates = dates.ToArray();
-
-                            MenuMealListViewModel.LoadInitialPage();
-                        }
+                        if (item.Data is int days && days > 0)
+                            MenuMealListViewModel.GenerateRandomMenu(days);
                     }
                 };
 

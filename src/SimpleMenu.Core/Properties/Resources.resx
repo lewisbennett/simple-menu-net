@@ -351,6 +351,9 @@
   <data name="TitleOpenCameraFailed" xml:space="preserve">
     <value>Failed To Open Camera</value>
   </data>
+  <data name="TitleSelectMeal" xml:space="preserve">
+    <value>Select Meal</value>
+  </data>
   <data name="TitleTemperatureCalculator" xml:space="preserve">
     <value>Temperate Calculator</value>
   </data>

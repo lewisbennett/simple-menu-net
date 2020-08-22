@@ -10,11 +10,15 @@ namespace SimpleMenu.Core.Models
     public partial class MenuMealModel : EntityDisplayBaseModel<MealEntity>, IIndexable
     {
         #region Fields
-        private readonly DateTime[] _dates;
         private int _index;
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets or sets the dates for the menu.
+        /// </summary>
+        public DateTime[] Dates { get; set; }
+
         /// <summary>
         /// Gets or sets the index of the model.
         /// </summary>
@@ -98,14 +102,6 @@ namespace SimpleMenu.Core.Models
         }
         #endregion
 
-        #region Constructors
-        public MenuMealModel(DateTime[] dates)
-            : base()
-        {
-            _dates = dates;
-        }
-        #endregion
-
         #region Private Methods
         private string CalculateDescription()
             => null;
@@ -115,7 +111,7 @@ namespace SimpleMenu.Core.Models
 
         private void Recalculate()
         {
-            var date = _dates[Index];
+            var date = Dates[Index];
 
             var day = date.Day switch
             {
