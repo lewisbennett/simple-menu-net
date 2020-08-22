@@ -5,18 +5,11 @@ namespace SimpleMenu.Core.ViewModels.List
     partial class MenuMealListViewModel
     {
         #region Fields
-        private IMvxCommand _addMealButtonClickCommand, _regenerateMenuButtonClickCommand;
         private bool _criteriaMet, _showNextButton;
+        private IMvxCommand _regenerateMenuButtonClickCommand;
         #endregion
 
         #region Properties
-        public IMvxCommand AddMealButtonClickCommand
-        {
-            get => _addMealButtonClickCommand;
-
-            set => SetProperty(ref _addMealButtonClickCommand, value);
-        }
-
         public bool CriteriaMet
         {
             get => _criteriaMet;

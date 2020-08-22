@@ -17,9 +17,11 @@ namespace SimpleMenu.Core.ViewModels.List
         #endregion
 
         #region Event Handlers
-        private void AddMealButton_Click()
+        protected override void OnItemClicked(MenuMealModel item)
         {
-            // Navigate to choose meal screen.
+            base.OnItemClicked(item);
+
+            // Navigate to choose menu meal view model to replace meal.
         }
 
         private void RegenerateMenuButton_Click()
@@ -70,12 +72,13 @@ namespace SimpleMenu.Core.ViewModels.List
         {
             base.Prepare();
 
-            AddMealButtonClickCommand = new MvxCommand(AddMealButton_Click);
             RegenerateMenuButtonClickCommand = new MvxCommand(RegenerateMenuButton_Click);
 
             Title = Resources.MessageConfigureMenu;
 
             CreateDates();
+
+            GenerateRandomMenu();
         }
         #endregion
 
