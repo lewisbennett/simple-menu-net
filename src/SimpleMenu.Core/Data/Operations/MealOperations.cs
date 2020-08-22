@@ -65,7 +65,6 @@ namespace SimpleMenu.Core.Data.Operations
         /// <summary>
         /// List all of the user's meals.
         /// </summary>
-        /// <param name="save">Whether to save the meals.</param>
         public async Task<MealEntity[]> ListAllMealsAsync()
         {
             var coreServiceWrapper = CoreServiceWrapper.Instance;

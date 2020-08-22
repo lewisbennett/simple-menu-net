@@ -312,6 +312,7 @@ namespace SimpleMenu.Core.Services.Wrappers
         #region Constant Values
         public const string ImagesDirectory = "images";
         public const string MealsDirectory = "meals";
+        public const string MenusDirectory = "menus";
         #endregion
 
         #region Static Properties
