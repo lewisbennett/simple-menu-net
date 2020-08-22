@@ -10,6 +10,7 @@ using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using SimpleMenu.Core.ViewModels.List.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,6 +53,11 @@ namespace SimpleMenu.Core.ViewModels.List
                     Data.Add(new MenuMealModel { Dates = Dates, Entity = meal });
                 }
             });
+        }
+
+        private void Data_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            CriteriaMet = Data.Count >= 2;
         }
 
         protected override void OnItemClicked(MenuMealModel item)
@@ -113,6 +119,16 @@ namespace SimpleMenu.Core.ViewModels.List
 
         #region Public Methods
         /// <summary>
+        /// Adds the event handlers for this ViewModel.
+        /// </summary>
+        public override void AddEventHandlers()
+        {
+            base.AddEventHandlers();
+
+            Data.CollectionChanged += Data_CollectionChanged;
+        }
+
+        /// <summary>
         /// Generate a random menu for a number of days.
         /// </summary>
         public async void GenerateRandomMenu(int days)
@@ -130,6 +146,16 @@ namespace SimpleMenu.Core.ViewModels.List
             await GenerateRandomMenuAsync(days).ConfigureAwait(false);
 
             ShowLoading = IsLoading = false;
+        }
+
+        /// <summary>
+        /// Removes the event handlers from this ViewModel.
+        /// </summary>
+        public override void RemoveEventHandlers()
+        {
+            base.RemoveEventHandlers();
+
+            Data.CollectionChanged -= Data_CollectionChanged;
         }
         #endregion
 
