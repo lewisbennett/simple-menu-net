@@ -322,6 +322,24 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next five days.
+        /// </summary>
+        public static string HintNextFiveDays {
+            get {
+                return ResourceManager.GetString("HintNextFiveDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next seven days.
+        /// </summary>
+        public static string HintNextSevenDays {
+            get {
+                return ResourceManager.GetString("HintNextSevenDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No images found..
         /// </summary>
         public static string HintNoImagesFound {
@@ -390,6 +408,15 @@ namespace SimpleMenu.Core.Properties {
         public static string HintSearchForPicture {
             get {
                 return ResourceManager.GetString("HintSearchForPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start from scratch.
+        /// </summary>
+        public static string HintStartFromScratch {
+            get {
+                return ResourceManager.GetString("HintStartFromScratch", resourceCulture);
             }
         }
         
@@ -624,6 +651,15 @@ namespace SimpleMenu.Core.Properties {
         public static string TitleChooseAction {
             get {
                 return ResourceManager.GetString("TitleChooseAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose Date Range.
+        /// </summary>
+        public static string TitleChooseDateRange {
+            get {
+                return ResourceManager.GetString("TitleChooseDateRange", resourceCulture);
             }
         }
         

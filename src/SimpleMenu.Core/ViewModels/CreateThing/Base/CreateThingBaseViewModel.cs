@@ -62,7 +62,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing.Base
 
         private void BackButton_Click() => PreviousStep();
 
-        private void NextButton_Click()
+        protected virtual void OnNextButtonClicked()
         {
             if (IsFinalStep)
                 CreateThingAndClose();
@@ -126,7 +126,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing.Base
             CurrentStep = _steps[0];
 
             BackButtonClickCommand = new MvxCommand(BackButton_Click);
-            NextButtonClickCommand = new MvxCommand(NextButton_Click);
+            NextButtonClickCommand = new MvxCommand(OnNextButtonClicked);
 
             BackButtonText = Resources.ActionBack;
         }

@@ -1,4 +1,6 @@
-﻿using MvvmCross.Commands;
+﻿using DialogMessaging;
+using DialogMessaging.Interactions;
+using MvvmCross.Commands;
 using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Models;
@@ -14,8 +16,11 @@ namespace SimpleMenu.Core.ViewModels.List
 {
     public partial class MenuMealListViewModel : ListBaseViewModel<MenuMealModel>, ICreateThingStepViewModel
     {
-        #region Fields
-        private DateTime[] _dates;
+        #region Properties
+        /// <summary>
+        /// Gets or sets the dates that the menu is being created for.
+        /// </summary>
+        public DateTime[] Dates { get; set; }
         #endregion
 
         #region Event Handlers
@@ -28,7 +33,31 @@ namespace SimpleMenu.Core.ViewModels.List
 
         private void RegenerateMenuButton_Click()
         {
-            LoadInitialPage();
+            var config = new ActionSheetBottomConfig
+            {
+                Title = Resources.TitleChooseDateRange,
+                CancelButtonText = Resources.ActionCancel,
+                ItemClickAction = (item) =>
+                {
+                    if (item.Data is int days)
+                    {
+                        var dates = new List<DateTime>();
+
+                        for (var i = 0; i < days; i++)
+                            dates.Add(DateTime.Now.Date.AddDays(i));
+
+                        Dates = dates.ToArray();
+
+                        LoadInitialPage();
+                    }
+                }
+            };
+
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintNextFiveDays, Data = 5 });
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintNextSevenDays, Data = 7 });
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintStartFromScratch, Data = 0 });
+
+            MessagingService.Instance.ActionSheetBottom(config);
         }
         #endregion
 
@@ -41,7 +70,8 @@ namespace SimpleMenu.Core.ViewModels.List
             if (Data.Count > 0)
                 Data.Clear();
 
-            base.LoadInitialPage();
+            if (Dates != null && Dates.Length > 0)
+                base.LoadInitialPage();
         }
         #endregion
 
@@ -58,7 +88,7 @@ namespace SimpleMenu.Core.ViewModels.List
 
             var random = new Random();
 
-            for (var i = 0; i < _dates.Length; i++)
+            for (var i = 0; i < Dates.Length; i++)
             {
                 MealEntity meal = null;
 
@@ -70,7 +100,7 @@ namespace SimpleMenu.Core.ViewModels.List
                         meal = mutableMeal;
                 }
 
-                menuMeals.Add(new MenuMealModel(_dates) { Entity = meal, Index = i });
+                menuMeals.Add(new MenuMealModel(Dates) { Entity = meal, Index = i });
                 previousMeal = meal;
             }
 
@@ -88,18 +118,6 @@ namespace SimpleMenu.Core.ViewModels.List
             DataEmptyHint = Resources.HintNoMealsFound;
             LoadingHint = Resources.MessagingGeneratingMenu;
             Title = Resources.MessageConfigureMenu;
-
-            CreateDates();
-        }
-        #endregion
-
-        #region Private Methods
-        private void CreateDates()
-        {
-            _dates = new DateTime[7];
-
-            for (var i = 0; i < _dates.Length; i++)
-                _dates[i] = DateTime.Now.Date.AddDays(i);
         }
         #endregion
     }

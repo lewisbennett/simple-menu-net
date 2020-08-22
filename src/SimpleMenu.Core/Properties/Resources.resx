@@ -204,6 +204,12 @@
   <data name="HintMinutes" xml:space="preserve">
     <value>{0} minutes</value>
   </data>
+  <data name="HintNextFiveDays" xml:space="preserve">
+    <value>Next five days</value>
+  </data>
+  <data name="HintNextSevenDays" xml:space="preserve">
+    <value>Next seven days</value>
+  </data>
   <data name="HintNoImagesFound" xml:space="preserve">
     <value>No images found.</value>
   </data>
@@ -227,6 +233,9 @@
   </data>
   <data name="HintSearchForPicture" xml:space="preserve">
     <value>Search for picture</value>
+  </data>
+  <data name="HintStartFromScratch" xml:space="preserve">
+    <value>Start from scratch</value>
   </data>
   <data name="HintTablespoon" xml:space="preserve">
     <value>Tablespoon</value>
@@ -305,6 +314,9 @@
   </data>
   <data name="TitleChooseAction" xml:space="preserve">
     <value>Choose Action</value>
+  </data>
+  <data name="TitleChooseDateRange" xml:space="preserve">
+    <value>Choose Date Range</value>
   </data>
   <data name="TitleChooseMetric" xml:space="preserve">
     <value>Choose Metric</value>
