@@ -35,18 +35,36 @@ namespace SimpleMenu.Core.ViewModels.List
         /// </summary>
         public void NavigateToCreateMenuViewModel()
         {
-            if (FileServiceWrapper.Instance.Entities.Count(e => e is MealEntity) > 1)
+            if (FileServiceWrapper.Instance.Entities.Count(e => e is MealEntity) < 2)
             {
-                _navigationService.Navigate<CreateMenuViewModel>();
+                MessagingService.Instance.Alert(new AlertConfig
+                {
+                    Title = Resources.ErrorNotEnoughMeals,
+                    Message = Resources.MessageNotEnoughMeals,
+                    OkButtonText = Resources.ActionOk
+                });
+
                 return;
             }
 
-            MessagingService.Instance.Alert(new AlertConfig
+            var config = new ActionSheetBottomConfig
             {
-                Title = Resources.ErrorNotEnoughMeals,
-                Message = Resources.MessageNotEnoughMeals,
-                OkButtonText = Resources.ActionOk
-            });
+                Title = Resources.TitleChooseDateRange,
+                CancelButtonText = Resources.ActionCancel,
+                ItemClickAction = (item) =>
+                {
+                    _navigationService.Navigate<CreateMenuViewModel, CreateMenuViewModelNavigationParams>(new CreateMenuViewModelNavigationParams
+                    {
+                        Days = item.Data is int days ? days : 0
+                    });
+                }
+            };
+
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintNextFiveDays, Data = 5 });
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintNextSevenDays, Data = 7 });
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintStartFromScratch, Data = 0 });
+
+            MessagingService.Instance.ActionSheetBottom(config);
         }
         #endregion
 

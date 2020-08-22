@@ -70,6 +70,21 @@ namespace SimpleMenu.Core.ViewModels.List
             MessagingService.Instance.ActionSheetBottom(config);
         }
 
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(IsDataEmpty):
+                    CriteriaMet = !IsDataEmpty;
+                    return;
+
+                default:
+                    return;
+            }
+        }
+
         private void RegenerateMenuButton_Click()
         {
             var config = new ActionSheetBottomConfig
@@ -125,6 +140,8 @@ namespace SimpleMenu.Core.ViewModels.List
 
             AddMealButtonClickCommand = new MvxCommand(AddMealButton_Click);
             RegenerateMenuButtonClickCommand = new MvxCommand(RegenerateMenuButton_Click);
+
+            ShowNextButton = true;
 
             DataEmptyHint = Resources.HintNoMealsFound;
             LoadingHint = Resources.MessagingGeneratingMenu;

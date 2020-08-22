@@ -21,14 +21,14 @@ namespace SimpleMenu.Droid.Activities.CreateThing
         {
             return new V4_Fragment[]
             {
+                new MenuMealListFragment
+                {
+                    ViewModel = ViewModel.MenuMealListViewModel
+                },
                 new EnterNameFragment
                 {
                     CachedDrawableIDEnd = Resource.Drawable.ic_restaurant,
                     ViewModel = ViewModel.EnterNameViewModel
-                },
-                new MenuMealListFragment
-                {
-                    ViewModel = ViewModel.MenuMealListViewModel
                 }
             };
         }

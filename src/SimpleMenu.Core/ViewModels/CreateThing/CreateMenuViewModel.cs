@@ -1,13 +1,21 @@
-﻿using DialogMessaging;
-using DialogMessaging.Interactions;
-using MvvmCross;
+﻿using MvvmCross;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using SimpleMenu.Core.ViewModels.List;
 
 namespace SimpleMenu.Core.ViewModels.CreateThing
 {
-    public class CreateMenuViewModel : CreateThingBaseViewModel
+    public class CreateMenuViewModelNavigationParams
+    {
+        #region Properties
+        /// <summary>
+        /// Gets or sets the number of days to create a menu for.
+        /// </summary>
+        public int Days { get; set; }
+        #endregion
+    }
+
+    public class CreateMenuViewModel : CreateThingBaseViewModel<CreateMenuViewModelNavigationParams>
     {
         #region Properties
         /// <summary>
@@ -19,35 +27,6 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         /// Gets the menu meal list view model.
         /// </summary>
         public MenuMealListViewModel MenuMealListViewModel { get; } = Mvx.IoCProvider.IoCConstruct<MenuMealListViewModel>();
-        #endregion
-
-        #region Event Handlers
-        protected override void OnNextButtonClicked()
-        {
-            if (CurrentStep == EnterNameViewModel)
-            {
-                var config = new ActionSheetBottomConfig
-                {
-                    Title = Resources.TitleChooseDateRange,
-                    CancelButtonText = Resources.ActionCancel,
-                    ItemClickAction = (item) =>
-                    {
-                        base.OnNextButtonClicked();
-
-                        if (item.Data is int days && days > 0)
-                            MenuMealListViewModel.GenerateRandomMenu(days);
-                    }
-                };
-
-                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintNextFiveDays, Data = 5 });
-                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintNextSevenDays, Data = 7 });
-                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintStartFromScratch, Data = 0 });
-
-                MessagingService.Instance.ActionSheetBottom(config);
-            }
-            else
-                base.OnNextButtonClicked();
-        }
         #endregion
 
         #region Public Methods
@@ -64,8 +43,8 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         {
             return new ICreateThingStepViewModel[]
             {
-                EnterNameViewModel,
-                MenuMealListViewModel
+                MenuMealListViewModel,
+                EnterNameViewModel
             };
         }
         #endregion
@@ -86,6 +65,14 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
 
             ShowNextButton = true;
             Title = Resources.TitleCreateMenu;
+        }
+
+        public override void Prepare(CreateMenuViewModelNavigationParams parameter)
+        {
+            base.Prepare(parameter);
+
+            if (parameter.Days > 0)
+                MenuMealListViewModel.GenerateRandomMenu(parameter.Days);
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.ViewModels;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.Base;
 using System;
@@ -47,6 +48,8 @@ namespace SimpleMenu.Core.ViewModels.CreateThing.Base
         #endregion
 
         #region Event Handlers
+        private void BackButton_Click() => PreviousStep();
+
         private void CurrentStep_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -60,9 +63,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing.Base
             }
         }
 
-        private void BackButton_Click() => PreviousStep();
-
-        protected virtual void OnNextButtonClicked()
+        private void NextButton_Click()
         {
             if (IsFinalStep)
                 CreateThingAndClose();
@@ -126,7 +127,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing.Base
             CurrentStep = _steps[0];
 
             BackButtonClickCommand = new MvxCommand(BackButton_Click);
-            NextButtonClickCommand = new MvxCommand(OnNextButtonClicked);
+            NextButtonClickCommand = new MvxCommand(NextButton_Click);
 
             BackButtonText = Resources.ActionBack;
         }
@@ -148,6 +149,16 @@ namespace SimpleMenu.Core.ViewModels.CreateThing.Base
             NextButtonText = stepIndex == _steps.Length - 1 ? Resources.ActionFinish : Resources.ActionNext;
 
             ShowBackButton = stepIndex != 0;
+        }
+        #endregion
+    }
+
+    public abstract class CreateThingBaseViewModel<TNavigationParams> : CreateThingBaseViewModel, IMvxViewModel<TNavigationParams>
+        where TNavigationParams : class
+    {
+        #region Properties
+        public virtual void Prepare(TNavigationParams parameter)
+        {
         }
         #endregion
     }
