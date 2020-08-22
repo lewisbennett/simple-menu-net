@@ -21,18 +21,20 @@ namespace SimpleMenu.Droid.Fragments.List
         #region Event Handlers
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch (item.ItemId)
+            if (ViewModel is MealListViewModel mealListViewModel)
             {
-                case Resource.Id.menu_create_meal:
-
-                    if (ViewModel is MealListViewModel mealListViewModel)
+                switch (item.ItemId)
+                {
+                    case Resource.Id.menu_create_meal:
                         mealListViewModel.NavigateToCreateMealViewModel();
+                        return true;
 
-                    return true;
-
-                default:
-                    return base.OnOptionsItemSelected(item);
+                    default:
+                        break;
+                }
             }
+
+            return base.OnOptionsItemSelected(item);
         }
         #endregion
 

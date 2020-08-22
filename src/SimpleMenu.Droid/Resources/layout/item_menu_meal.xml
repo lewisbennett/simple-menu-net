@@ -2,47 +2,74 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_margin="10dp"
 	android:orientation="vertical">
 	<TextView
 		style="@style/AppTheme.Widgets.TextHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-		android:layout_marginBottom="20dp"
-		android:textSize="18sp"
-		app:MvxBind="Text DateTitle" />
-	<android.support.v7.widget.CardView 
-		style="@style/AppTheme.Widgets.CardView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:foreground="?android:attr/selectableItemBackground">
-		<LinearLayout
+		android:layout_marginLeft="50dp"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="10dp"
+		android:layout_marginRight="10dp"
+		android:textSize="18sp"
+		app:MvxBind="Text DateTitle" />
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_marginBottom="10dp"
+		android:layout_marginRight="10dp"
+		android:orientation="horizontal">
+		<ImageView
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_marginRight="10dp"
+			android:layout_gravity="center_vertical"
+			android:id="@+id/drag_indicator"
+			android:padding="4dp"
+			android:tint="@color/text_secondary"
+			android:src="@drawable/ic_drag_indicator" />
+		<android.support.v7.widget.CardView 
+			style="@style/AppTheme.Widgets.CardView"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			android:gravity="center_vertical">
-			<ImageView
-				android:layout_width="100dp"
-				android:layout_height="fill_parent"
-				android:scaleType="centerCrop"
-				android:adjustViewBounds="true"
-				app:MvxBind="Bitmap InMemoryImage(Image)" />
+			android:foreground="?android:attr/selectableItemBackground">
 			<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:padding="20dp">
-				<TextView
-					style="@style/AppTheme.Widgets.TextTitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical">
+				<RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="fill_parent">
+					<ImageView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:scaleType="centerCrop"
+						android:adjustViewBounds="true"
+						app:MvxBind="Bitmap InMemoryImage(Image)" />
+					<ProgressBar
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						app:MvxBind="Visibility Visibility(ShowLoading)" />
+				</RelativeLayout>
+				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					app:MvxBind="Text Title" />
-				<TextView
-					style="@style/AppTheme.Widgets.TextSubtitle"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					app:MvxBind="Text Description; Visibility Visibility(ShowDescription)" />
+					android:orientation="vertical"
+					android:padding="20dp">
+					<TextView
+						style="@style/AppTheme.Widgets.TextTitle"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						app:MvxBind="Text Title" />
+					<TextView
+						style="@style/AppTheme.Widgets.TextSubtitle"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						app:MvxBind="Text Description; Visibility Visibility(ShowDescription)" />
+				</LinearLayout>
 			</LinearLayout>
-		</LinearLayout>
-	</android.support.v7.widget.CardView>
+		</android.support.v7.widget.CardView>
+	</LinearLayout>
 </LinearLayout>
