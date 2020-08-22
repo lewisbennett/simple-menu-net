@@ -47,52 +47,63 @@ namespace SimpleMenu.Core.Data.Operations
             {
                 await fileServiceWrapper.DeleteFileAsync(FileServiceWrapper.MenusDirectory, fileName).ConfigureAwait(false);
 
-                var coreServiceWrapper = CoreServiceWrapper.Instance;
-
-                var localMenu = coreServiceWrapper.ActiveUser.Menus.FirstOrDefault(m => m.UUID == uuid);
+                var localMenu = fileServiceWrapper.Entities.FirstOrDefault(e => e is MenuEntity m && m.UUID == uuid);
 
                 if (localMenu != null)
-                {
-                    coreServiceWrapper.ActiveUser.Menus.Remove(localMenu);
-
                     fileServiceWrapper.RemoveEntity(localMenu);
-                }
             }
+        }
+
+        /// <summary>
+        /// Gets a menu.
+        /// </summary>
+        /// <param name="menuUuid">The UUID of the menu.</param>
+        public async ValueTask<MenuEntity> GetMenuAsync(Guid menuUuid)
+        {
+            var fileServiceWrapper = FileServiceWrapper.Instance;
+
+            if (fileServiceWrapper.Entities.FirstOrDefault(e => e is MenuEntity m && m.UUID == menuUuid) is MenuEntity menu)
+                return menu;
+
+            menu = await FileServiceWrapper.Instance.ReadJsonAsync<MenuEntity>(FileServiceWrapper.MealsDirectory, menuUuid.ToString()).ConfigureAwait(false);
+
+            FileServiceWrapper.Instance.AddEntity(menu);
+
+            return menu;
         }
 
         /// <summary>
         /// List all of the user's menus.
         /// </summary>
-        public async Task<MenuEntity[]> ListAllMealsAsync()
+        public async Task<MenuEntity[]> ListAllMenusAsync()
         {
-            var coreServiceWrapper = CoreServiceWrapper.Instance;
-            var fileServiceWrapper = FileServiceWrapper.Instance;
+            var savedMenus = await FileServiceWrapper.Instance.ListFilesAsync(FileServiceWrapper.MenusDirectory).ConfigureAwait(false);
 
-            var savedMenuFiles = await fileServiceWrapper.ListFilesAsync(FileServiceWrapper.MenusDirectory).ConfigureAwait(false);
+            var menus = new List<MenuEntity>();
 
-            var menus = new List<MenuEntity>(coreServiceWrapper.ActiveUser.Menus);
-
-            foreach (var savedMenuFile in savedMenuFiles)
+            foreach (var savedMenu in savedMenus)
             {
-                var menu = await fileServiceWrapper.ReadJsonAsync<MenuEntity>(FileServiceWrapper.MenusDirectory, savedMenuFile).ConfigureAwait(false);
+                Guid menuUuid;
+
+                if (savedMenu.EndsWith(".json"))
+                {
+                    // Remove ".json".
+                    var mutableSavedMenu = savedMenu.Substring(0, savedMenu.Length - 5);
+
+                    // Remove the path.
+                    mutableSavedMenu = mutableSavedMenu.Substring(mutableSavedMenu.Length - 36);
+
+                    menuUuid = Guid.Parse(mutableSavedMenu);
+                }
+                else
+                    menuUuid = Guid.Parse(savedMenu);
+
+                var menu = await GetMenuAsync(menuUuid).ConfigureAwait(false);
 
                 menus.Add(menu);
             }
 
-            var finalMenus = menus.Distinct(this).ToArray();
-
-            coreServiceWrapper.ActiveUser.Menus.Clear();
-
-            foreach (var finalMenu in finalMenus)
-            {
-                coreServiceWrapper.ActiveUser.Menus.Add(finalMenu);
-
-                await SaveMenuAsync(finalMenu).ConfigureAwait(false);
-
-                fileServiceWrapper.AddEntity(finalMenu);
-            }
-
-            return finalMenus;
+            return menus.ToArray();
         }
 
         /// <summary>

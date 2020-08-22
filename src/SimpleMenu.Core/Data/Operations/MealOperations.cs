@@ -9,10 +9,6 @@ namespace SimpleMenu.Core.Data.Operations
 {
     public class MealOperations : IEqualityComparer<MealEntity>
     {
-        #region Fields
-        private Dictionary<Guid, MealEntity> _mealCache = new Dictionary<Guid, MealEntity>();
-        #endregion
-
         #region Public Methods
         /// <summary>
         /// Creates a new meal.
@@ -53,16 +49,10 @@ namespace SimpleMenu.Core.Data.Operations
             {
                 await fileServiceWrapper.DeleteFileAsync(FileServiceWrapper.MealsDirectory, fileName).ConfigureAwait(false);
 
-                var coreServiceWrapper = CoreServiceWrapper.Instance;
-
-                var localMeal = coreServiceWrapper.ActiveUser.Meals.FirstOrDefault(m => m.UUID == uuid);
+                var localMeal = fileServiceWrapper.Entities.FirstOrDefault(e => e is MealEntity m && m.UUID == uuid);
 
                 if (localMeal != null)
-                {
-                    coreServiceWrapper.ActiveUser.Meals.Remove(localMeal);
-
                     fileServiceWrapper.RemoveEntity(localMeal);
-                }
             }
         }
 
@@ -72,14 +62,14 @@ namespace SimpleMenu.Core.Data.Operations
         /// <param name="mealUuid">The UUID of the meal.</param>
         public async ValueTask<MealEntity> GetMealAsync(Guid mealUuid)
         {
-            if (_mealCache.TryGetValue(mealUuid, out MealEntity meal))
+            var fileServiceWrapper = FileServiceWrapper.Instance;
+
+            if (fileServiceWrapper.Entities.FirstOrDefault(e => e is MealEntity m && m.UUID == mealUuid) is MealEntity meal)
                 return meal;
 
             meal = await FileServiceWrapper.Instance.ReadJsonAsync<MealEntity>(FileServiceWrapper.MealsDirectory, mealUuid.ToString()).ConfigureAwait(false);
 
             FileServiceWrapper.Instance.AddEntity(meal);
-
-            _mealCache[mealUuid] = meal;
 
             return meal;
         }
