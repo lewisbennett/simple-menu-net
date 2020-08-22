@@ -58,7 +58,16 @@ namespace SimpleMenu.Core.ViewModels.List
         {
             base.OnItemClicked(item);
 
-            // Navigate to choose menu meal view model to replace meal.
+            var config = new ActionSheetBottomConfig
+            {
+                Title = Resources.TitleChooseAction,
+                CancelButtonText = Resources.ActionCancel
+            };
+
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintSwapMeal, ClickAction = () => ReplaceItem(item) });
+            config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintRemoveMeal, ClickAction = () => Data.Remove(item) });
+
+            MessagingService.Instance.ActionSheetBottom(config);
         }
 
         private void RegenerateMenuButton_Click()
@@ -179,6 +188,17 @@ namespace SimpleMenu.Core.ViewModels.List
             }
 
             InvokeOnMainThread(() => Data.AddRange(selectedMeals));
+        }
+
+        private void ReplaceItem(MenuMealModel item)
+        {
+            _navigationService.Navigate<SelectMealListViewModel, SelectMealListViewModelNavigationParams>(new SelectMealListViewModelNavigationParams
+            {
+                MealSelectedCallback = (meal) =>
+                {
+                    item.Entity = meal;
+                }
+            });
         }
         #endregion
     }

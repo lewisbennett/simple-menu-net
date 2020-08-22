@@ -403,6 +403,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove meal.
+        /// </summary>
+        public static string HintRemoveMeal {
+            get {
+                return ResourceManager.GetString("HintRemoveMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search for picture.
         /// </summary>
         public static string HintSearchForPicture {
@@ -417,6 +426,15 @@ namespace SimpleMenu.Core.Properties {
         public static string HintStartFromScratch {
             get {
                 return ResourceManager.GetString("HintStartFromScratch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swap meal.
+        /// </summary>
+        public static string HintSwapMeal {
+            get {
+                return ResourceManager.GetString("HintSwapMeal", resourceCulture);
             }
         }
         
