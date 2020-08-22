@@ -70,14 +70,16 @@ namespace SimpleMenu.Core.ViewModels.List
             if (Data.Count > 0)
                 Data.Clear();
 
-            if (Dates != null && Dates.Length > 0)
-                base.LoadInitialPage();
+            base.LoadInitialPage();
         }
         #endregion
 
         #region Protected Methods
         protected override async Task LoadInitialPageAsync()
         {
+            if (Dates == null || Dates.Length < 1)
+                return;
+
             var coreServiceWrapper = CoreServiceWrapper.Instance;
 
             var meals = await MealOperations.Instance.ListAllMealsAsync().ConfigureAwait(false);
