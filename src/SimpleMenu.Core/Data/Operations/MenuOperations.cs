@@ -15,7 +15,7 @@ namespace SimpleMenu.Core.Data.Operations
         /// </summary>
         /// <param name="name">The name of the menu.</param>
         /// <param name="meals">The dates and meals for the menu.</param>
-        public async Task<MenuEntity> CreateMealAsync(string name, Dictionary<DateTime, Guid> meals)
+        public async Task<MenuEntity> CreateMenuAsync(string name, params MenuMealEntity[] meals)
         {
             var menu = new MenuEntity
             {
@@ -35,7 +35,7 @@ namespace SimpleMenu.Core.Data.Operations
         /// Deletes a menu.
         /// </summary>
         /// <param name="uuid">The UUID of the menu to delete.</param>
-        public async Task DeleteMealAsync(Guid uuid)
+        public async Task DeleteMenuAsync(Guid uuid)
         {
             var fileServiceWrapper = FileServiceWrapper.Instance;
 
@@ -65,7 +65,7 @@ namespace SimpleMenu.Core.Data.Operations
             if (fileServiceWrapper.Entities.FirstOrDefault(e => e is MenuEntity m && m.UUID == menuUuid) is MenuEntity menu)
                 return menu;
 
-            menu = await FileServiceWrapper.Instance.ReadJsonAsync<MenuEntity>(FileServiceWrapper.MealsDirectory, menuUuid.ToString()).ConfigureAwait(false);
+            menu = await FileServiceWrapper.Instance.ReadJsonAsync<MenuEntity>(FileServiceWrapper.MenusDirectory, menuUuid.ToString()).ConfigureAwait(false);
 
             FileServiceWrapper.Instance.AddEntity(menu);
 
@@ -111,7 +111,7 @@ namespace SimpleMenu.Core.Data.Operations
         /// </summary>
         /// <param name="menu">The menu to save.</param>
         public Task SaveMenuAsync(MenuEntity menu)
-            => FileServiceWrapper.Instance.SaveJsonAsync(FileServiceWrapper.MealsDirectory, menu.UUID.ToString(), menu);
+            => FileServiceWrapper.Instance.SaveJsonAsync(FileServiceWrapper.MenusDirectory, menu.UUID.ToString(), menu);
         #endregion
 
         #region Equality Methods

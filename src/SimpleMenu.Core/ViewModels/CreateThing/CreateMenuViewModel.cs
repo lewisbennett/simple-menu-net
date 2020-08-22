@@ -1,4 +1,8 @@
-﻿using MvvmCross;
+﻿using DialogMessaging;
+using MvvmCross;
+using MvvmCross.Navigation;
+using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using SimpleMenu.Core.ViewModels.List;
@@ -18,6 +22,10 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
 
     public class CreateMenuViewModel : CreateThingBaseViewModel<CreateMenuViewModelNavigationParams>
     {
+        #region Fields
+        private readonly IMvxNavigationService _navigationService;
+        #endregion
+
         #region Properties
         /// <summary>
         /// Gets the enter name view model.
@@ -61,8 +69,23 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         /// <summary>
         /// Creates the thing and closes this view model.
         /// </summary>
-        public override void CreateThingAndClose()
+        public override async void CreateThingAndClose()
         {
+            var messagingService = MessagingService.Instance;
+
+            if (string.IsNullOrWhiteSpace(EnterNameViewModel.Name))
+            {
+                messagingService.Snackbar(Resources.ErrorEmptyMealName);
+                return;
+            }
+
+            var meals = MenuMealListViewModel.Data.Select(d => new MenuMealEntity { DateTime = MenuMealListViewModel.Dates[d.Index], MealUUID = d.Entity.UUID }).ToArray();
+
+            await messagingService.ShowLoadingAsync(Resources.MessagingCreatingMenu, MenuOperations.Instance.CreateMenuAsync(EnterNameViewModel.Name, meals)).ConfigureAwait(false);
+
+            await _navigationService.Close(this).ConfigureAwait(false);
+            
+            messagingService.Toast(Resources.MessageCreateMenuSuccess);
         }
         #endregion
 
@@ -101,6 +124,14 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
 
             if (parameter.Days > 0)
                 MenuMealListViewModel.GenerateRandomMenu(parameter.Days);
+        }
+        #endregion
+
+        #region Constructors
+        public CreateMenuViewModel(IMvxNavigationService navigationService)
+            : base()
+        {
+            _navigationService = navigationService;
         }
         #endregion
     }

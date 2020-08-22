@@ -270,6 +270,9 @@
   <data name="MessageCreateMealSuccess" xml:space="preserve">
     <value>Meal added successfully.</value>
   </data>
+  <data name="MessageCreateMenuSuccess" xml:space="preserve">
+    <value>Menu created successfully.</value>
+  </data>
   <data name="MessageDelicious" xml:space="preserve">
     <value>Delicious!</value>
   </data>
@@ -294,8 +297,17 @@
   <data name="MessageNotEnoughMeals" xml:space="preserve">
     <value>You haven't added enough meals yet to create a menu. At least 2 meals are required.</value>
   </data>
+  <data name="MessageTodaysMeal" xml:space="preserve">
+    <value>Today: {0}.</value>
+  </data>
+  <data name="MessageTomorrowsMeal" xml:space="preserve">
+    <value>Tomorrow: {0}.</value>
+  </data>
   <data name="MessagingCreatingMeal" xml:space="preserve">
     <value>Creating meal...</value>
+  </data>
+  <data name="MessagingCreatingMenu" xml:space="preserve">
+    <value>Creating menu...</value>
   </data>
   <data name="MessagingDeletingMeal" xml:space="preserve">
     <value>Deleting meal...</value>

@@ -1,7 +1,6 @@
 ﻿using SimpleMenu.Core.Data.Entities.Base;
 using SimpleMenu.Core.Data.Operations;
 using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -10,17 +9,28 @@ namespace SimpleMenu.Core.Data.Entities
     public class MenuEntity : BaseEntity
     {
         #region Fields
-        private Dictionary<DateTime, Guid> _meals;
+        private int _index;
+        private MenuMealEntity[] _meals;
         private string _name;
         private Guid _uuid;
         #endregion
 
         #region Properties
         /// <summary>
-        /// Gets or sets the meals in this menu.
+        /// Gets or sets the index of this menu.
+        /// </summary>
+        public int Index
+        {
+            get => _index;
+
+            set => SetProperty(ref _index, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the meals for this menu.
         /// </summary>
         [JsonPropertyName("meals")]
-        public Dictionary<DateTime, Guid> Meals
+        public MenuMealEntity[] Meals
         {
             get => _meals;
 

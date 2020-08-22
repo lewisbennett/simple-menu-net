@@ -17,7 +17,7 @@
 			android:layout_marginBottom="20dp">
 			<ImageView
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="200dp"
 				android:scaleType="centerCrop"
 				android:adjustViewBounds="true"
 				app:MvxBind="Bitmap InMemoryImage(Image)" />
@@ -29,12 +29,22 @@
 				app:MvxBind="Visibility Visibility(ShowLoading)" />
 		</RelativeLayout>
 		<TextView
+			style="@style/AppTheme.Widgets.TextHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_marginBottom="20dp"
+			android:textSize="18sp"
+			android:textAlignment="center"
+			app:MvxBind="Text Title" />
+		<TextView
 			style="@style/AppTheme.Widgets.TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 			android:layout_marginLeft="20dp"
 			android:layout_marginRight="20dp"
-			app:MvxBind="Text Title" />
+			app:MvxBind="Text Subtitle" />
 		<TextView
 			style="@style/AppTheme.Widgets.TextSubtitle"
             android:layout_width="match_parent"

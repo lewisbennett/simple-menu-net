@@ -520,6 +520,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Menu created successfully..
+        /// </summary>
+        public static string MessageCreateMenuSuccess {
+            get {
+                return ResourceManager.GetString("MessageCreateMenuSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delicious!.
         /// </summary>
         public static string MessageDelicious {
@@ -592,11 +601,38 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Today: {0}..
+        /// </summary>
+        public static string MessageTodaysMeal {
+            get {
+                return ResourceManager.GetString("MessageTodaysMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tomorrow: {0}..
+        /// </summary>
+        public static string MessageTomorrowsMeal {
+            get {
+                return ResourceManager.GetString("MessageTomorrowsMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating meal....
         /// </summary>
         public static string MessagingCreatingMeal {
             get {
                 return ResourceManager.GetString("MessagingCreatingMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating menu....
+        /// </summary>
+        public static string MessagingCreatingMenu {
+            get {
+                return ResourceManager.GetString("MessagingCreatingMenu", resourceCulture);
             }
         }
         

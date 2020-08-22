@@ -14825,46 +14825,49 @@ namespace SimpleMenu.Droid
 			public const int item_meal = 2131427388;
 			
 			// aapt resource value: 0x7F0B003D
-			public const int item_menu_meal = 2131427389;
+			public const int item_menu = 2131427389;
 			
 			// aapt resource value: 0x7F0B003E
-			public const int item_web_image = 2131427390;
+			public const int item_menu_meal = 2131427390;
 			
 			// aapt resource value: 0x7F0B003F
-			public const int mtrl_layout_snackbar = 2131427391;
+			public const int item_web_image = 2131427391;
 			
 			// aapt resource value: 0x7F0B0040
-			public const int mtrl_layout_snackbar_include = 2131427392;
+			public const int mtrl_layout_snackbar = 2131427392;
 			
 			// aapt resource value: 0x7F0B0041
-			public const int notification_action = 2131427393;
+			public const int mtrl_layout_snackbar_include = 2131427393;
 			
 			// aapt resource value: 0x7F0B0042
-			public const int notification_action_tombstone = 2131427394;
+			public const int notification_action = 2131427394;
 			
 			// aapt resource value: 0x7F0B0043
-			public const int notification_template_custom_big = 2131427395;
+			public const int notification_action_tombstone = 2131427395;
 			
 			// aapt resource value: 0x7F0B0044
-			public const int notification_template_icon_group = 2131427396;
+			public const int notification_template_custom_big = 2131427396;
 			
 			// aapt resource value: 0x7F0B0045
-			public const int notification_template_part_chronometer = 2131427397;
+			public const int notification_template_icon_group = 2131427397;
 			
 			// aapt resource value: 0x7F0B0046
-			public const int notification_template_part_time = 2131427398;
+			public const int notification_template_part_chronometer = 2131427398;
 			
 			// aapt resource value: 0x7F0B0047
-			public const int select_dialog_item_material = 2131427399;
+			public const int notification_template_part_time = 2131427399;
 			
 			// aapt resource value: 0x7F0B0048
-			public const int select_dialog_multichoice_material = 2131427400;
+			public const int select_dialog_item_material = 2131427400;
 			
 			// aapt resource value: 0x7F0B0049
-			public const int select_dialog_singlechoice_material = 2131427401;
+			public const int select_dialog_multichoice_material = 2131427401;
 			
 			// aapt resource value: 0x7F0B004A
-			public const int support_simple_spinner_dropdown_item = 2131427402;
+			public const int select_dialog_singlechoice_material = 2131427402;
+			
+			// aapt resource value: 0x7F0B004B
+			public const int support_simple_spinner_dropdown_item = 2131427403;
 			
 			static Layout()
 			{
