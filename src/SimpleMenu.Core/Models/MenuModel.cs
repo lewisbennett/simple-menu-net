@@ -81,6 +81,14 @@ namespace SimpleMenu.Core.Models
         }
         #endregion
 
+        #region Constructors
+        public MenuModel()
+            : base()
+        {
+            Subtitle = string.Format(Resources.MessageTodaysMeal, Resources.MessagingLoading);
+        }
+        #endregion
+
         #region Private Methods
         private string CalculateTitle()
             => Entity.Name;

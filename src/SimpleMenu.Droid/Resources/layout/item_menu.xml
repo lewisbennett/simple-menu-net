@@ -8,16 +8,14 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:gravity="center_vertical"
-		android:paddingBottom="20dp">
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
 		<RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-			android:layout_marginBottom="20dp">
+            android:layout_width="100dp"
+            android:layout_height="fill_parent">
 			<ImageView
 				android:layout_width="match_parent"
-				android:layout_height="200dp"
+				android:layout_height="match_parent"
 				android:scaleType="centerCrop"
 				android:adjustViewBounds="true"
 				app:MvxBind="Bitmap InMemoryImage(Image)" />
@@ -28,29 +26,29 @@
 				android:layout_centerInParent="true"
 				app:MvxBind="Visibility Visibility(ShowLoading)" />
 		</RelativeLayout>
-		<TextView
-			style="@style/AppTheme.Widgets.TextHeader"
+		<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-			android:layout_marginLeft="20dp"
-			android:layout_marginRight="20dp"
-			android:layout_marginBottom="20dp"
-			android:textSize="18sp"
-			android:textAlignment="center"
-			app:MvxBind="Text Title" />
-		<TextView
-			style="@style/AppTheme.Widgets.TextTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-			android:layout_marginLeft="20dp"
-			android:layout_marginRight="20dp"
-			app:MvxBind="Text Subtitle" />
-		<TextView
-			style="@style/AppTheme.Widgets.TextSubtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-			android:layout_marginLeft="20dp"
-			android:layout_marginRight="20dp"
-			app:MvxBind="Text Description; Visibility Visibility(ShowDescription)" />
+			android:orientation="vertical"
+			android:gravity="center_vertical"
+			android:padding="20dp">
+			<TextView
+				style="@style/AppTheme.Widgets.TextHeader"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:textSize="18sp"
+				app:MvxBind="Text Title" />
+			<TextView
+				style="@style/AppTheme.Widgets.TextTitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:MvxBind="Text Subtitle" />
+			<TextView
+				style="@style/AppTheme.Widgets.TextSubtitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:MvxBind="Text Description; Visibility Visibility(ShowDescription)" />
+		</LinearLayout>
 	</LinearLayout>
 </android.support.v7.widget.CardView>

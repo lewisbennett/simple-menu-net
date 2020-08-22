@@ -301,10 +301,10 @@
     <value>You haven't added enough meals yet to create a menu. At least 2 meals are required.</value>
   </data>
   <data name="MessageTodaysMeal" xml:space="preserve">
-    <value>Today: {0}.</value>
+    <value>Today: {0}</value>
   </data>
   <data name="MessageTomorrowsMeal" xml:space="preserve">
-    <value>Tomorrow: {0}.</value>
+    <value>Tomorrow: {0}</value>
   </data>
   <data name="MessagingCreatingMeal" xml:space="preserve">
     <value>Creating meal...</value>

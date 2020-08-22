@@ -610,7 +610,7 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Today: {0}..
+        ///   Looks up a localized string similar to Today: {0}.
         /// </summary>
         public static string MessageTodaysMeal {
             get {
@@ -619,7 +619,7 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tomorrow: {0}..
+        ///   Looks up a localized string similar to Tomorrow: {0}.
         /// </summary>
         public static string MessageTomorrowsMeal {
             get {
