@@ -1,4 +1,5 @@
 ﻿using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Interfaces;
 using SimpleMenu.Core.Models.Base;
 using SimpleMenu.Core.Properties;
@@ -27,6 +28,11 @@ namespace SimpleMenu.Core.Models
                     Entity.Index = _index;
             }
         }
+
+        /// <summary>
+        /// Gets whether the image is currently being loaded.
+        /// </summary>
+        public bool IsLoadingImage { get; private set; }
         #endregion
 
         #region Event Handlers
@@ -37,8 +43,9 @@ namespace SimpleMenu.Core.Models
             _index = Entity.Index;
 
             Description = CalculateDescription();
-            Image = CalculateImage();
             Title = CalculateTitle();
+
+            LoadImage();
         }
 
         protected override void OnEntityPropertyChanged(string propertyName)
@@ -48,7 +55,7 @@ namespace SimpleMenu.Core.Models
             switch (propertyName)
             {
                 case nameof(Entity.ImageUUID):
-                    Image = CalculateImage();
+                    LoadImage();
                     return;
 
                 case nameof(Entity.Name):
@@ -80,6 +87,23 @@ namespace SimpleMenu.Core.Models
         }
         #endregion
 
+        #region Public Methods
+        /// <summary>
+        /// Loads the meal's image.
+        /// </summary>
+        public async void LoadImage()
+        {
+            if (IsLoadingImage)
+                return;
+
+            IsLoadingImage = ShowLoading = true;
+
+            Image = await ImageOperations.Instance.GetImageAsync(Entity.ImageUUID, 300, 300).ConfigureAwait(false);
+
+            IsLoadingImage = ShowLoading = false;
+        }
+        #endregion
+
         #region Private Methods
         private string CalculateDescription()
         {
@@ -96,11 +120,6 @@ namespace SimpleMenu.Core.Models
             var hours = string.Format(preparationTime.Hours == 1 ? Resources.HintHour : Resources.HintHours, preparationTime.Hours.ToString());
 
             return preparationTime.Minutes > 0 ? $"{hours}, {minutes}." : $"{hours}.";
-        }
-
-        private byte[] CalculateImage()
-        {
-            return Entity.GetImage();
         }
 
         private string CalculateTitle()

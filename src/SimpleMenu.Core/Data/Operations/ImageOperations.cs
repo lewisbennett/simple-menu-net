@@ -1,9 +1,11 @@
 ﻿using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Services.Wrappers;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.Processing;
 using SkiaSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,7 +19,51 @@ namespace SimpleMenu.Core.Data.Operations
 {
     public class ImageOperations
     {
+        #region Fields
+        private readonly Dictionary<string, byte[]> _imageCache = new Dictionary<string, byte[]>();
+        #endregion
+
         #region Public Methods
+        /// <summary>
+        /// Gets an image.
+        /// </summary>
+        /// <param name="imageUuid">The UUID of the image to get.</param>
+        public async ValueTask<byte[]> GetImageAsync(Guid imageUuid)
+        {
+            var imageCacheName = $"{imageUuid}";
+
+            if (_imageCache.TryGetValue(imageCacheName, out byte[] image))
+                return image;
+
+            image = await FileServiceWrapper.Instance.ReadImageAsync(FileServiceWrapper.ImagesDirectory, imageUuid.ToString()).ConfigureAwait(false);
+
+            _imageCache[imageCacheName] = image;
+
+            return image;
+        }
+
+        /// <summary>
+        /// Gets an image.
+        /// </summary>
+        /// <param name="imageUuid">The UUID of the image to get.</param>
+        /// <param name="maxWidth">The maximum width of the image.</param>
+        /// <param name="maxHeight">The maximum height of the image.</param>
+        public async ValueTask<byte[]> GetImageAsync(Guid imageUuid, int maxWidth, int maxHeight)
+        {
+            var imageCacheName = $"{imageUuid}_{maxWidth}_{maxHeight}";
+
+            if (_imageCache.TryGetValue(imageCacheName, out byte[] image))
+                return image;
+
+            image = await GetImageAsync(imageUuid).ConfigureAwait(false);
+
+            image = ParseImage(".jpg", image, maxWidth, maxHeight);
+
+            _imageCache[imageCacheName] = image;
+
+            return image;
+        }
+
         /// <summary>
         /// Gets an image as a byte array from a web address.
         /// </summary>

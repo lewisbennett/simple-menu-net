@@ -11,13 +11,22 @@
 		android:orientation="vertical"
 		android:gravity="center_vertical"
 		android:paddingBottom="20dp">
-		<ImageView
+		<RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-			android:layout_marginBottom="20dp"
-			android:scaleType="centerCrop"
-			android:adjustViewBounds="true"
-			app:MvxBind="Bitmap InMemoryImage(Image)" />
+            android:layout_height="200dp">
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginBottom="20dp"
+				android:scaleType="centerCrop"
+				android:adjustViewBounds="true"
+				app:MvxBind="Bitmap InMemoryImage(Image)" />
+			<ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				app:MvxBind="Visibility Visibility(ShowLoading)" />
+		</RelativeLayout>
 		<TextView
 			style="@style/AppTheme.Widgets.TextTitle"
             android:layout_width="match_parent"

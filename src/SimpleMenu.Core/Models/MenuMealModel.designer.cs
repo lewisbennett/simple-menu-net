@@ -5,7 +5,7 @@
         #region Fields
         private string _dateTitle, _description, _title;
         private byte[] _image;
-        private bool _showDescription;
+        private bool _showDescription, _showLoading;
         #endregion
 
         #region Properties
@@ -35,6 +35,13 @@
             get => _showDescription;
 
             set => SetProperty(ref _showDescription, value);
+        }
+
+        public bool ShowLoading
+        {
+            get => _showLoading;
+
+            set => SetProperty(ref _showLoading, value);
         }
 
         public string Title

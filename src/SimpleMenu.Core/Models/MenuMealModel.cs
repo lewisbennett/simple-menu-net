@@ -1,4 +1,5 @@
 ﻿using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Interfaces;
 using SimpleMenu.Core.Models.Base;
 using System;
@@ -26,6 +27,11 @@ namespace SimpleMenu.Core.Models
                 Recalculate();
             }
         }
+
+        /// <summary>
+        /// Gets whether the image is currently being loaded.
+        /// </summary>
+        public bool IsLoadingImage { get; private set; }
         #endregion
 
         #region Event Handlers
@@ -34,8 +40,28 @@ namespace SimpleMenu.Core.Models
             base.OnEntityChanged();
 
             Description = CalculateDescription();
-            Image = CalculateImage();
             Title = CalculateTitle();
+
+            LoadImage();
+        }
+
+        protected override void OnEntityPropertyChanged(string propertyName)
+        {
+            base.OnEntityPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(Entity.ImageUUID):
+                    LoadImage();
+                    return;
+
+                case nameof(Entity.Name):
+                    Title = CalculateTitle();
+                    return;
+
+                default:
+                    return;
+            }
         }
 
         protected override void OnPropertyChanged(string propertyName)
@@ -54,6 +80,23 @@ namespace SimpleMenu.Core.Models
         }
         #endregion
 
+        #region Public Methods
+        /// <summary>
+        /// Loads the meal's image.
+        /// </summary>
+        public async void LoadImage()
+        {
+            if (IsLoadingImage)
+                return;
+
+            IsLoadingImage = ShowLoading = true;
+
+            Image = await ImageOperations.Instance.GetImageAsync(Entity.ImageUUID, 300, 300).ConfigureAwait(false);
+
+            IsLoadingImage = ShowLoading = false;
+        }
+        #endregion
+
         #region Constructors
         public MenuMealModel(DateTime[] dates)
             : base()
@@ -65,9 +108,6 @@ namespace SimpleMenu.Core.Models
         #region Private Methods
         private string CalculateDescription()
             => null;
-
-        private byte[] CalculateImage()
-            => Entity.GetImage();
 
         private string CalculateTitle()
             => Entity.Name;

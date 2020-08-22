@@ -1,6 +1,5 @@
 ﻿using SimpleMenu.Core.Data.Entities.Base;
 using SimpleMenu.Core.Data.Operations;
-using SimpleMenu.Core.Services.Wrappers;
 using System;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -84,18 +83,6 @@ namespace SimpleMenu.Core.Data.Entities
         #endregion
 
         #region Public Methods
-        /// <summary>
-        /// Gets this meal's image.
-        /// </summary>
-        public byte[] GetImage()
-            => FileServiceWrapper.Instance.ReadImage(FileServiceWrapper.ImagesDirectory, ImageUUID.ToString());
-
-        /// <summary>
-        /// Gets this meal's image.
-        /// </summary>
-        public Task<byte[]> GetImageAsync()
-            => FileServiceWrapper.Instance.ReadImageAsync(FileServiceWrapper.ImagesDirectory, ImageUUID.ToString());
-
         /// <summary>
         /// Gets the preparation time as a <see cref="TimeSpan" />.
         /// </summary>
