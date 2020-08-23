@@ -40,7 +40,7 @@ namespace SimpleMenu.Droid.Fragments.List
 
         #region Protected Methods
         protected override RecyclerView.LayoutManager CreateLayoutManager()
-            => new StaggeredGridLayoutManager(DimensionHelper.StaggeredViewHorizontalCount, StaggeredGridLayoutManager.Vertical);
+            => new GridLayoutManager(Context, DimensionHelper.ListViewHorizontalCount);
         #endregion
 
         #region Lifecycle
