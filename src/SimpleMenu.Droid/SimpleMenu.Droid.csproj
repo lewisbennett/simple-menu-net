@@ -88,6 +88,7 @@
     <Compile Include="Fragments\List\MenuListFragment.cs" />
     <Compile Include="Fragments\List\MenuMealListFragment.cs" />
     <Compile Include="Fragments\List\SettingsListFragment.cs" />
+    <Compile Include="Fragments\SelectTimeOfDayFragment.cs" />
     <Compile Include="Fragments\TemperatureCalculatorFragment.cs" />
     <Compile Include="Fragments\VolumeCalculatorFragment.cs" />
     <Compile Include="Fragments\WeightCalculatorFragment.cs" />
@@ -375,6 +376,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_brightness_3.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\frag_select_time_of_day.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_spinner.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_spinner_drop_down.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

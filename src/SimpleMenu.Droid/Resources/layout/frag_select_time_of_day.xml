@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:MvxBind="Visibility Visibility(!ShowLoading)">
+        <TextView
+            style="@style/AppTheme.Widgets.TextHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:MvxBind="Text Title" />
+        <MvvmCross.Platforms.Android.Binding.Views.MvxSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:MvxItemTemplate="@layout/item_spinner"
+		    app:MvxDropDownItemTemplate="@layout/item_spinner_drop_down"
+            app:MvxBind="ItemsSource TimesOfDay; SelectedItem SelectedTimeOfDay" />
+        <TextView
+            style="@style/AppTheme.Widgets.TextSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:MvxBind="Text ChangeInSettingsHint" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:MvxBind="Visibility Visibility(ShowLoading)">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:MvxBind="Visibility Visibility(ShowLoading)" />
+        <TextView
+            style="@style/AppTheme.Widgets.TextTitleInactive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:MvxBind="Text LoadingHint" />
+    </LinearLayout>
+</RelativeLayout>

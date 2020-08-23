@@ -493,6 +493,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This can be configured in settings..
+        /// </summary>
+        public static string MessageChangeInSettings {
+            get {
+                return ResourceManager.GetString("MessageChangeInSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure your menu..
         /// </summary>
         public static string MessageConfigureMenu {
@@ -624,6 +633,15 @@ namespace SimpleMenu.Core.Properties {
         public static string MessageNotEnoughMeals {
             get {
                 return ResourceManager.GetString("MessageNotEnoughMeals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a time of day for the menu..
+        /// </summary>
+        public static string MessageSelectMenuTimeOfDay {
+            get {
+                return ResourceManager.GetString("MessageSelectMenuTimeOfDay", resourceCulture);
             }
         }
         
@@ -975,6 +993,15 @@ namespace SimpleMenu.Core.Properties {
         public static string TitleWeightCalculator {
             get {
                 return ResourceManager.GetString("TitleWeightCalculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://api.qwant.com/api/search/images?count={imageCount}&amp;q={searchCriteria}&amp;t=images&amp;safesearch=0&amp;locale=en_US&amp;uiv=4.
+        /// </summary>
+        public static string UrlImageSearch {
+            get {
+                return ResourceManager.GetString("UrlImageSearch", resourceCulture);
             }
         }
     }

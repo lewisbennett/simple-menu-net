@@ -21,6 +21,10 @@ namespace SimpleMenu.Droid.Activities.CreateThing
         {
             return new V4_Fragment[]
             {
+                new SelectTimeOfDayFragment
+                {
+                    ViewModel = ViewModel.SelectTimeOfDayViewModel
+                },
                 new MenuMealListFragment
                 {
                     ViewModel = ViewModel.MenuMealListViewModel

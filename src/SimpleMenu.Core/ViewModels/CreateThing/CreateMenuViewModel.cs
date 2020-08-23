@@ -1,4 +1,5 @@
 ﻿using DialogMessaging;
+using DialogMessaging.Interactions;
 using MvvmCross;
 using MvvmCross.Navigation;
 using SimpleMenu.Core.Data.Entities;
@@ -6,22 +7,13 @@ using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using SimpleMenu.Core.ViewModels.List;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.ViewModels.CreateThing
 {
-    public class CreateMenuViewModelNavigationParams
-    {
-        #region Properties
-        /// <summary>
-        /// Gets or sets the number of days to create a menu for.
-        /// </summary>
-        public int Days { get; set; }
-        #endregion
-    }
-
-    public class CreateMenuViewModel : CreateThingBaseViewModel<CreateMenuViewModelNavigationParams>
+    public class CreateMenuViewModel : CreateThingBaseViewModel
     {
         #region Fields
         private readonly IMvxNavigationService _navigationService;
@@ -37,12 +29,39 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         /// Gets the menu meal list view model.
         /// </summary>
         public MenuMealListViewModel MenuMealListViewModel { get; } = Mvx.IoCProvider.IoCConstruct<MenuMealListViewModel>();
+
+        /// <summary>
+        /// Gets the select time of day view model.
+        /// </summary>
+        public SelectTimeOfDayViewModel SelectTimeOfDayViewModel { get; } = Mvx.IoCProvider.IoCConstruct<SelectTimeOfDayViewModel>();
         #endregion
 
         #region Event Handlers
         protected override void OnNextButtonClicked()
         {
-            if (CurrentStep == MenuMealListViewModel)
+            if (CurrentStep == SelectTimeOfDayViewModel && MenuMealListViewModel.Data.Count < 1)
+            {
+                var config = new ActionSheetBottomConfig
+                {
+                    Title = Resources.TitleChooseDateRange,
+                    CancelButtonText = Resources.ActionCancel,
+                    ItemClickAction = (item) =>
+                    {
+                        MenuMealListViewModel.GenerateRandomMenu(item.Data is int days ? days : 0);
+
+                        base.OnNextButtonClicked();
+                    }
+                };
+
+                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintNextFiveDays, Data = 5 });
+                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintNextSevenDays, Data = 7 });
+                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintStartFromScratch, Data = 0 });
+
+                MessagingService.Instance.ActionSheetBottom(config);
+
+                return;
+            }
+            else if (CurrentStep == MenuMealListViewModel)
             {
                 var startDate = MenuMealListViewModel.Dates.First();
                 var finishDate = MenuMealListViewModel.Dates.Last();
@@ -64,9 +83,35 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
 
             base.OnNextButtonClicked();
         }
+
+        private void SelectTimeOfDayViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(SelectTimeOfDayViewModel.SelectedTimeOfDay):
+
+                    if (SelectTimeOfDayViewModel.SelectedTimeOfDay.Data is TimeOfDayEntity timeOfDay)
+                        MenuMealListViewModel.TimeOfDay = timeOfDay;
+
+                    return;
+
+                default:
+                    return;
+            }
+        }
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Adds the event handlers for this ViewModel.
+        /// </summary>
+        public override void AddEventHandlers()
+        {
+            base.AddEventHandlers();
+
+            SelectTimeOfDayViewModel.PropertyChanged += SelectTimeOfDayViewModel_PropertyChanged;
+        }
+
         /// <summary>
         /// Creates the thing and closes this view model.
         /// </summary>
@@ -88,6 +133,16 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
             
             messagingService.Toast(Resources.MessageCreateMenuSuccess);
         }
+
+        /// <summary>
+        /// Removes the event handlers from this ViewModel.
+        /// </summary>
+        public override void RemoveEventHandlers()
+        {
+            base.RemoveEventHandlers();
+
+            SelectTimeOfDayViewModel.PropertyChanged -= SelectTimeOfDayViewModel_PropertyChanged;
+        }
         #endregion
 
         #region Protected Methods
@@ -95,6 +150,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
         {
             return new ICreateThingStepViewModel[]
             {
+                SelectTimeOfDayViewModel,
                 MenuMealListViewModel,
                 EnterNameViewModel
             };
@@ -108,6 +164,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
 
             EnterNameViewModel.Prepare();
             MenuMealListViewModel.Prepare();
+            SelectTimeOfDayViewModel.Prepare();
 
             EnterNameViewModel.Prepare(new EnterNameViewModelNavigationParams
             {
@@ -117,14 +174,6 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
 
             ShowNextButton = true;
             Title = Resources.TitleCreateMenu;
-        }
-
-        public override void Prepare(CreateMenuViewModelNavigationParams parameter)
-        {
-            base.Prepare(parameter);
-
-            if (parameter.Days > 0)
-                MenuMealListViewModel.GenerateRandomMenu(parameter.Days);
         }
         #endregion
 

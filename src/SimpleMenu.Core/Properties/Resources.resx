@@ -261,6 +261,9 @@
   <data name="MessageAddMealPicture" xml:space="preserve">
     <value>Add a picture of your meal.</value>
   </data>
+  <data name="MessageChangeInSettings" xml:space="preserve">
+    <value>This can be configured in settings.</value>
+  </data>
   <data name="MessageConfigureMenu" xml:space="preserve">
     <value>Configure your menu.</value>
   </data>
@@ -305,6 +308,9 @@
   </data>
   <data name="MessageNotEnoughMeals" xml:space="preserve">
     <value>You haven't added enough meals yet to create a menu. At least 2 meals are required.</value>
+  </data>
+  <data name="MessageSelectMenuTimeOfDay" xml:space="preserve">
+    <value>Choose a time of day for the menu.</value>
   </data>
   <data name="MessageTodaysMeal" xml:space="preserve">
     <value>Today: {0}</value>
@@ -422,5 +428,8 @@
   </data>
   <data name="TitleWeightCalculator" xml:space="preserve">
     <value>Weight Calculator</value>
+  </data>
+  <data name="UrlImageSearch" xml:space="preserve">
+    <value>https://api.qwant.com/api/search/images?count={imageCount}&amp;q={searchCriteria}&amp;t=images&amp;safesearch=0&amp;locale=en_US&amp;uiv=4</value>
   </data>
 </root>

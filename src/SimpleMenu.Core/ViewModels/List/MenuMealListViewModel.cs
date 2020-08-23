@@ -21,6 +21,7 @@ namespace SimpleMenu.Core.ViewModels.List
         #region Fields
         private DateTime[] _dates;
         private readonly IMvxNavigationService _navigationService;
+        private TimeOfDayEntity _timeOfDay;
         #endregion
 
         #region Properties
@@ -37,6 +38,25 @@ namespace SimpleMenu.Core.ViewModels.List
 
                 foreach (var item in Data)
                     item.Dates = _dates;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the time of day for the menu.
+        /// </summary>
+        public TimeOfDayEntity TimeOfDay
+        {
+            get => _timeOfDay;
+
+            set
+            {
+                if (_timeOfDay != value)
+                {
+                    _timeOfDay = value;
+
+                    if (Data.Count > 0)
+                        Data.Clear();
+                }
             }
         }
         #endregion

@@ -1,4 +1,5 @@
 ﻿using SimpleMenu.Core.Data.Entities;
+using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.Services.Wrappers;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
@@ -96,10 +97,7 @@ namespace SimpleMenu.Core.Data.Operations
         {
             using var httpClient = new HttpClient();
 
-            var locale = "en_US";
-            var safeSearch = 1;
-
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.qwant.com/api/search/images?count={imageCount}&q={searchCriteria}&t=images&safesearch={safeSearch}&locale={locale}&uiv=4");
+            var request = new HttpRequestMessage(HttpMethod.Get, string.Format(Resources.UrlImageSearch, imageCount, searchCriteria));
 
             var response = await httpClient.SendAsync(request).ConfigureAwait(false);
 
