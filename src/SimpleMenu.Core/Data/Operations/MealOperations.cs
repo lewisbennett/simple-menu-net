@@ -43,17 +43,21 @@ namespace SimpleMenu.Core.Data.Operations
 
             var fileName = $"{uuid}.json";
 
-            var doesExist = await fileServiceWrapper.DoesExistAsync(FileServiceWrapper.MealsDirectory, fileName).ConfigureAwait(false);
+            var doesFileExist = await fileServiceWrapper.DoesExistAsync(FileServiceWrapper.MealsDirectory, fileName).ConfigureAwait(false);
 
-            if (doesExist)
-            {
+            if (doesFileExist)
                 await fileServiceWrapper.DeleteFileAsync(FileServiceWrapper.MealsDirectory, fileName).ConfigureAwait(false);
 
-                var localMeal = fileServiceWrapper.Entities.FirstOrDefault(e => e is MealEntity m && m.UUID == uuid);
+            var localMeal = fileServiceWrapper.Entities.FirstOrDefault(e => e is MealEntity m && m.UUID == uuid);
 
-                if (localMeal != null)
-                    fileServiceWrapper.RemoveEntity(localMeal);
-            }
+            if (localMeal != null)
+                fileServiceWrapper.RemoveEntity(localMeal);
+
+            // Delete the menus that the meal was a part of.
+            var menus = fileServiceWrapper.Entities.Where(e => e is MenuEntity m && m.Meals.Any(me => me.MealUUID == uuid)).Cast<MenuEntity>().ToList();
+
+            foreach (var menu in menus)
+                await MenuOperations.Instance.DeleteMenuAsync(menu.UUID).ConfigureAwait(false);
         }
 
         /// <summary>

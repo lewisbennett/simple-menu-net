@@ -267,6 +267,12 @@
   <data name="MessageConfirmDeleteMeal" xml:space="preserve">
     <value>Are you sure that you would like to delete this meal? This action cannot be undone.</value>
   </data>
+  <data name="MessageConfirmDeleteMealMenu" xml:space="preserve">
+    <value>Are you sure that you would like to delete this meal? This action cannot be undone. {0} menu will also be deleted.</value>
+  </data>
+  <data name="MessageConfirmDeleteMealMenus" xml:space="preserve">
+    <value>Are you sure that you would like to delete this meal? This action cannot be undone. {0} menus will also be deleted.</value>
+  </data>
   <data name="MessageConfirmDeleteMenu" xml:space="preserve">
     <value>Are you sure that you would like to delete this menu? This action cannot be undone.</value>
   </data>

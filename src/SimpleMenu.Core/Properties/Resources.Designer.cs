@@ -511,6 +511,24 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you would like to delete this meal? This action cannot be undone. {0} menu will also be deleted..
+        /// </summary>
+        public static string MessageConfirmDeleteMealMenu {
+            get {
+                return ResourceManager.GetString("MessageConfirmDeleteMealMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you would like to delete this meal? This action cannot be undone. {0} menus will also be deleted..
+        /// </summary>
+        public static string MessageConfirmDeleteMealMenus {
+            get {
+                return ResourceManager.GetString("MessageConfirmDeleteMealMenus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure that you would like to delete this menu? This action cannot be undone..
         /// </summary>
         public static string MessageConfirmDeleteMenu {

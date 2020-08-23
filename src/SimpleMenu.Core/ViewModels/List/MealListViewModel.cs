@@ -6,6 +6,7 @@ using SimpleMenu.Core.Data.Entities;
 using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
+using SimpleMenu.Core.Services.Wrappers;
 using SimpleMenu.Core.ViewModels.CreateThing;
 using SimpleMenu.Core.ViewModels.List.Base;
 using System;
@@ -39,10 +40,21 @@ namespace SimpleMenu.Core.ViewModels.List
             base.OnItemClicked(item);
 
             // Temporary.
+
+            // Find the number of menus that will be deleted if the clicked meal is also deleted.
+            var deleteMenuCount = FileServiceWrapper.Instance.Entities.Count(e => e is MenuEntity m && m.Meals.Any(me => me.MealUUID == item.Entity.UUID));
+
+            string message;
+
+            if (deleteMenuCount > 0)
+                message = string.Format(deleteMenuCount == 1 ? Resources.MessageConfirmDeleteMealMenu : Resources.MessageConfirmDeleteMealMenus, deleteMenuCount);
+            else
+                message = Resources.MessageConfirmDeleteMeal;
+
             MessagingService.Instance.Delete(new DeleteConfig
             {
                 Title = Resources.TitleConfirmDeleteMeal,
-                Message = Resources.MessageConfirmDeleteMeal,
+                Message = message,
                 DeleteButtonText = Resources.ActionDelete,
                 CancelButtonText = Resources.ActionCancel,
                 DeleteButtonClickAction = () => DeleteMeal(item.Entity)
