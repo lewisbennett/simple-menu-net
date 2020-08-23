@@ -7,6 +7,6 @@
   <color name="text_primary">#000000</color>
   <color name="text_secondary">#C7C7C7</color>
   <color name="text_tertiary">#393939</color>
-  <color name="window_background">#FFFFFF</color>
-  <color name="window_foreground">#F7F7F7</color>
+  <color name="window_background">#F7F7F7</color>
+  <color name="window_foreground">#FFFFFF</color>
 </resources>

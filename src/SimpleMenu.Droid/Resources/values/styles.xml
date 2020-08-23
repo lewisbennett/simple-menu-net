@@ -5,11 +5,11 @@
     <item name="colorControlNormal">@color/accent</item>
     <item name="colorControlActivated">@color/accent</item>
     <item name="android:textColorHint">@android:color/darker_gray</item>
+	  <item name="colorPrimaryDark">@color/window_background</item>
   </style>
 
   <style name="AppTheme" parent="@style/AppTheme.Base">
-    <item name="android:windowLightStatusBar">true</item>
-    <item name="colorPrimaryDark">@android:color/white</item>
+	  <item name="android:windowLightStatusBar">true</item>
   </style>
 
   <style name="AppTheme.Splash" parent="AppTheme">
