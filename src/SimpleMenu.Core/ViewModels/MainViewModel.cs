@@ -23,6 +23,11 @@ namespace SimpleMenu.Core.ViewModels
         public MenuListViewModel MenuListViewModel { get; private set; }
 
         /// <summary>
+        /// Gets the settings list view model.
+        /// </summary>
+        public SettingsListViewModel SettingsListViewModel { get; private set; }
+
+        /// <summary>
         /// Gets the temperature calculator view model.
         /// </summary>
         public TemperatureCalculatorViewModel TemperatureCalculatorViewModel { get; private set; }
@@ -46,6 +51,7 @@ namespace SimpleMenu.Core.ViewModels
             IngredientsListViewModel = Mvx.IoCProvider.IoCConstruct<IngredientsListViewModel>();
             MealListViewModel = Mvx.IoCProvider.IoCConstruct<MealListViewModel>();
             MenuListViewModel = Mvx.IoCProvider.IoCConstruct<MenuListViewModel>();
+            SettingsListViewModel = Mvx.IoCProvider.IoCConstruct<SettingsListViewModel>();
             TemperatureCalculatorViewModel = Mvx.IoCProvider.IoCConstruct<TemperatureCalculatorViewModel>();
             VolumeCalculatorViewModel = Mvx.IoCProvider.IoCConstruct<VolumeCalculatorViewModel>();
             WeightCalculatorViewModel = Mvx.IoCProvider.IoCConstruct<WeightCalculatorViewModel>();
@@ -53,6 +59,7 @@ namespace SimpleMenu.Core.ViewModels
             IngredientsListViewModel.Prepare();
             MealListViewModel.Prepare();
             MenuListViewModel.Prepare();
+            SettingsListViewModel.Prepare();
             TemperatureCalculatorViewModel.Prepare();
             VolumeCalculatorViewModel.Prepare();
             WeightCalculatorViewModel.Prepare();

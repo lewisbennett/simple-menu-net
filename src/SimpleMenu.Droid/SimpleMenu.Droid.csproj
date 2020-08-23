@@ -86,6 +86,7 @@
     <Compile Include="Fragments\List\MealListFragment.cs" />
     <Compile Include="Fragments\List\MenuListFragment.cs" />
     <Compile Include="Fragments\List\MenuMealListFragment.cs" />
+    <Compile Include="Fragments\List\SettingsListFragment.cs" />
     <Compile Include="Fragments\TemperatureCalculatorFragment.cs" />
     <Compile Include="Fragments\VolumeCalculatorFragment.cs" />
     <Compile Include="Fragments\WeightCalculatorFragment.cs" />
@@ -99,7 +100,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="TargetBindings\ImageViewResourceIdTargetBinding.cs" />
     <Compile Include="TemplateSelectors\BaseModelItemTemplateSelector.cs" />
+    <Compile Include="ValueConverters\IconValueConverter.cs" />
     <Compile Include="ValueConverters\VisibilityValueConverter.cs" />
     <Compile Include="Views\ElevationMvxRecyclerView.cs" />
     <Compile Include="Views\ElevationNestedScrollView.cs" />
@@ -327,6 +330,27 @@
     <AndroidResource Include="Resources\layout\item_menu.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\frag_list_settings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_text.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_text_icon.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_device_information.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_timelapse.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

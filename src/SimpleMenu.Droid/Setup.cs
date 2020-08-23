@@ -1,10 +1,13 @@
-﻿using MvvmCross;
+﻿using Android.Widget;
+using MvvmCross;
 using MvvmCross.Binding;
+using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters;
 using SimpleMenu.Core.Services;
 using SimpleMenu.Droid.Helper;
 using SimpleMenu.Droid.Services;
+using SimpleMenu.Droid.TargetBindings;
 
 namespace SimpleMenu.Droid
 {
@@ -19,6 +22,13 @@ namespace SimpleMenu.Droid
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
             return new MvxAppCompatViewPresenter(AndroidViewAssemblies);
+        }
+
+        protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
+        {
+            base.FillTargetFactories(registry);
+
+            registry.RegisterCustomBindingFactory<ImageView>("ResourceId", (imageView) => new ImageViewResourceIdTargetBinding(imageView));
         }
 
         protected override void InitializeFirstChance()

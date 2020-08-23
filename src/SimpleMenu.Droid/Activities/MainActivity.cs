@@ -98,7 +98,8 @@ namespace SimpleMenu.Droid.Activities
                 Resource.Id.main_navigation_ingredients,
                 Resource.Id.main_navigation_temperature_calculator,
                 Resource.Id.main_navigation_volume_calculator,
-                Resource.Id.main_navigation_weight_calculator
+                Resource.Id.main_navigation_weight_calculator,
+                Resource.Id.main_navigation_settings
             };
 
             if (bundle != null)
@@ -125,6 +126,7 @@ namespace SimpleMenu.Droid.Activities
                     Resource.Id.main_navigation_temperature_calculator => new TemperatureCalculatorFragment { ViewModel = ViewModel.TemperatureCalculatorViewModel },
                     Resource.Id.main_navigation_volume_calculator => new VolumeCalculatorFragment { ViewModel = ViewModel.VolumeCalculatorViewModel },
                     Resource.Id.main_navigation_weight_calculator => new WeightCalculatorFragment { ViewModel = ViewModel.WeightCalculatorViewModel },
+                    Resource.Id.main_navigation_settings => new SettingsListFragment { ViewModel = ViewModel.SettingsListViewModel },
                     _ => null
                 };
             }

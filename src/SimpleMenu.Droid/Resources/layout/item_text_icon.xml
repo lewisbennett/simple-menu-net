@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:foreground="?android:attr/selectableItemBackground">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center_vertical"
+        app:MvxBind="ResourceId Icon(Icon)" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            style="@style/AppTheme.Widgets.TextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:MvxBind="Text Title" />
+        <TextView
+            style="@style/AppTheme.Widgets.TextSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:MvxBind="Text Description; Visibility Visibility(ShowDescription)" />
+    </LinearLayout>
+</LinearLayout>

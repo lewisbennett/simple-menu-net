@@ -16,6 +16,8 @@ namespace SimpleMenu.Droid.TemplateSelectors
                 MealModel _ => Resource.Layout.item_meal,
                 MenuMealModel _ => Resource.Layout.item_menu_meal,
                 MenuModel _ => Resource.Layout.item_menu,
+                TextIconModel _ => Resource.Layout.item_text_icon,
+                TextModel _ => Resource.Layout.item_text,
                 _ => throw new ArgumentException($"Layout not found for type: {forItemObject.GetType().Name}")
             };
         }

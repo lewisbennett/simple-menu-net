@@ -745,6 +745,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About App.
+        /// </summary>
+        public static string TitleAboutApp {
+            get {
+                return ResourceManager.GetString("TitleAboutApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Action.
         /// </summary>
         public static string TitleChooseAction {
@@ -871,6 +880,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string TitleProfile {
+            get {
+                return ResourceManager.GetString("TitleProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Meal.
         /// </summary>
         public static string TitleSelectMeal {
@@ -880,11 +898,29 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string TitleSettings {
+            get {
+                return ResourceManager.GetString("TitleSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Temperate Calculator.
         /// </summary>
         public static string TitleTemperatureCalculator {
             get {
                 return ResourceManager.GetString("TitleTemperatureCalculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Times of Day.
+        /// </summary>
+        public static string TitleTimesOfDay {
+            get {
+                return ResourceManager.GetString("TitleTimesOfDay", resourceCulture);
             }
         }
         
