@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using SimpleMenu.Core.Models;
 using SimpleMenu.Core.Properties;
@@ -9,6 +10,10 @@ namespace SimpleMenu.Core.ViewModels.List
 {
     public partial class SettingsListViewModel : BaseViewModel
     {
+        #region Fields
+        private readonly IMvxNavigationService _navigationService;
+        #endregion
+
         #region Event Handlers
         private void Item_Click(TextIconModel item)
         {
@@ -26,7 +31,7 @@ namespace SimpleMenu.Core.ViewModels.List
                     return;
 
                 case TimesOfDaySettingId:
-                    // Navigate to times of day view model.
+                    _navigationService.Navigate<TimesOfDayListViewModel>();
                     return;
 
                 default:
@@ -58,6 +63,14 @@ namespace SimpleMenu.Core.ViewModels.List
             };
 
             Title = Resources.TitleSettings;
+        }
+        #endregion
+
+        #region Constructors
+        public SettingsListViewModel(IMvxNavigationService navigationService)
+            : base()
+        {
+            _navigationService = navigationService;
         }
         #endregion
 

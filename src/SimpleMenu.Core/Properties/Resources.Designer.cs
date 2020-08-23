@@ -745,11 +745,29 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading times of day....
+        /// </summary>
+        public static string MessagingLoadingTimesOfDay {
+            get {
+                return ResourceManager.GetString("MessagingLoadingTimesOfDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About App.
         /// </summary>
         public static string TitleAboutApp {
             get {
                 return ResourceManager.GetString("TitleAboutApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breakfast.
+        /// </summary>
+        public static string TitleBreakfast {
+            get {
+                return ResourceManager.GetString("TitleBreakfast", resourceCulture);
             }
         }
         
@@ -826,6 +844,15 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dinner.
+        /// </summary>
+        public static string TitleDinner {
+            get {
+                return ResourceManager.GetString("TitleDinner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string TitleHelp {
@@ -849,6 +876,15 @@ namespace SimpleMenu.Core.Properties {
         public static string TitleIngredients {
             get {
                 return ResourceManager.GetString("TitleIngredients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lunch.
+        /// </summary>
+        public static string TitleLunch {
+            get {
+                return ResourceManager.GetString("TitleLunch", resourceCulture);
             }
         }
         

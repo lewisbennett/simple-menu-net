@@ -9,6 +9,13 @@ namespace SimpleMenu.Core.Data.Operations
 {
     public class MenuOperations : IEqualityComparer<MenuEntity>
     {
+        #region Properties
+        /// <summary>
+        /// Gets the cached menus.
+        /// </summary>
+        public MenuEntity[] MenuCache => FileServiceWrapper.Instance.Entities.Where(e => e is MenuEntity).Cast<MenuEntity>().ToArray();
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Creates a new menu.

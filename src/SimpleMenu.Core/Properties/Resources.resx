@@ -345,8 +345,14 @@
   <data name="MessagingLoadingMenus" xml:space="preserve">
     <value>Loading menus...</value>
   </data>
+  <data name="MessagingLoadingTimesOfDay" xml:space="preserve">
+    <value>Loading times of day...</value>
+  </data>
   <data name="TitleAboutApp" xml:space="preserve">
     <value>About App</value>
+  </data>
+  <data name="TitleBreakfast" xml:space="preserve">
+    <value>Breakfast</value>
   </data>
   <data name="TitleChooseAction" xml:space="preserve">
     <value>Choose Action</value>
@@ -372,6 +378,9 @@
   <data name="TitleCreateMenu" xml:space="preserve">
     <value>Create Menu</value>
   </data>
+  <data name="TitleDinner" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
   <data name="TitleHelp" xml:space="preserve">
     <value>Help</value>
   </data>
@@ -380,6 +389,9 @@
   </data>
   <data name="TitleIngredients" xml:space="preserve">
     <value>Ingredients</value>
+  </data>
+  <data name="TitleLunch" xml:space="preserve">
+    <value>Lunch</value>
   </data>
   <data name="TitleMeals" xml:space="preserve">
     <value>Meals</value>
