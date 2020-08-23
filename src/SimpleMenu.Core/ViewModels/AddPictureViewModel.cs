@@ -58,7 +58,7 @@ namespace SimpleMenu.Core.ViewModels
             config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintTakePicture, ClickAction = TakePicture });
 
             if (!string.IsNullOrWhiteSpace(ImageSearchCriteria))
-                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintSearchForPicture, ClickAction = NavigateToImageSearchViewModel });
+                config.Items.Add(new ActionSheetItemConfig { Text = Resources.HintSearchForImage, ClickAction = NavigateToImageSearchViewModel });
 
             MessagingService.Instance.ActionSheetBottom(config);
         }

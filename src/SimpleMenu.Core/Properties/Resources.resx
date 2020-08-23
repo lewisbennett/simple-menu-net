@@ -234,8 +234,8 @@
   <data name="HintRemoveMeal" xml:space="preserve">
     <value>Remove meal</value>
   </data>
-  <data name="HintSearchForPicture" xml:space="preserve">
-    <value>Search for picture</value>
+  <data name="HintSearchForImage" xml:space="preserve">
+    <value>Search for image</value>
   </data>
   <data name="HintStartFromScratch" xml:space="preserve">
     <value>Start from scratch</value>

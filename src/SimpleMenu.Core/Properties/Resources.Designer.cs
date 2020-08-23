@@ -412,11 +412,11 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search for picture.
+        ///   Looks up a localized string similar to Search for image.
         /// </summary>
-        public static string HintSearchForPicture {
+        public static string HintSearchForImage {
             get {
-                return ResourceManager.GetString("HintSearchForPicture", resourceCulture);
+                return ResourceManager.GetString("HintSearchForImage", resourceCulture);
             }
         }
         
