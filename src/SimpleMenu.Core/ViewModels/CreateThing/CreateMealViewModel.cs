@@ -5,6 +5,7 @@ using SimpleMenu.Core.Data.Operations;
 using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.ViewModels.CreateThing
 {
@@ -47,7 +48,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
                 return;
             }
 
-            await messagingService.ShowLoadingAsync(Resources.MessagingCreatingMeal, MealOperations.Instance.CreateMealAsync(EnterNameViewModel.Name, AddPictureViewModel.Image)).ConfigureAwait(false);
+            await messagingService.ShowLoadingAsync(Resources.MessagingCreatingMeal, Task.Run(() => MealOperations.Instance.CreateMealAsync(EnterNameViewModel.Name, AddPictureViewModel.Image))).ConfigureAwait(false);
 
             await _navigationService.Close(this).ConfigureAwait(false);
 

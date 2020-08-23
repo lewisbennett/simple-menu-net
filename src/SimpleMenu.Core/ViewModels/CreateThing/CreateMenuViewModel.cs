@@ -7,6 +7,7 @@ using SimpleMenu.Core.Properties;
 using SimpleMenu.Core.ViewModels.CreateThing.Base;
 using SimpleMenu.Core.ViewModels.List;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SimpleMenu.Core.ViewModels.CreateThing
 {
@@ -81,7 +82,7 @@ namespace SimpleMenu.Core.ViewModels.CreateThing
 
             var meals = MenuMealListViewModel.Data.Select(d => new MenuMealEntity { DateTime = MenuMealListViewModel.Dates[d.Index], MealUUID = d.Entity.UUID }).ToArray();
 
-            await messagingService.ShowLoadingAsync(Resources.MessagingCreatingMenu, MenuOperations.Instance.CreateMenuAsync(EnterNameViewModel.Name, meals)).ConfigureAwait(false);
+            await messagingService.ShowLoadingAsync(Resources.MessagingCreatingMenu, Task.Run(() => MenuOperations.Instance.CreateMenuAsync(EnterNameViewModel.Name, meals))).ConfigureAwait(false);
 
             await _navigationService.Close(this).ConfigureAwait(false);
             
