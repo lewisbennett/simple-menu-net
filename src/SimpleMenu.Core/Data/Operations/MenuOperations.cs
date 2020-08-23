@@ -55,7 +55,7 @@ namespace SimpleMenu.Core.Data.Operations
         }
 
         /// <summary>
-        /// Gets a menu.
+        /// Gets a menu. May return null if the menu if the menu is no longer available.
         /// </summary>
         /// <param name="menuUuid">The UUID of the menu.</param>
         public async ValueTask<MenuEntity> GetMenuAsync(Guid menuUuid)
@@ -67,7 +67,15 @@ namespace SimpleMenu.Core.Data.Operations
 
             menu = await FileServiceWrapper.Instance.ReadJsonAsync<MenuEntity>(FileServiceWrapper.MenusDirectory, menuUuid.ToString()).ConfigureAwait(false);
 
-            FileServiceWrapper.Instance.AddEntity(menu);
+            // If the menu has run out of valid dates, delete and nullify it.
+            if (!menu.Meals.Any(m => m.DateTime >= DateTime.Now.Date))
+            {
+                await DeleteMenuAsync(menu.UUID).ConfigureAwait(false);
+
+                menu = null;
+            }
+            else
+                FileServiceWrapper.Instance.AddEntity(menu);
 
             return menu;
         }
@@ -99,8 +107,9 @@ namespace SimpleMenu.Core.Data.Operations
                     menuUuid = Guid.Parse(savedMenu);
 
                 var menu = await GetMenuAsync(menuUuid).ConfigureAwait(false);
-
-                menus.Add(menu);
+                
+                if (menu != null)
+                    menus.Add(menu);
             }
 
             return menus.ToArray();
