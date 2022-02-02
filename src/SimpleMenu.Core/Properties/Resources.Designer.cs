@@ -997,7 +997,7 @@ namespace SimpleMenu.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://api.qwant.com/api/search/images?count={imageCount}&amp;q={searchCriteria}&amp;t=images&amp;safesearch=0&amp;locale=en_US&amp;uiv=4.
+        ///   Looks up a localized string similar to https://api.qwant.com/api/search/images?count={0}&amp;q={1}&amp;t=images&amp;safesearch=0&amp;locale=en_US&amp;uiv=4.
         /// </summary>
         public static string UrlImageSearch {
             get {

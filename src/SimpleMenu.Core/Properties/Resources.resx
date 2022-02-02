@@ -430,6 +430,6 @@
     <value>Weight Calculator</value>
   </data>
   <data name="UrlImageSearch" xml:space="preserve">
-    <value>https://api.qwant.com/api/search/images?count={imageCount}&amp;q={searchCriteria}&amp;t=images&amp;safesearch=0&amp;locale=en_US&amp;uiv=4</value>
+    <value>https://api.qwant.com/api/search/images?count={0}&amp;q={1}&amp;t=images&amp;safesearch=0&amp;locale=en_US&amp;uiv=4</value>
   </data>
 </root>
